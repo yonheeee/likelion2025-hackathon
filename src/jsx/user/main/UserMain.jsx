@@ -7,7 +7,6 @@ import PerformanceCard from "./PerformanceCard";
 import RegionalStats from "./RegionalStats";
 import CategoryStats from "./CategoryStats";
 
-// 액션 카드 하나
 const ActionCard = ({ tone = "blue", title, desc, to = "#" , icon = "pen" }) => (
   <a href={to} className={`action-card ${tone}`}>
     <div className="action-text">
