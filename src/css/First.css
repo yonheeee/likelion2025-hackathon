@@ -24,44 +24,38 @@ html { font-size: clamp(15px, 1.6vw, 17px); }
   align-items: center;
   justify-content: center;
   background: linear-gradient(180deg, var(--bg-start), var(--bg-end));
-  padding: 1.5rem 1rem; /* 24px 16px */
+  padding: 1.5rem 1rem;
 }
 
 .first-inner{
   width: 100%;
-  max-width: 26.875rem; /* 430px */
+  max-width: 26.875rem; 
 }
 
 /* 헤더 */
 .first-header{
   text-align: center;
-  margin-bottom: 1.5rem; /* 24px */
+  margin-bottom: 1.5rem; 
 }
 
-.logo-box{
-  width: 5.25rem;  /* 84px */
-  height: 5.25rem;
-  margin: 0 auto 1rem; /* 16px */
-  border-radius: 0.75rem; /* 12px */
-  background: #D9D9D9;
-  display: grid;
-  place-items: center;
-  font-weight: 700;
-  color: #333;
+
+.logo-img{ 
+  width: 6rem; 
+  height: 6rem; 
+  object-fit: contain; 
 }
-.logo-img{ width: 5.25rem; height: 5.25rem; object-fit: contain; }
 
 .title{
-  font-size: 1.75rem; /* 28px */
+  font-size: 1.75rem; 
   line-height: 1.15;
-  letter-spacing: -0.0125rem; /* -0.2px */
+  letter-spacing: 0.5rem; 
   font-weight: 800;
-  color: var(--text-strong);
-  margin: 0.375rem 0 0.5rem; /* 6px 0 8px */
+  color: #3C70B7;
+  margin: 0.375rem 0 0.5rem; 
 }
 
 .subtitle{
-  font-size: 0.875rem; /* 14px */
+  font-size: 0.875rem; 
   color: var(--text-muted);
   margin: 0;
 }
@@ -69,15 +63,15 @@ html { font-size: clamp(15px, 1.6vw, 17px); }
 /* 선택 카드 리스트 */
 .user-selection{
   display: grid;
-  gap: 0.875rem; /* 14px */
-  margin: 1.5rem 0 1.75rem; /* 24px 0 28px */
+  gap: 0.875rem; 
+  margin: 1.5rem 0 1.75rem; 
 }
 
 .select-card{
   display: flex;
   align-items: center;
-  gap: 0.875rem;         /* 14px */
-  padding: 1.125rem;     /* 18px */
+  gap: 0.875rem;         
+  padding: 1.125rem;     
   background: var(--card-bg);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
@@ -85,14 +79,15 @@ html { font-size: clamp(15px, 1.6vw, 17px); }
   transition: transform .08s ease, box-shadow .08s ease;
   outline: none;
 }
+
 .select-card:focus-visible,
 .select-card:hover{
-  transform: translateY(-0.0625rem); /* -1px */
+  transform: translateY(-0.0625rem); 
   box-shadow: var(--shadow-hover);
 }
 
 .select-card .icon-wrap{
-  width: 3.5rem;   /* 56px */
+  width: 3.5rem;   
   height: 3.5rem;
   border-radius: 50%;
   display: grid;
@@ -102,7 +97,7 @@ html { font-size: clamp(15px, 1.6vw, 17px); }
 
 .select-card.user .icon-wrap{
   background: rgba(79,139,255,0.12);
-  border: 1px solid rgba(79,139,255,0.25); /* hairline 유지 */
+  border: 1px solid rgba(79,139,255,0.25);
 }
 .select-card.admin .icon-wrap{
   background: rgba(160,110,255,0.12);
@@ -110,16 +105,22 @@ html { font-size: clamp(15px, 1.6vw, 17px); }
 }
 
 .icon{
-  width: 1.75rem;   /* 28px */
+  width: 1.75rem;  
   height: 1.75rem;
   stroke: currentColor;
   fill: none;
   stroke-width: 1.8;
 }
-.select-card.user .icon{ color: var(--blue); }
-.select-card.admin .icon{ color: var(--purple); }
 
-.card-text{ display:flex; flex-direction: column; gap: 0.25rem; } /* 4px */
+
+.card-text{
+  text-align: left; 
+  display:flex; 
+  flex-direction: column; 
+  gap: 0.25rem; 
+} /* 4px */
+
+
 .card-title{
   font-size: 1rem; /* 16px */
   font-weight: 800;
@@ -134,25 +135,22 @@ html { font-size: clamp(15px, 1.6vw, 17px); }
 /* 우측 화살표 */
 .arrow-wrap{
   margin-left: auto;
-  width: 2.25rem;   /* 36px */
-  height: 2.25rem;
+  width: 3rem;   /* 36px */
+  height: 3rem;
   border-radius: 50%;
   display: grid;
   place-items: center;
-  background: #EEF2FF;
 }
-.select-card.user .arrow-wrap{ background: rgba(79,139,255,0.12); }
-.select-card.admin .arrow-wrap{ background: rgba(160,110,255,0.12); }
+
 
 .arrow{
-  width: 1.125rem;  /* 18px */
-  height: 1.125rem;
+  width: 2rem;  /* 18px */
+  height: 2rem;
   stroke: currentColor;
   fill: none;
   stroke-width: 2;
 }
-.select-card.user .arrow{ color: var(--blue); }
-.select-card.admin .arrow{ color: var(--purple); }
+
 
 /* 푸터 */
 .first-footer{

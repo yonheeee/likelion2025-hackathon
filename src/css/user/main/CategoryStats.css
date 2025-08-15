@@ -15,9 +15,9 @@
 }
 
 .category-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
 }
 
 .category-item {
@@ -42,14 +42,15 @@
   align-items: center;
   justify-content: center;
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.8);
   margin-right: 1rem;
   flex-shrink: 0;
 }
 
-.category-icon svg {
+.icon-placeholder {
   width: 24px;
   height: 24px;
+  border-radius: 4px;
+  background: currentColor;
 }
 
 .category-info {
@@ -79,13 +80,13 @@
 }
 
 .category-change.increase {
-  color: #059669;
-  background: #d1fae5;
+  color: #3B82F6;
+  background: #EFF6FF;
 }
 
 .category-change.decrease {
-  color: #dc2626;
-  background: #fee2e2;
+  color: #DC2626;
+  background: #FEF2F2;
 }
 
 @media (max-width: 768px) {

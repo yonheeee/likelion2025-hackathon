@@ -233,24 +233,15 @@ const UserMain = () => {
         />
       </div>
 
-             {/* 민원 요약 섹션 */}
-       <div className="complaints-summary">
-         <ComplaintsSummaryCard 
-           total={complaintsData.total} 
-           change={complaintsData.change} 
-           changeType={complaintsData.changeType} 
-         />
-         
-         <div className="complaints-list">
-           {complaintsList.map((complaint, index) => (
-             <ComplaintItem key={index} {...complaint} />
-           ))}
-           
-           <Link to="/complaints" className="view-all-link">
-             전체 인원 목록 보기 ({complaintsList.length}건) →
-           </Link>
-         </div>
-       </div>
+                     {/* 민원 요약 섹션 */}
+        <div className="complaints-summary">
+          <ComplaintsSummaryCard 
+            total={complaintsData.total} 
+            change={complaintsData.change} 
+            changeType={complaintsData.changeType}
+            complaintsList={complaintsList}
+          />
+        </div>
 
        {/* 성과 지표 섹션 */}
        <div className="performance-metrics">
