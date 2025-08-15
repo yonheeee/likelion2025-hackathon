@@ -1,70 +1,51 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+# 온민원
 
-In the project directory, you can run:
+**온민원**은 간편한 민원 접수와 관리 시스템입니다.  
+멋쟁이 사자처럼 2025 해커톤을 위해 개발되었습니다
 
-### `npm start`
+---
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## ✨ 주요 기능
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- 📝 **간편 신고 기능**  
+  사진을 통해 버튼 한 번으로 민원 접수 가능합니다
 
-### `npm test`
+- 🏁 **GPS기반 위치 자동 태그**  
+  민원 접수 위치로 행정구역이 자동 지정됩니다
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- 📢 **민원 우선순위 자동 정렬**  
+  많은 신고가 누적된 민원부터 우선 처리 됩니다.
 
-### `npm run build`
+- 🤖 **AI민원 자동 분류**  
+  텍스트+사진 기반 카테고리 자동 분류 됩니다.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+---
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## 👩‍💻 팀 구성
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+| 역할       | 담당자           |
+|------------|------------------|
+| 💻 Frontend | 김연희, 박민지, 김형석  |
 
-### `npm run eject`
+---
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## 🛠️ 기술 스택
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+| 분야       | 기술           |
+|------------|----------------|
+| Frontend | ![React](https://img.shields.io/badge/-React-61DAFB?style=flat&logo=react&logoColor=black)|
+| UI/UX Design     | ![Figma](https://img.shields.io/badge/-Figma-F24E1E?style=flat&logo=figma&logoColor=white)|
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+---
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## 주제 🚀 AI로 다시 뛰는 동네: 지역 경제와 삶을 AI로 연결해보세요
+이 프로젝트는 주민들이 일상에서 겪는 불편함을 사진과 간단한 글로 즉시 신고할 수 있는 GPS 기반의 민원 서비스입니다. 신고된 민원은 AI가 자동으로 분류하고 우선순위를 정해 담당자에게 전달함으로써, 행정의 효율성을 극대화하고 주민 참여를 활성화하는 것을 목표로 합니다.
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+⭐ **쉽고 간단한 민원처리가 가능해집니다!**
