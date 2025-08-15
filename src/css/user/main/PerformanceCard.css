@@ -1,0 +1,38 @@
+/* PerformanceCard.css */
+.performance-card {
+  background: white;
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.performance-content {
+  text-align: center;
+}
+
+.performance-title {
+  font-size: 0.875rem;
+  color: #64748b;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.performance-value {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 0.25rem;
+}
+
+.performance-change {
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.performance-change.increase {
+  color: #10b981;
+}
+
+.performance-change.decrease {
+  color: #ef4444;
+}

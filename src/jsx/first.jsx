@@ -1,9 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "../css/First.css";
-
-// 로고 이미지가 있다면 주석 해제해서 사용하세요.
-// import Logo from "../../images/Logo.svg";
+import Logo from "../image/logo.svg";
 
 const First = () => {
   return (
@@ -12,13 +10,11 @@ const First = () => {
 
         {/* 로고 & 타이틀 */}
         <header className="first-header" aria-label="서비스 소개">
-          <div className="logo-box" aria-hidden="true">
-            {/* 로고 파일이 있으면 아래를 사용하고 .logo-box는 숨기세요 */}
-            {/* <img src={Logo} alt="서비스 로고" className="logo-img" /> */}
-            <span>로고</span>
-          </div>
+            
+            <img src={Logo} alt="서비스 로고" className="logo-img" />
+          
 
-          <h1 className="title">간편민원접수</h1>
+          <h1 className="title">온민원</h1>
           <p className="subtitle">쉽고 빠른 민원서비스</p>
         </header>
 
