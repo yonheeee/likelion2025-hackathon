@@ -7,12 +7,14 @@
   margin-bottom: 1rem;
 }
 
-.summary-content {
-  text-align: left;
+.summary-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; 
 }
 
 .summary-title {
-  font-size: 0.875rem;
+  font-size: 1rem;
   color: #6b7280;
   margin: 0 0 0.5rem;
   font-weight: 500;
@@ -22,7 +24,7 @@
   font-size: 2rem;
   font-weight: 800;
   color: #111827;
-  margin: 0 0 0.5rem;
+  margin: 0;
 }
 
 .summary-change {
@@ -31,7 +33,6 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  gap: 0.25rem;
 }
 
 .summary-change.increase {
@@ -46,35 +47,21 @@
   font-size: 0.75rem;
 }
 
-/* 민원 목록 */
+
 .complaints-list {
   margin-top: 1.5rem;
 }
 
 .view-all-link {
   display: block;
-  text-align: left;
+  text-align: center;
   color: #3b82f6;
   text-decoration: none;
   font-weight: 500;
   margin-top: 1rem;
   padding: 0.75rem;
   border-radius: 0.5rem;
-  background: #f8fafc;
-  transition: background-color 0.2s;
+  background: none;
 }
 
-.view-all-link:hover {
-  background: #e2e8f0;
-}
 
-/* 반응형 디자인 */
-@media (max-width: 768px) {
-  .complaints-summary-card {
-    padding: 1rem;
-  }
-  
-  .summary-value {
-    font-size: 1.75rem;
-  }
-}

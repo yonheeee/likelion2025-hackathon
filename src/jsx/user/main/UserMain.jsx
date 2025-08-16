@@ -49,7 +49,7 @@ const UserMain = () => {
         content: "000로 20번길 앞 도로에 커다란 포트홀이 생겼습니다. 출근할 때마다 지나다니는데 차가 일렁거리고 혹시 사고라도 남자와 너무...",
         location: "서산시 해미면",
         status: "접수",
-        actionButton: "시설물 특산관리"
+        category:"시설물 파손/관리" 
       },
       {
         title: "포트홀",
@@ -57,7 +57,7 @@ const UserMain = () => {
         content: "00020년 도로에 커다란 포트홀이 생겼습니다. 출근할 때마다 지나다니는데 차가 덜렁거리고 혹시 사고라도 날까봐 너무...",
         location: "서산시 해미면",
         status: "접수",
-        actionButton: "교통주자"
+        category:"시설물 파손/관리" 
       }
     ];
   };
@@ -211,7 +211,6 @@ const UserMain = () => {
       {/* 헤더 섹션 */}
       <div className="section-head">
         <h2 className="section-title">민원현황</h2>
-        <p className="section-sub">대원점수 및 처리 상황을 확인하세요</p>
       </div>
 
       {/* 액션 버튼 섹션 */}
@@ -226,13 +225,13 @@ const UserMain = () => {
         <ActionCard
           tone="orange"
           title="내 민원 조회하기"
-          desc="내가 쓴 민원한 소회선 수 있습니다"
+          desc="내가 쓴 민원한 조회할 수 있습니다"
           to="/complaints/mine"
           icon="search"
         />
       </div>
 
-                     {/* 민원 요약 섹션 */}
+       {/* 민원 요약 섹션 */}
         <div className="complaints-summary">
           <ComplaintsSummaryCard 
             total={complaintsData.total} 

@@ -130,17 +130,21 @@ const RegionalStats = () => {
 
         {/* 지역별 상세 데이터 */}
         <div className="regional-list">
-          {regionalData.map((region, index) => (
+          {regionalData.map((region) => (
             <div key={region.name} className="regional-item">
-              <div className="regional-color" style={{ backgroundColor: region.color }}></div>
-              <div className="regional-info">
+              <div className="regional-info-left">
+                <div className="regional-color" style={{ backgroundColor: region.color }}></div>
                 <div className="regional-name">{region.name}</div>
-                <div className="regional-details">
+              </div>
+              <div className="regional-info-right">
+                <div className="regional-main-stats">
                   <span className="regional-count">{region.count.toLocaleString()} 건</span>
-                  <span className="regional-percentage">{region.percentage}%</span>
                   <span className={`regional-change ${region.changeType}`}>
                     {region.change}% {region.changeType === "increase" ? "▲" : "▼"}
                   </span>
+                </div>
+                <div className="regional-overall-percentage">
+                  {region.percentage}%
                 </div>
               </div>
             </div>

@@ -1,19 +1,22 @@
-import React from "react";
-import { Link } from "react-router-dom";
 import "../../../css/user/main/ComplaintsSummaryCard.css";
+import { Link } from "react-router-dom"; 
 import ComplaintItem from "./ComplaintItem";
 
 const ComplaintsSummaryCard = ({ total, change, changeType, complaintsList = [] }) => {
   return (
     <div className="complaints-summary-card">
-      <div className="summary-content">
-        <h3 className="summary-title">전체 민원 수</h3>
-        <div className="summary-value">{total.toLocaleString()}</div>
+      {/* This wrapper helps align items with Flexbox */}
+      <div className="summary-header">
+        <div className="summary-main-info">
+          <h3 className="summary-title">전체 민원 수</h3>
+          <div className="summary-value">{total.toLocaleString()}</div>
+        </div>
         <div className={`summary-change ${changeType}`}>
-          {changeType === 'increase' ? '+' : ''}{change}
           <span className="change-arrow">
             {changeType === 'increase' ? '▲' : '▼'}
           </span>
+      
+          {changeType === 'decrease' ? '-' : ''}{change}
         </div>
       </div>
       

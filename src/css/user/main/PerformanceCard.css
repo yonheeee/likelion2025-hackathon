@@ -4,10 +4,14 @@
   border-radius: 0.75rem;
   padding: 1.25rem;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  display:flex;                 /* ← 좌/우 배치 */
+  align-items:center;
+  justify-content:space-between;
+  gap:.75rem;
 }
 
 .performance-content {
-  text-align: center;
+  text-align: left;
 }
 
 .performance-title {
@@ -27,6 +31,7 @@
 .performance-change {
   font-size: 0.875rem;
   font-weight: 600;
+  gap:.3rem; 
 }
 
 .performance-change.increase {

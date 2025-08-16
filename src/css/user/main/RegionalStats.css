@@ -45,11 +45,17 @@
 .regional-item {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  justify-content: space-between; /* 양쪽 끝으로 정렬 */
   padding: 0.75rem;
   border-radius: 0.5rem;
   background: #f8fafc;
   border: 1px solid #e5e7eb;
+}
+
+.regional-info-left {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
 }
 
 .regional-color {
@@ -59,38 +65,36 @@
   flex-shrink: 0;
 }
 
-.regional-info {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
 .regional-name {
   font-size: 1rem;
-  font-weight: 600;
+  font-weight: 500;
   color: #1e293b;
 }
 
-.regional-details {
+.regional-info-right {
   display: flex;
-  gap: 1rem;
-  font-size: 0.875rem;
-  color: #64748b;
-  align-items: center;
+  flex-direction: column;       
+  align-items: stretch;
+  min-width: 7.5rem;   
+  
+}
+
+.regional-main-stats {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between; 
+  width: 100%;                   
+  gap: 0.75rem;
 }
 
 .regional-count {
-  font-weight: 600;
-  color: #374151;
-}
-
-.regional-percentage {
-  font-weight: 600;
+  font-size: 0.9rem;
+  font-weight: 500;
   color: #374151;
 }
 
 .regional-change {
+  font-size: 0.875rem;
   font-weight: 600;
 }
 
@@ -104,15 +108,18 @@
   font-weight: 700;
 }
 
+.regional-overall-percentage{
+  display: block;                 /* ⬅️ 새 줄 */
+  margin-top: .15rem;
+  color: #9ca3af;
+  font-size: .8rem;
+  line-height: 1.1;
+  text-align: left;               /* ⬅️ 왼쪽 정렬 */
+}
 /* 반응형 디자인 */
 @media (max-width: 768px) {
   .chart-svg {
     width: 150px;
     height: 150px;
-  }
-  
-  .regional-details {
-    flex-direction: column;
-    gap: 0.25rem;
   }
 }

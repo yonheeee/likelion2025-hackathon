@@ -74,6 +74,7 @@
 .category-change {
   font-size: 0.875rem;
   font-weight: 500;
+
   padding: 0.25rem 0.5rem;
   border-radius: 4px;
   white-space: nowrap;
@@ -81,12 +82,10 @@
 
 .category-change.increase {
   color: #3B82F6;
-  background: #EFF6FF;
 }
 
 .category-change.decrease {
   color: #DC2626;
-  background: #FEF2F2;
 }
 
 @media (max-width: 768px) {
