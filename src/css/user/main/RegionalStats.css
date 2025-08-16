@@ -109,12 +109,12 @@
 }
 
 .regional-overall-percentage{
-  display: block;                 /* ⬅️ 새 줄 */
+  display: block;               
   margin-top: .15rem;
   color: #9ca3af;
   font-size: .8rem;
   line-height: 1.1;
-  text-align: left;               /* ⬅️ 왼쪽 정렬 */
+  text-align: left;            
 }
 /* 반응형 디자인 */
 @media (max-width: 768px) {
