@@ -7,7 +7,7 @@
 
   margin: 1rem auto;
 
-  border-radius: 2rem;
+  border-radius: 1rem;
 }
 
 .category-title {
@@ -16,6 +16,17 @@
   margin-bottom: 1rem;
   margin-top: 0rem;
   font-weight: bold;
+}
+
+.category p {
+  display: flex;
+  font-size: 0.8rem;
+  
+  margin-top: 0rem;
+  font-weight: lighter;
+  margin-bottom: -0.3rem;
+
+  color: #666; /* 연한 회색 */
 }
 
 .category {
@@ -31,7 +42,6 @@
   color: black;
   text-align: left;
   font-size: 0.9rem;
-  cursor: pointer;
 }
 
 .category-card img {
@@ -49,6 +59,8 @@
 .category-card span {
     font-weight: bold;
 }
+
+
 
 /* 색상별 스타일 */
 .category-card.first { background-color: #EDFFF2; }
