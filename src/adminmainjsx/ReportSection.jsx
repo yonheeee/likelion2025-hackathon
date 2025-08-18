@@ -1,5 +1,5 @@
 import React from "react";
-import "../styles/ReportSection.css";
+import "../adminmaincss/ReportSection.css";
 import Monthreport from "../images/monthreport.png";
 import Dayreport from "../images/dayreport.png";
 import { useNavigate } from "react-router-dom";

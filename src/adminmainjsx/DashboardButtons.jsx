@@ -1,5 +1,5 @@
 import React from "react";
-import "../styles/DashboardButtons.css";
+import "../adminmaincss/DashboardButtons.css";
 import firstbtn from "../images/firstbtn.png";
 import secondbtn from "../images/secondbtn.png";
 import { useNavigate } from "react-router-dom";

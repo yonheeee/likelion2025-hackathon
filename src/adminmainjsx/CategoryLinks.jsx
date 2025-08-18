@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "../styles/CategoryLinks.css";
+import "../adminmaincss/CategoryLinks.css";
 import plant from "../images/plant.png";
 import building from "../images/building.png";
 import car from "../images/car.png";

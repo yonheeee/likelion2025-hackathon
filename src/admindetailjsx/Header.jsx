@@ -2,7 +2,7 @@
 import React, { use } from "react";
 import { useNavigate } from "react-router-dom"; 
 import logoImage from "../images/brandlogo.png"
-import "../styles/Header.css";
+import "../admindetailcss/Header.css";
 
 export default function Header() {
   const navigate = useNavigate();

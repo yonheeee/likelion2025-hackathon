@@ -10,6 +10,7 @@ import MyComplaint from './jsx/user/mycomplaint/MyComplaintsPage.jsx';
 =======
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Adminmain from './pages/adminmain';
+import Admindetails from './pages/admindetails';
 
 >>>>>>> a1eab37 (.)
 function App() {
@@ -34,7 +35,8 @@ function App() {
         <div className="content">
           <BrowserRouter>
             <Routes>
-              <Route path="/" element={<Adminmain />} />
+              <Route path="/adminmain" element={<Adminmain />} />
+              <Route path="/admindetails" element={<Admindetails />} />
             </Routes>
           </BrowserRouter>
 >>>>>>> a1eab37 (.)

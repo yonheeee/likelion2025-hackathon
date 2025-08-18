@@ -1,0 +1,15 @@
+.title {
+    display: flex;
+    margin-top: 1rem;
+}
+
+.title img {
+    width: 1rem;
+    height: 0.9rem;
+    margin-right: 0.8rem;
+    margin-top: 0.8rem;
+}
+
+.title h3 {
+    margin-top: 0.35rem;
+}

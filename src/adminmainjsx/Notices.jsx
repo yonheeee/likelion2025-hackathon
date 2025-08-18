@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import "../styles/Notices.css";
+import "../adminmaincss/Notices.css";
 import aibtn from "../images/AIbtn.png";
 import pointicon from "../images/pointIcon.png";
 import { useNavigate } from "react-router-dom";
