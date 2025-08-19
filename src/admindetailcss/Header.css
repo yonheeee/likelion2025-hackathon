@@ -23,6 +23,7 @@
 
 .logoimg {
   width: 6rem;
+  display: flex;
 }
 
 @media screen and (min-width: 48rem) { /* 768px */

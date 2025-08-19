@@ -1,0 +1,170 @@
+.complaint-card {
+    background-color: #fff;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+    max-width: 80rem; /* 💡 최대 너비를 약 1280px 정도로 제한 */
+    width: 95%;       /* 💡 화면 폭의 95% 차지 */
+    margin: 1rem auto;
+    border-radius: 1rem;
+}
+
+.complaint-header {
+  display: flex;
+    justify-content: flex-start;
+  gap: 0.7rem;
+  font-size: 0.9rem;
+  font-weight: 520;
+
+  margin-left: -0.5rem;
+  margin-top: -0.5rem;
+}
+.complaint-header .complaint-title {margin-top: 0.1rem;}
+
+.complaint-icon {
+    width: 1.8rem;
+    height: 1.8rem;
+    display: flex;
+}
+
+.complaint-body {
+    text-align: left;
+
+    margin-left: -0.3rem;
+}
+
+.complaint-body h3 {font-weight: 500; font-size: 1.18rem;}
+
+.complaint-subtitle {margin-bottom: -0.2rem;}
+
+.complaint-subtitle {
+  font-size: 0.875rem;
+  font-weight: 400;
+  margin-top: 1rem;
+  color: #666;
+}
+
+.complaint-main-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin: 0.3rem 0 1rem 0;
+
+  padding-bottom: 1rem;   /* 텍스트랑 줄 간격 */
+  border-bottom: 1px solid #ccc; /* 회색 줄 */
+}
+
+.complaint-body p {
+  font-size: 0.85rem;
+  line-height: 1.5rem;
+  font-weight: 400;
+  color: black;
+  margin-bottom: 1rem;
+}
+
+.complaint-footer {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  margin-top: 1rem;
+  margin-left: -0.3rem;
+  gap: 1rem;
+
+  border-bottom: 1px solid #ccc; /* 회색 줄 */
+    padding-bottom: 0.5rem; /* 줄과 내용 사이의 간격 */
+    margin-bottom: -1rem; /* 줄과 다음 내용 사이의 간격 */
+}
+
+.complaint-image {
+  width: 6.7rem;
+  height: 6.7rem;
+  border-radius: 1rem;
+  margin-bottom: 0.5rem;
+
+  border: 1px solid black; /* 연한 회색 테두리 */
+}
+
+.complaint-tags {
+  display: flex;
+  gap: 3.3rem;
+  
+}
+
+.tag {
+  border-radius: 1rem;
+  font-size: 0.63rem;
+  font-weight: 500;
+  color: #fff;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tag.blue {
+  background: #007bff;
+  margin-bottom: 0.5rem;
+    width: 5.6rem;
+    height: 1.4rem;
+}
+
+.tag.purple {
+  background: #6f42c1;
+}
+
+.complaint-meta {
+  display: flex;
+  text-align: left;
+  font-size: 0.8rem;
+  color: #555;
+  margin-top: 1rem;
+    gap: 12rem;
+    margin-bottom: -3.4rem;
+}
+
+.complaint-meta p h5 {
+    margin-top: 0.2rem;
+    font-weight: 450;
+    font-size: 0.85rem;
+    color: black;
+}
+
+.complaint-meta p {
+    color: gray;
+    font-weight: 300;
+}
+
+.ai-btn {
+    width: 3.9rem;
+    height: 1.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-right: -0.6rem;
+}
+
+.number {
+    margin-left: -5rem;
+}
+
+.complaint-meta p {
+   
+}
+
+@media screen and (min-width: 10rem) { /* 768px */
+  .complaint-card {
+    width: 75%;
+    padding: 2rem;
+  }
+
+  .complaint-main-title {
+    font-size: 1.3rem;
+  }
+
+  .complaint-text {
+    font-size: 1rem;
+    line-height: 1.6rem;
+  }
+
+  .complaint-meta {
+    font-size: 0.9rem;
+  }
+}

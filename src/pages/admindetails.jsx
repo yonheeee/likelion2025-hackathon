@@ -2,12 +2,18 @@
 import React from "react";
 import Header from "../admindetailjsx/Header";
 import Title from "../admindetailjsx/Title";
+import ComplaintInfoCard from "../admindetailjsx/ComplaintInfoCard";
+import HistoryCard from "../admindetailjsx/HistoryCard";
+import CommentSection from "../admindetailjsx/CommentSection";
 
 export default function Admindetails() {
   return (
     <div className="admin-auth-page">
       <Header />
       <Title />
+      <ComplaintInfoCard/>
+      <HistoryCard/>
+      <CommentSection/>
     </div>
   );
 }
