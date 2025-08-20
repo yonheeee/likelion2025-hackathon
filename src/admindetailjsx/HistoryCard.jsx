@@ -10,17 +10,40 @@ export default function HistoryCard({ complaintId }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const BASE_URL = process.env.REACT_APP_API_BASE_URL || "http://localhost:8080";
-  const ADMIN_PW = process.env.REACT_APP_ADMIN_PASSWORD || "hanseo";
+  // ===============================
+  // 🔹 원래 백엔드 연동 부분
+  // const BASE_URL =
+  //   process.env.REACT_APP_API_BASE_URL || "http://localhost:8080";
+  // const ADMIN_PW = process.env.REACT_APP_ADMIN_PASSWORD || "hanseo";
+  // ===============================
 
   useEffect(() => {
     if (!complaintId) return;
 
+    // 🔹 더미데이터 사용
+    const dummyHistory = {
+      receivedDate: "2025-08-20",
+      assignedDate: "2025-08-21",
+      processingDate: "2025-08-22",
+      completedDate: null, // 아직 완료 안 된 상태
+    };
+
+    setTimeout(() => {
+      setHistory(dummyHistory);
+      setLoading(false);
+    }, 500);
+
+    // ===============================
+    // 🔹 원래는 이렇게 fetch 했음
+    /*
     async function fetchHistory() {
       try {
-        const res = await fetch(`${BASE_URL}/api/admin/complaints/${complaintId}/history`, {
-          headers: { PASSWORD: ADMIN_PW }
-        });
+        const res = await fetch(
+          `${BASE_URL}/api/admin/complaints/${complaintId}/history`,
+          {
+            headers: { PASSWORD: ADMIN_PW },
+          }
+        );
         if (!res.ok) throw new Error(`API 요청 실패 (${res.status})`);
 
         const data = await res.json();
@@ -34,19 +57,13 @@ export default function HistoryCard({ complaintId }) {
     }
 
     fetchHistory();
-  }, [complaintId, BASE_URL, ADMIN_PW]);
+    */
+    // ===============================
+  }, [complaintId]);
 
   if (loading) return <p className="loading">이력 불러오는 중...</p>;
   if (error) return <p className="error">❌ {error}</p>;
   if (!history) return <p className="empty">처리 이력을 찾을 수 없습니다.</p>;
-
-  // API에서 내려주는 데이터 구조 예시
-  // history = {
-  //   receivedDate: "2025-08-20",
-  //   assignedDate: "2025-08-21",
-  //   processingDate: null,
-  //   completedDate: null
-  // }
 
   const steps = [
     { key: "receivedDate", label: "민원 접수" },
@@ -55,13 +72,23 @@ export default function HistoryCard({ complaintId }) {
     { key: "completedDate", label: "처리완료" },
   ];
 
-  // 가장 최근 완료된 단계 (뱃지에 표시용)
+  // 가장 최근 완료된 단계
   const latestStep = steps
     .slice()
     .reverse()
     .find((s) => history[s.key] !== null);
 
-  const statusBadge = latestStep ? latestStep.label : "접수 대기";
+  // 뱃지 상태 결정
+  let statusBadge = "접수 대기";
+  if (latestStep) {
+    if (latestStep.key === "receivedDate") statusBadge = "접수";
+    else if (
+      latestStep.key === "assignedDate" ||
+      latestStep.key === "processingDate"
+    )
+      statusBadge = "처리중";
+    else if (latestStep.key === "completedDate") statusBadge = "완료";
+  }
 
   return (
     <section className="hc-card" aria-labelledby="hcTitle">
@@ -71,9 +98,24 @@ export default function HistoryCard({ complaintId }) {
           <span className="hc-clock" aria-hidden="true">
             <img src={clockImg} alt="시계 아이콘" />
           </span>
-          <h2 id="hcTitle" className="hc-title">처리이력</h2>
+          <h2 id="hcTitle" className="hc-title">
+            처리이력
+          </h2>
         </div>
-        <span className="hc-badge">{statusBadge}</span>
+
+        {/* 상태 뱃지 */}
+        <span
+          className="hc-badge"
+          style={
+            statusBadge === "처리중"
+              ? { backgroundColor: "#CFF5D7", color: "#009921" }
+              : statusBadge === "완료"
+              ? { backgroundColor: "#DBE8FF", color: "#2B62EC" }
+              : {}
+          }
+        >
+          {statusBadge}
+        </span>
       </div>
 
       {/* 타임라인 */}
@@ -93,7 +135,11 @@ export default function HistoryCard({ complaintId }) {
                   />
                 </div>
                 {!isLast && (
-                  <img src={loadImg} alt="로딩 이미지" className="hc-connector" />
+                  <img
+                    src={loadImg}
+                    alt="로딩 이미지"
+                    className="hc-connector"
+                  />
                 )}
               </div>
 

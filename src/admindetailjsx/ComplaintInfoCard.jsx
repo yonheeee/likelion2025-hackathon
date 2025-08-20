@@ -8,15 +8,17 @@ export default function ComplaintInfoCard({ complaintId }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // 환경변수
-  const BASE_URL = process.env.REACT_APP_API_BASE_URL || "http://localhost:8080";
-  const ADMIN_PW = process.env.REACT_APP_ADMIN_PASSWORD || "hanseo";
+  // 환경변수 (백엔드 주소 / 관리자 비밀번호)
+  // const BASE_URL = process.env.REACT_APP_API_BASE_URL || "http://localhost:8080"; // 👉 백엔드
+  // const ADMIN_PW = process.env.REACT_APP_ADMIN_PASSWORD || "hanseo"; // 👉 백엔드
 
   useEffect(() => {
-    if (!complaintId) return; // id가 없으면 요청 안함
+    if (!complaintId) return;
 
     async function fetchComplaint() {
       try {
+        // 👉 백엔드 연동 코드 (현재는 주석처리)
+        /*
         const res = await fetch(`${BASE_URL}/api/admin/complaints/${complaintId}`, {
           headers: { PASSWORD: ADMIN_PW }
         });
@@ -25,6 +27,22 @@ export default function ComplaintInfoCard({ complaintId }) {
 
         const data = await res.json();
         setComplaint(data);
+        */
+
+        // 👉 더미 데이터 (프론트에서만 확인용)
+        const dummyData = {
+          title: "가로등 고장 신고",
+          content: "우리 동네 가로등이 밤에 켜지지 않습니다. 빠른 수리 부탁드립니다.",
+          address: "서울특별시 강남구 테헤란로 123",
+          imageUrls: [
+            "https://via.placeholder.com/150"
+          ],
+          category: "시설물",
+          userName: "홍길동",
+          phoneNumber: "010-1234-5678"
+        };
+        setComplaint(dummyData);
+
       } catch (err) {
         console.error(err);
         setError(err.message);
@@ -34,7 +52,7 @@ export default function ComplaintInfoCard({ complaintId }) {
     }
 
     fetchComplaint();
-  }, [complaintId, BASE_URL, ADMIN_PW]);
+  }, [complaintId]);
 
   if (loading) return <p className="loading">불러오는 중...</p>;
   if (error) return <p className="error">❌ {error}</p>;
@@ -62,7 +80,7 @@ export default function ComplaintInfoCard({ complaintId }) {
           complaint.imageUrls.map((url, idx) => (
             <img 
               key={idx}
-              src={url.startsWith("http") ? url : `${BASE_URL}${url}`} 
+              src={url}
               alt={`민원 이미지 ${idx + 1}`} 
               className="complaint-image" 
             />
