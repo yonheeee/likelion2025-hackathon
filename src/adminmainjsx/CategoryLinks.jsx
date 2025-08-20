@@ -23,15 +23,14 @@ export default function CategoryLinks() {
   const BASE_URL = process.env.REACT_APP_API_BASE_URL || "http://localhost:8080";
   const ADMIN_PW = process.env.REACT_APP_ADMIN_PASSWORD || "hanseo";
 
-  const categories = [
-    { name: "환경/청소",       icon: plant,    color: "first",  category: "environment" },
-    { name: "시설물 파손/관리", icon: building, color: "second", category: "facility"   },
-    { name: "교통/주정차",     icon: car,      color: "third",  category: "traffic"    },
-    { name: "안전/위험",       icon: shield,   color: "fourth", category: "safety"     },
-    { name: "생활 불편",       icon: life,     color: "fifth",  category: "life"       },
-    { name: "기타/행정",       icon: etc,      color: "sixth",  category: "etc"        },
-  ];
-
+const categories = [
+  { name: "환경/청소", icon: plant, color: "first", category: "ENVIRONMENT_CLEANING" },
+  { name: "시설물 파손/관리", icon: building, color: "second", category: "FACILITY_DAMAGE" },
+  { name: "교통/주정차", icon: car, color: "third", category: "TRAFFIC_PARKING" },
+  { name: "안전/위험", icon: shield, color: "fourth", category: "SAFETY_RISK" },
+  { name: "생활 불편", icon: life, color: "fifth", category: "LIVING_INCONVENIENCE" },
+  { name: "기타/행정", icon: etc, color: "sixth", category: "OTHERS_ADMIN" },
+];
   // 민원 수 불러오기
   const loadCounts = async (signal) => {
     const start = performance.now();
@@ -109,7 +108,7 @@ export default function CategoryLinks() {
   };
 
   const handleCategoryClick = (category) => {
-    navigate(`/category/${category}`);
+    navigate(`/category/${category}`); // 카테고리별 페이지로 이동
   };
 
   // 상태 뱃지 스타일

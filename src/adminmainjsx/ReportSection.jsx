@@ -1,11 +1,28 @@
+// ReportSection.js
 import React from "react";
 import "../adminmaincss/ReportSection.css";
 import Monthreport from "../images/monthreport.png";
 import Dayreport from "../images/dayreport.png";
-import { useNavigate } from "react-router-dom";
 
 export default function ReportSection() {
-  const navigate = useNavigate();
+  const downloadPDF = async (type) => {
+    try {
+      // 백엔드 API 호출 (예: /api/report/latest?type=monthly)
+      const res = await fetch(`http://localhost:8080/api/report/latest?type=${type}`);
+      if (!res.ok) throw new Error("리포트 링크 가져오기 실패");
+      const { url, filename } = await res.json();
+
+      // 실제 다운로드 실행
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = filename || `${type}-report.pdf`;
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+    } catch (err) {
+      alert("리포트를 불러올 수 없습니다: " + err.message);
+    }
+  };
 
   return (
     <div className="report-wrapper">
@@ -14,12 +31,7 @@ export default function ReportSection() {
         <p className="subtitle">자동으로 보고서 발행</p>
       </div>
       <div className="buttons">
-        {/* 월간 리포트 버튼 */}
-        <div
-          className="report-btn1"
-          onClick={() => navigate("/report/monthly")} // 페이지 주소
-          style={{ cursor: "pointer" }}
-        >
+        <div className="report-btn1" onClick={() => downloadPDF("monthly")} style={{ cursor: "pointer" }}>
           <div className="mini-box1">
             <img src={Monthreport} alt="월간 리포트" />
           </div>
@@ -27,12 +39,7 @@ export default function ReportSection() {
           <p>이번달 민원 현황</p>
         </div>
 
-        {/* 일간 리포트 버튼 */}
-        <div
-          className="report-btn2"
-          onClick={() => navigate("/report/daily")} // 페이지 주소
-          style={{ cursor: "pointer" }}
-        >
+        <div className="report-btn2" onClick={() => downloadPDF("daily")} style={{ cursor: "pointer" }}>
           <div className="mini-box2">
             <img src={Dayreport} alt="일간 리포트" />
           </div>

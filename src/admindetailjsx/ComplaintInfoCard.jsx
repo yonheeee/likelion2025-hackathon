@@ -3,21 +3,41 @@ import "../admindetailcss/ComplaintInfoCard.css";
 import compInfo from "../images/compInfo.png"; 
 import AIbtn2 from "../images/AIbtn2.png";
 
+// --- 카테고리 라벨 변환 ---
+const categoryLabel = (c) => {
+  switch (c) {
+    case "ENVIRONMENT_CLEANING":
+      return "환경/청소";
+    case "FACILITY_DAMAGE":
+      return "시설물 파손/관리";
+    case "TRAFFIC_PARKING":
+      return "교통/주정차";
+    case "SAFETY_RISK":
+      return "안전/위험";
+    case "LIVING_INCONVENIENCE":
+      return "생활 불편";
+    case "OTHERS_ADMIN":
+      return "기타/행정";
+    default:
+      return c ?? "분류 없음";
+  }
+};
+
 export default function ComplaintInfoCard({ complaintId }) {
   const [complaint, setComplaint] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   // 환경변수 (백엔드 주소 / 관리자 비밀번호)
-  // const BASE_URL = process.env.REACT_APP_API_BASE_URL || "http://localhost:8080"; // 👉 백엔드
-  // const ADMIN_PW = process.env.REACT_APP_ADMIN_PASSWORD || "hanseo"; // 👉 백엔드
+  // const BASE_URL = process.env.REACT_APP_API_BASE_URL || "http://localhost:8080";
+  // const ADMIN_PW = process.env.REACT_APP_ADMIN_PASSWORD || "hanseo";
 
   useEffect(() => {
     if (!complaintId) return;
 
     async function fetchComplaint() {
       try {
-        // 👉 백엔드 연동 코드 (현재는 주석처리)
+        // 👉 백엔드 연동 시
         /*
         const res = await fetch(`${BASE_URL}/api/admin/complaints/${complaintId}`, {
           headers: { PASSWORD: ADMIN_PW }
@@ -29,15 +49,13 @@ export default function ComplaintInfoCard({ complaintId }) {
         setComplaint(data);
         */
 
-        // 👉 더미 데이터 (프론트에서만 확인용)
+        // 👉 더미 데이터 (프론트 확인용)
         const dummyData = {
           title: "가로등 고장 신고",
           content: "우리 동네 가로등이 밤에 켜지지 않습니다. 빠른 수리 부탁드립니다.",
           address: "서울특별시 강남구 테헤란로 123",
-          imageUrls: [
-            "https://via.placeholder.com/150"
-          ],
-          category: "시설물",
+          imageUrls: ["https://via.placeholder.com/150"],
+          categories: ["FACILITY_DAMAGE"],
           userName: "홍길동",
           phoneNumber: "010-1234-5678"
         };
@@ -62,7 +80,9 @@ export default function ComplaintInfoCard({ complaintId }) {
     <div className="complaint-card">
       {/* 헤더 */}
       <div className="complaint-header">
-        <span className="complaint-icon"><img src={compInfo} alt="민원 정보 아이콘"/></span>
+        <span className="complaint-icon">
+          <img src={compInfo} alt="민원 정보 아이콘"/>
+        </span>
         <span className="complaint-title">민원 정보</span>
       </div>
 
@@ -90,15 +110,21 @@ export default function ComplaintInfoCard({ complaintId }) {
         )}
 
         <div className="complaint-tags">
-          <span className="tag blue">{complaint.category}</span>
+          <span className="tag blue">
+            {categoryLabel(complaint.categories?.[0])}
+          </span>
           <img src={AIbtn2} alt="AI 요약 버튼" className="ai-btn" />
         </div>
       </div>
 
       {/* 작성자 정보 */}
       <div className="complaint-meta">
-        <p>작성자명 <h5>{complaint.userName}</h5></p>
-        <p className="number">전화번호 <h5>{complaint.phoneNumber}</h5></p>
+        <p>
+          작성자명 <h5>{complaint.userName}</h5>
+        </p>
+        <p className="number">
+          전화번호 <h5>{complaint.phoneNumber}</h5>
+        </p>
       </div>
     </div>
   );

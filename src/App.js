@@ -12,6 +12,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Adminmain from './pages/adminmain';
 import AdmindetailsPage from './pages/admindetails';
 import AdminFirstPage from './pages/AdminFirstPage';
+import ScrollToTop from './scroll/ScrollToTop';
 
 >>>>>>> a1eab37 (.)
 function App() {
@@ -35,6 +36,7 @@ function App() {
       <div className="container">
         <div className="content">
           <BrowserRouter>
+            <ScrollToTop />
             <Routes>
               <Route path="/" element={<AdminFirstPage/>} />
               <Route path="/admin/main" element={<Adminmain />} />

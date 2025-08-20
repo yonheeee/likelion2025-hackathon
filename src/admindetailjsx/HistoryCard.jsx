@@ -11,20 +11,26 @@ export default function HistoryCard({ complaintId }) {
   const [error, setError] = useState(null);
 
   // ===============================
-  // 🔹 원래 백엔드 연동 부분
-  // const BASE_URL =
-  //   process.env.REACT_APP_API_BASE_URL || "http://localhost:8080";
-  // const ADMIN_PW = process.env.REACT_APP_ADMIN_PASSWORD || "hanseo";
+  // 🔹 날짜 포맷팅 함수 (YYYY-MM-DD만)
+  const formatDate = (dateString) => {
+    if (!dateString) return null;
+    const d = new Date(dateString);
+    if (isNaN(d)) return dateString; // 파싱 실패 시 원본 그대로
+    const yyyy = d.getFullYear();
+    const mm = String(d.getMonth() + 1).padStart(2, "0");
+    const dd = String(d.getDate()).padStart(2, "0");
+    return `${yyyy}-${mm}-${dd}`;
+  };
   // ===============================
 
   useEffect(() => {
     if (!complaintId) return;
 
-    // 🔹 더미데이터 사용
+    // 🔹 더미데이터 (ISO 형식)
     const dummyHistory = {
-      receivedDate: "2025-08-20",
-      assignedDate: "2025-08-21",
-      processingDate: "2025-08-22",
+      receivedDate: "2025-08-20T12:00:00",
+      assignedDate: "2025-08-21T09:30:00",
+      processingDate: "2025-08-22T14:10:00",
       completedDate: null, // 아직 완료 안 된 상태
     };
 
@@ -34,8 +40,11 @@ export default function HistoryCard({ complaintId }) {
     }, 500);
 
     // ===============================
-    // 🔹 원래는 이렇게 fetch 했음
+    // 🔹 원래는 이렇게 fetch 했음 (배포 시 환경변수 사용 권장)
     /*
+    const BASE_URL = process.env.REACT_APP_API_BASE_URL;
+    const ADMIN_PW = process.env.REACT_APP_ADMIN_PASSWORD;
+
     async function fetchHistory() {
       try {
         const res = await fetch(
@@ -146,7 +155,11 @@ export default function HistoryCard({ complaintId }) {
               {/* 오른쪽 본문 */}
               <div className="hc-body">
                 <div className="hc-label">{step.label}</div>
-                {done && <div className="hc-date">{history[step.key]}</div>}
+                {done && (
+                  <div className="hc-date">
+                    {formatDate(history[step.key])}
+                  </div>
+                )}
               </div>
             </li>
           );

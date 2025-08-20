@@ -6,8 +6,11 @@ import ComplaintInfoCard from "../admindetailjsx/ComplaintInfoCard";
 import HistoryCard from "../admindetailjsx/HistoryCard";
 import CommentSection from "../admindetailjsx/CommentSection";
 
+import { useLocation } from "react-router-dom";
+
 export default function AdmindetailsPage() {
-  const complaintId = 1; // 추후 router params나 state로 대체 가능
+  const location = useLocation();
+  const complaintId = location.state?.complaintId ?? 1; // 기본값 1
 
   return (
     <div className="admin-auth-page">
@@ -19,4 +22,3 @@ export default function AdmindetailsPage() {
     </div>
   );
 }
-

@@ -39,6 +39,15 @@
   margin: -0.5rem -0.3rem 1rem -0.3rem; /* 기존 마진 통합 */
 }
 
+.notice-header strong {
+  white-space: nowrap; /* 제목 줄바꿈 방지 */
+  margin-right: 0.5rem; /* 제목과 날짜 사이 간격 */
+}
+
+.notice-header span {
+  white-space: nowrap; /* 날짜 줄바꿈 방지 */
+}
+
 .notice-date {
   margin-right: 9.5rem;
   margin-bottom: -0.4rem;
@@ -51,6 +60,15 @@
   display: flex;
   align-items: flex-start;
   gap: 0.75rem;
+}
+
+.notice-main button {
+  width: 2.8rem;
+  height: 2.8rem;
+  cursor: pointer;
+  
+  margin-bottom: 1rem; /* 버튼과 본문 간격 조정 */
+  margin-right: -0.3rem;
 }
 
 .notice-card p {
@@ -76,40 +94,47 @@
   width: 1.3rem;
   height: 1.3rem;
   display: flex;
-  margin-top: 0.4rem;
-  margin-bottom: -0.7rem;
+  margin-top: 0.5rem;
+  margin-bottom: -0.2rem;
   margin-left: -0.5rem;
 }
 
 .bottom-section p {
-  margin-left: 1rem;
-  margin-bottom: -0.5rem;
-  margin-top: -1.25rem;
+  margin-left: 0.4rem;
+  margin-bottom: -1.2rem;
+  margin-top: -0.8rem;
+}
+
+.bottom-section {
+  display: flex;
+  align-items: center;
 }
 
 .blue-box {
-  width: 4.4rem;
-  height: 1rem;
-  background-color: #007bff; /* 파란색 */
-  border-radius: 1rem;
-  margin-left: auto;
-  margin-top: 0.3rem;
-  margin-right: -0.3rem;
-  margin-bottom: -0.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: inline-flex;          /* inline-block처럼 줄에 맞추고 내부는 flex */
+  align-items: center;           /* 세로 중앙 정렬 */
+  justify-content: center;       /* 가로 중앙 정렬 */
+  background-color: #007bff;     /* 파란색 */
+  border-radius: 1rem;           /* pill 모양 */
+  padding: 0 0.6rem;             /* 좌우 여백 (글자 길이에 따라 늘어남) */
+  height: 1.2rem;                /* 높이는 고정 */
+  white-space: nowrap;           /* 줄바꿈 방지 */
+
+  margin-left: auto;             /* 오른쪽 끝으로 밀기 */
+  margin-top: 0.5rem;                 /* margin 초기화 */
+  margin-right: -0.35rem;
+  margin-bottom: 0;
 }
 
 .blue-box p {
   color: white;
   font-size: 0.5rem;
-  text-align: start;
-  margin: 0;
-  padding-top: 0.1rem;
   font-weight: 500;
-  line-height: 1; /* 세로정렬 안정 */
+  margin: 0;                     /* 불필요한 여백 제거 */
+  padding: 0;                    /* 불필요한 패딩 제거 */
 }
+
+
 
 .notice-separator {
   display: flex;
@@ -196,10 +221,10 @@
 /* 바텀시트 기본 */
 .ai-sheet {
   position: fixed;
-  left: 0;
-  right: 0;
-  bottom: -60vh;           /* 초기: 화면 아래 숨김 */
-  height: 60vh;            /* 시트 높이 (원하면 50~70vh로 변경) */
+  left: 33rem;
+  right: 33rem;
+  bottom: -75vh;           /* 초기: 화면 아래 숨김 */
+  height: 75vh;            /* 시트 높이 (원하면 50~70vh로 변경) */
   background: #ffffff;
   border-top-left-radius: 16px;
   border-top-right-radius: 16px;
