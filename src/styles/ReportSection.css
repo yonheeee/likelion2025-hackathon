@@ -1,0 +1,51 @@
+.report-wrapper {
+  background-color: #fff; /* 상자 배경 */
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0px 1px 5px lightsteelblue;
+  max-width: 80%;
+
+  margin: 1rem auto;
+
+  border-radius: 2rem;
+}   
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+}
+.report-btn1 {
+    background-color: #DBE8FF;
+    border-radius: 0.7rem;
+
+    width: 10rem;
+    height: 10rem;
+
+    text-align: center;
+}
+
+.report-btn2 {
+    background-color: #FFEBBF;
+    border-radius: 0.7rem;
+    width: 10rem;
+    height: 10rem;
+
+}
+
+.titles {
+    display: flex;
+    flex-direction: column;
+    
+    margin-top: -2rem;
+    margin-left: -1.5rem;
+}
+
+@media screen and (min-width: 48rem) { /* 768px */
+  .header {
+    padding: 1rem 2.5rem; /* 16px 40px */
+  }
+  .logo {
+    font-size: 1.25rem; /* 20px */
+  }
+}

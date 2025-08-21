@@ -1,0 +1,68 @@
+.category-wrapper {
+  background-color: #fff; /* 상자 배경 */
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0px 1px 5px lightsteelblue;
+  max-width: 80%;
+
+  margin: 1rem auto;
+
+  border-radius: 2rem;
+}
+
+.category-title {
+  display: flex;  
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+  margin-top: 0rem;
+  font-weight: bold;
+}
+
+.category {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.category-card {
+  display: flex;
+  border-radius: 8px;
+  padding: 1rem;
+  color: black;
+  text-align: left;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.category-card img {
+    margin-left: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+    max-width: 2.5rem;
+    height: 100%;
+    max-height: 2.5rem;
+}
+
+.category-card span {
+    font-weight: bold;
+}
+
+/* 색상별 스타일 */
+.category-card.first { background-color: #EDFFF2; }
+.category-card.second { background-color: #FFF7ED; }
+.category-card.third { background-color: #EFF6FF; }
+.category-card.fourth { background-color: #FEF2F2; }
+.category-card.fifth { background-color: #F2EBF9; }
+.category-card.sixth { background-color: #F4F4F4; }
+
+@media screen and (min-width: 48rem) { /* 768px */
+  .header {
+    padding: 1rem 2.5rem; /* 16px 40px */
+  }
+  .logo {
+    font-size: 1.25rem; /* 20px */
+  }
+}
