@@ -1,0 +1,18 @@
+.form-row { 
+    display:block; 
+    margin-bottom: 1.3rem; 
+}
+
+.label { 
+    display:block; 
+    text-align: left;
+    padding-left: .3rem;
+    margin-bottom:.5rem; 
+    color:#374151; 
+    font-weight:600; 
+    font-size:.9375rem; 
+}
+
+.req { 
+    color:#D70000; 
+}

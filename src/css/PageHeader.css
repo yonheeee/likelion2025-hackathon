@@ -1,0 +1,50 @@
+/* 상단 고정 헤더 */
+.ph{
+    position: relative;  /* 원래 자리에서만 보이게 */
+    top: auto;
+    z-index: 100;
+    padding: 2rem 0 0 1rem;
+    display:flex; 
+    text-align: left;
+    align-items:flex-start; 
+    gap:.5rem;
+
+}
+
+  
+.ph-back{ 
+    border:0; 
+    background:transparent; 
+    padding:.25rem; 
+    line-height:0; 
+    cursor:pointer; 
+}
+.ph-back-ic{ 
+  width:1.25rem; 
+  height:1.25rem;
+}
+
+.ph-texts {
+  display: flex;
+  flex-direction: column;
+}
+.ph-title {
+  margin: 0;
+  font-size: 1.25rem;  
+  font-weight: 700;     
+  color: #111827;
+}
+
+.ph-sub {
+  margin: .25rem 0 0 -2rem;
+  font-size: .9rem;
+  color: #6b7280;
+}
+
+.ph-right{ 
+  margin-left:auto; 
+  display:flex; 
+  align-items:center; 
+  gap:.5rem;
+}
+  

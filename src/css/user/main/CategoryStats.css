@@ -1,0 +1,111 @@
+/* CategoryStats.css */
+.category-stats {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.25);
+
+}
+
+.category-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 1.5rem;
+}
+
+.category-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.category-item {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  background: #f9fafb;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  transition: all 0.2s ease;
+}
+
+.category-item:hover {
+  background: #f3f4f6;
+  border-color: #d1d5db;
+}
+
+.category-icon {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  margin-right: 1rem;
+  flex-shrink: 0;
+}
+
+.icon-placeholder {
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  background: currentColor;
+}
+
+.category-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.category-name {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #374151;
+  margin-bottom: 0.25rem;
+}
+
+.category-percentage {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.category-change {
+  font-size: 0.875rem;
+  font-weight: 500;
+
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+.category-change.increase {
+  color: #3B82F6;
+}
+
+.category-change.decrease {
+  color: #DC2626;
+}
+
+@media (max-width: 768px) {
+  .category-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .category-item {
+    padding: 0.75rem;
+  }
+  
+  .category-icon {
+    width: 32px;
+    height: 32px;
+    margin-right: 0.75rem;
+  }
+  
+  .category-icon svg {
+    width: 20px;
+    height: 20px;
+  }
+}

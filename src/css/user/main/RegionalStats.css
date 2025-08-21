@@ -1,0 +1,125 @@
+/* RegionalStats.css */
+.regional-stats {
+  background: white;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  margin-top: 2rem;
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.25);
+}
+
+.regional-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #1e293b;
+  margin: 0 0 1.5rem 0;
+}
+
+.regional-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+/* 파이 차트 */
+.pie-chart {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.chart-svg {
+  width: 180px;
+  height: 180px;
+  max-width: 100%;
+}
+
+/* 지역별 리스트 */
+.regional-list {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.regional-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* 양쪽 끝으로 정렬 */
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  background: #f8fafc;
+  border: 1px solid #e5e7eb;
+}
+
+.regional-info-left {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.regional-color {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 0.25rem;
+  flex-shrink: 0;
+}
+
+.regional-name {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #1e293b;
+}
+
+.regional-info-right {
+  display: flex;
+  flex-direction: column;       
+  align-items: stretch;
+  min-width: 7.5rem;   
+  
+}
+
+.regional-main-stats {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between; 
+  width: 100%;                   
+  gap: 0.75rem;
+}
+
+.regional-count {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #374151;
+}
+
+.regional-change {
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.regional-change.increase {
+  color: #DC2626;
+  font-weight: 700;
+}
+
+.regional-change.decrease {
+  color: #3B82F6;
+  font-weight: 700;
+}
+
+.regional-overall-percentage{
+  display: block;               
+  margin-top: .15rem;
+  color: #9ca3af;
+  font-size: .8rem;
+  line-height: 1.1;
+  text-align: left;            
+}
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+  .chart-svg {
+    width: 150px;
+    height: 150px;
+  }
+}

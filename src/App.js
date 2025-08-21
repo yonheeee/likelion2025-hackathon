@@ -1,23 +1,29 @@
-import logo from './logo.svg';
 import './App.css';
-
+import { Route, Routes, useLocation } from 'react-router-dom';
+import First from "./jsx/First.jsx";
+import UserMain from "./jsx/user/main/UserMain.jsx";
+import Header from "./jsx/Header.jsx"; 
+import UserRecipt from "./jsx/user/receipt/UserRecipt.jsx";
+import UserCheck from "./jsx/user/check/UserCheck.jsx"
+import MyComplaint from './jsx/user/mycomplaint/MyComplaintsPage.jsx';
 function App() {
+  const location = useLocation();
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="App" style={{ backgroundColor: "#efefef" }}>
+    
+      {location.pathname !== '/' && <Header />}
+
+      <div className="container">
+        <div className="content">
+          <Routes>
+            <Route path="/" element={<First />} />
+            <Route path="/user" element={<UserMain />} />
+            <Route path="/userrecipt" element={<UserRecipt />} />
+            <Route path="/usercheck" element={<UserCheck />} />
+            <Route path="/mycomplaint" element={<MyComplaint />} />
+          </Routes>
+        </div>
+      </div>
     </div>
   );
 }

@@ -1,0 +1,35 @@
+
+html { font-size: clamp(15px, 1.6vw, 17px); }
+
+
+.hdr{
+  z-index: 100;
+  position: relative;
+  background:#fff;
+  box-shadow: 0 12px 10px 0px rgba(0, 0, 0, 0.05);
+  max-width: 430px; 
+  width: 100%;      
+  margin: 0 auto;   
+}
+
+.header-container {
+  max-width: 30rem;
+  margin: 0 auto;
+  display: flex;
+  align-items: center; 
+  padding: 0.8rem 1rem; 
+}
+
+.brand__img {
+  width: 2rem;   
+  height: 2rem;
+  display: block;
+  object-fit: contain;
+}
+
+.logo-name {
+  font-size: 1.3rem;   
+  font-weight: 800;
+  letter-spacing: 0.1rem;
+  color: #3C70B7;
+}
