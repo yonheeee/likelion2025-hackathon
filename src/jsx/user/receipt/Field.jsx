@@ -1,4 +1,5 @@
 import React from "react";
+import "../../../css/user/receipt/Field.css";
 
 const Field = ({ label, required, helper, children }) => (
   <div className="form-row">

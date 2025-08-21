@@ -1,0 +1,48 @@
+
+.complaint-actions {
+    display: flex;
+    gap: .5rem;
+  }
+
+.complaint-content{
+  text-align: left;
+}
+  .complaint-category {
+    background: #2f6af6;
+    color: #fff;
+    font-size: .75rem;
+    font-weight: 700;
+    line-height: 1;
+    padding: .38rem .7rem;
+    border-radius: 999px;
+    border: none;
+    white-space: nowrap;
+    box-shadow: 0 .2rem .6rem rgba(47,106,246,.25);
+    cursor: pointer;
+  }
+  
+  .complaint-cancel {
+    background: #fff;
+    color: #ef4444;
+    font-size: .75rem;
+    font-weight: 700;
+    line-height: 1;
+    padding: .38rem .7rem;
+    border-radius: 999px;
+    border: 1px solid #ef4444;
+    white-space: nowrap;
+    cursor: pointer;
+  }
+  .complaint-cancel:hover {
+    background: #fee2e2;
+  }
+
+  .complaint-status {
+    padding: 0.25rem 0.5rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+  
+  

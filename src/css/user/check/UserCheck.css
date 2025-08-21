@@ -1,0 +1,35 @@
+.receiptcheck-page{
+  min-height: 100vh;
+}
+.notice-box {
+    margin: 0 1rem;
+    padding: 1rem;
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: .75rem;
+    font-size: .875rem;
+    color: #374151;
+    text-align: left;
+}
+
+.notice-title {
+  display: flex;
+  text-align: left;
+  gap: .25rem;
+  font-weight: 300;
+  margin-bottom: .5rem;
+}
+  
+.notice-box ul {
+  margin: 0;
+  padding-left: 1.25rem;
+  font-weight: 300;
+  list-style-type: disc;
+}
+
+.notice-box li {
+  margin-bottom: .25rem;
+  line-height: 1.4;
+  color: #374151;
+}
+  

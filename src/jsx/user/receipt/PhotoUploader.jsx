@@ -1,5 +1,7 @@
 import React, { useEffect, useRef } from "react";
+import "../../../css/user/receipt/PhotoUploader.css";
 
+import Photo from "../../../image/User/receipt/photo.svg"
 const PhotoUploader = ({ value, onChange }) => {
   const inputRef = useRef(null);
 
@@ -21,12 +23,12 @@ const PhotoUploader = ({ value, onChange }) => {
       onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && inputRef.current?.click()}
       onDragOver={(e) => e.preventDefault()}
       onDrop={(e) => { e.preventDefault(); pick(e.dataTransfer.files); }}
-    >
+    > 
       {value ? (
         <img src={value} alt="선택한 사진 미리보기" className="preview" />
       ) : (
         <div className="upload-hint">
-          <div className="upload-icon" aria-hidden>📷</div>
+          <img src={Photo} alt="사진 아이콘" className="upload-icon" />
           <div>사진을 선택하세요</div>
         </div>
       )}
