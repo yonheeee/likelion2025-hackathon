@@ -1,39 +1,35 @@
 .complaint-card {
-    background-color: #fff;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
-    max-width: 80rem; /* 💡 최대 너비를 약 1280px 정도로 제한 */
-    width: 95%;       /* 💡 화면 폭의 95% 차지 */
-    margin: 1rem auto;
-    border-radius: 1rem;
+  background-color: #fff;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+  max-width: 80rem; /* 💡 최대 너비를 약 1280px 정도로 제한 */
+  width: 95%;       /* 💡 화면 폭의 95% 차지 */
+  margin: 1rem auto;
+  border-radius: 1rem;
 }
 
 .complaint-header {
   display: flex;
-    justify-content: flex-start;
+  justify-content: flex-start;
   gap: 0.7rem;
   font-size: 0.9rem;
   font-weight: 520;
-
   margin-left: -0.5rem;
   margin-top: -0.5rem;
 }
-.complaint-header .complaint-title {margin-top: 0.1rem;}
+.complaint-header .complaint-title { margin-top: 0.1rem; }
 
 .complaint-icon {
-    width: 1.8rem;
-    height: 1.8rem;
-    display: flex;
+  width: 1.8rem;
+  height: 1.8rem;
+  display: flex;
 }
 
 .complaint-body {
-    text-align: left;
-
-    margin-left: -0.3rem;
+  text-align: left;
+  margin-left: -0.3rem;
 }
-
-.complaint-body h3 {font-weight: 500; font-size: 1.18rem;}
-
-.complaint-subtitle {margin-bottom: -0.2rem;}
+.complaint-body h3 { font-weight: 500; font-size: 1.18rem; }
+.complaint-subtitle { margin-bottom: -0.2rem; }
 
 .complaint-subtitle {
   font-size: 0.875rem;
@@ -46,9 +42,8 @@
   font-size: 1.1rem;
   font-weight: 700;
   margin: 0.3rem 0 1rem 0;
-
-  padding-bottom: 1rem;   /* 텍스트랑 줄 간격 */
-  border-bottom: 1px solid #ccc; /* 회색 줄 */
+  padding-bottom: 1rem;             /* 텍스트랑 줄 간격 */
+  border-bottom: 1px solid #ccc;    /* 회색 줄 */
 }
 
 .complaint-body p {
@@ -66,10 +61,9 @@
   margin-top: 1rem;
   margin-left: -0.3rem;
   gap: 1rem;
-
   border-bottom: 1px solid #ccc; /* 회색 줄 */
-    padding-bottom: 0.5rem; /* 줄과 내용 사이의 간격 */
-    margin-bottom: -1rem; /* 줄과 다음 내용 사이의 간격 */
+  padding-bottom: 0.5rem;        /* 줄과 내용 사이의 간격 */
+  margin-bottom: -1rem;          /* 줄과 다음 내용 사이의 간격 */
 }
 
 .complaint-image {
@@ -77,14 +71,12 @@
   height: 6.7rem;
   border-radius: 1rem;
   margin-bottom: 0.5rem;
-
   border: 1px solid black; /* 연한 회색 테두리 */
 }
 
 .complaint-tags {
   display: flex;
   gap: 3.3rem;
-  
 }
 
 .tag {
@@ -92,7 +84,6 @@
   font-size: 0.63rem;
   font-weight: 500;
   color: #fff;
-
   display: flex;
   align-items: center;
   justify-content: center;
@@ -101,8 +92,8 @@
 .tag.blue {
   background: #007bff;
   margin-bottom: 0.5rem;
-    width: 5.6rem;
-    height: 1.4rem;
+  width: 5.6rem;
+  height: 1.4rem;
 }
 
 .tag.purple {
@@ -115,56 +106,178 @@
   font-size: 0.8rem;
   color: #555;
   margin-top: 1rem;
-    gap: 12rem;
-    margin-bottom: -3.4rem;
+  gap: 12rem;
+  margin-bottom: -3.4rem;
 }
 
 .complaint-meta p h5 {
-    margin-top: 0.2rem;
-    font-weight: 450;
-    font-size: 0.85rem;
-    color: black;
+  margin-top: 0.2rem;
+  font-weight: 450;
+  font-size: 0.85rem;
+  color: black;
 }
 
 .complaint-meta p {
-    color: gray;
-    font-weight: 300;
+  color: gray;
+  font-weight: 300;
 }
 
+/* === AI 버튼 === */
 .ai-btn {
-    width: 3.9rem;
-    height: 1.4rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    margin-right: -0.6rem;
+  width: 3.9rem;
+  height: 1.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: -0.6rem;
+  cursor: pointer;
 }
 
-.number {
-    margin-left: -5rem;
+/* === 오버레이: 페이드 인/아웃 (항상 DOM에 두고 .open만 토글) === */
+.sheet-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(17, 24, 39, 0.45);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.28s ease;
+  z-index: 999; /* 시트 아래, 콘텐츠 위 */
+}
+.sheet-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
 }
 
-.complaint-meta p {
-   
+/* === 바텀시트 기본 상태 (숨김) ===
+   충돌 방지: bottom을 음수로 움직이거나 height로 애니메이션하지 말고 transform만 사용 */
+.ai-sheet {
+  position: fixed;
+  left: 33.5rem;
+  right: 33.5rem;
+  bottom: 0;
+  height: 75vh;
+  background: #ffffff;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.15);
+  transform: translateY(100%);        /* 화면 아래에 숨어 있음 */
+  transition: transform 0.28s ease;   /* 부드럽게 전환 */
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  will-change: transform;
 }
 
-@media screen and (min-width: 10rem) { /* 768px */
+/* === 바텀시트 열림 상태 === */
+.ai-sheet.open {
+  transform: translateY(0);           /* 위로 슬라이드 */
+}
+
+/* 시트 내부 영역(선택) — 레이아웃 안정화 */
+.ai-sheet-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 16px 10px;
+  border-bottom: 1px solid #367BF4;
+}
+
+.ai-sheet-header h4 {
+  margin-left: 0rem;
+  margin-top: -0.1rem;
+
+  font-weight: 650;
+  font-size: 1.1rem;
+
+  color: #367BF4;
+}
+
+.ai-sheet-header img {
+  width: 1.1rem;
+  height: 1.1rem;
+  margin-right: -7.2rem;
+  margin-left: 9.8rem;
+}
+
+.ai-sheet-body {
+  padding: 12px 16px 18px;
+  overflow-y: auto;
+  flex: 1;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
+.ai-sheet-footer {
+  position: sticky;
+  bottom: 0;
+  padding: 12px 16px;
+  border-top: 1px solid #f1f5f9;
+  background: #ffffff;
+  padding-bottom: calc(12px + env(safe-area-inset-bottom));
+}
+.ai-sheet-close {
+  background: none;
+  border: none;
+  font-size: 1.4rem;
+  line-height: 1;
+  cursor: pointer;
+  color: #64748b;
+}
+.ai-summary-text { white-space: pre-wrap; word-break: break-word; line-height: 1.6; font-size: 0.95rem; margin: 0; }
+.ai-status { font-size: 0.95rem; opacity: 0.85; }
+.ai-error  { font-size: 0.95rem; color: #b00020; }
+
+/* 처리하기 버튼 */
+.process-btn {
+  width: 100%;
+  height: 44px;
+  border: none;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+  background: #0053D7;
+  color: #ffffff;
+  transition: filter 0.15s ease, transform 0.03s ease-in-out;
+}
+.process-btn:hover { filter: brightness(0.95); }
+.process-btn:active { transform: translateY(1px); }
+.process-btn:disabled { cursor: not-allowed; opacity: 0.6; }
+
+/* 모션 민감 사용자 배려 */
+@media (prefers-reduced-motion: reduce) {
+  .sheet-overlay { transition: none; }
+  .ai-sheet { transition: none; }
+}
+
+.number { margin-left: -5rem; }
+
+/* 반응형 — 카드와 시트 폭 보정 */
+@media screen and (max-width: 1200px) {
+  .ai-sheet {
+    left: 2rem;
+    right: 2rem;
+  }
+}
+@media screen and (max-width: 768px) {
+  .complaint-card {
+    width: 94%;
+    padding: 1.25rem;
+  }
+  .ai-sheet {
+    left: 0;
+    right: 0;
+    height: 70vh; /* 모바일에서 살짝 낮게 */
+  }
+}
+
+@media screen and (min-width: 10rem) { /* 160px 이상일 때 */
   .complaint-card {
     width: 75%;
     padding: 2rem;
   }
-
-  .complaint-main-title {
-    font-size: 1.3rem;
-  }
-
-  .complaint-text {
-    font-size: 1rem;
-    line-height: 1.6rem;
-  }
-
-  .complaint-meta {
-    font-size: 0.9rem;
-  }
+  .complaint-main-title { font-size: 1.3rem; }
+  .complaint-text { font-size: 1rem; line-height: 1.6rem; }
+  .complaint-meta { font-size: 0.9rem; }
 }

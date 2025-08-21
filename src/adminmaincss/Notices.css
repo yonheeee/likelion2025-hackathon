@@ -62,13 +62,10 @@
   gap: 0.75rem;
 }
 
-.notice-main button {
-  width: 2.8rem;
-  height: 2.8rem;
-  cursor: pointer;
-  
+.notice-main img {
   margin-bottom: 1rem; /* 버튼과 본문 간격 조정 */
   margin-right: -0.3rem;
+  margin-top: -1.6rem; /* 이미지와 본문 간격 조정 */
 }
 
 .notice-card p {
