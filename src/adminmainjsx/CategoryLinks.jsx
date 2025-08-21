@@ -12,15 +12,18 @@ export default function CategoryLinks() {
   const navigate = useNavigate();
   const [complaintCounts, setComplaintCounts] = useState({});
 
-  // 백엔드 연동 확인용 상태
+  // 백엔드 연결 상태
   const [apiStatus, setApiStatus] = useState({
-    state: "idle", // 'idle' | 'loading' | 'ok' | 'error'
-    took: null,    // ms
-    error: null,   // string
-    checkedAt: null, // Date
+    state: "idle",     // 'idle' | 'loading' | 'ok' | 'error'
+    took: null,        // ms
+    error: null,       // string
+    checkedAt: null,   // Date
   });
 
-  const categories = [ // 카테고리별 이동할 경로는 category/{category}로 통일
+  const BASE_URL = process.env.REACT_APP_API_BASE_URL || "http://localhost:8080";
+  const ADMIN_PW = process.env.REACT_APP_ADMIN_PASSWORD || "hanseo";
+
+  const categories = [
     { name: "환경/청소",       icon: plant,    color: "first",  category: "environment" },
     { name: "시설물 파손/관리", icon: building, color: "second", category: "facility"   },
     { name: "교통/주정차",     icon: car,      color: "third",  category: "traffic"    },
@@ -29,19 +32,19 @@ export default function CategoryLinks() {
     { name: "기타/행정",       icon: etc,      color: "sixth",  category: "etc"        },
   ];
 
-  // 공통 로더 (초기 로드 + 재시도에 사용)
+  // 민원 수 불러오기
   const loadCounts = async (signal) => {
     const start = performance.now();
     setApiStatus({ state: "loading", took: null, error: null, checkedAt: null });
 
     try {
-      const res = await fetch("http://localhost:8080/api/admin/complaints/categories", {
+      const res = await fetch(`${BASE_URL}/api/admin/complaints/categories`, {
         method: "GET",
         headers: {
-          "PASSWORD": "hanseo",
+          PASSWORD: ADMIN_PW,
           "Content-Type": "application/json",
           "Cache-Control": "no-cache",
-          "Pragma": "no-cache",
+          Pragma: "no-cache",
         },
         signal,
       });
@@ -62,7 +65,15 @@ export default function CategoryLinks() {
           default: break;
         }
         return acc;
-      }, {});
+      }, {
+        environment: 0,
+        facility: 0,
+        traffic: 0,
+        safety: 0,
+        life: 0,
+        etc: 0,
+      });
+
       setComplaintCounts(map);
 
       const took = Math.round(performance.now() - start);
@@ -73,7 +84,7 @@ export default function CategoryLinks() {
         checkedAt: new Date(),
       });
     } catch (err) {
-      if (err.name === "AbortError") return; // 언마운트 시 취소
+      if (err.name === "AbortError") return;
       const took = Math.round(performance.now() - start);
       console.error("민원 수 불러오기 실패:", err);
       setApiStatus({
@@ -101,7 +112,7 @@ export default function CategoryLinks() {
     navigate(`/category/${category}`);
   };
 
-  // 상태 배지 스타일(인라인)
+  // 상태 뱃지 스타일
   const badgeBase = {
     marginLeft: 8,
     fontSize: 12,
@@ -158,18 +169,20 @@ export default function CategoryLinks() {
         {categories.map((cat) => {
           const count = complaintCounts[cat.category] ?? 0;
           return (
-            <div
+            <button
               key={cat.category}
               className={`category-card ${cat.color}`}
               onClick={() => handleCategoryClick(cat.category)}
-              style={{ cursor: "pointer" }}
+              style={{ cursor: "pointer",
+                border: "none",
+               }}
             >
               <span>
                 {cat.name}
                 <p>{count}건의 미처리 민원이 있습니다</p>
               </span>
               <img src={cat.icon} alt={cat.name} />
-            </div>
+            </button>
           );
         })}
       </div>

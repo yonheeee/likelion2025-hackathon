@@ -1,0 +1,53 @@
+.info-box-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 10rem; /* 화면 전체 높이 */
+}
+
+.info-box {
+  background-color: #E3EDFF;
+  padding: 1rem;
+  border-radius: 1.15rem;
+  margin-top: 1.25rem;
+  width: 100%;
+  max-width: 21.25rem; /* 340px */
+  text-align: center;
+}
+
+.info-image { 
+  width: 1.2rem;
+  display: flex;
+  justify-content: left;
+}
+.info-title {
+  display: flex;
+  justify-content: left;
+}
+.info-title-text {
+  margin-left: 0.4rem;
+
+  font-weight: 650;
+  font-size: 0.9rem;
+
+  color: #3A81F6;
+}
+
+.info-desc {
+  display: flex;
+  text-align: left;
+  margin-left: 1.5rem;
+  margin-top: 0.3rem;
+
+  font-size: 0.8rem;
+  font-weight: lighter;
+
+  color: #3A81F6;
+}
+
+@media screen and (min-width: 48rem) {
+  .info-box {
+    padding: 1.25rem;
+    font-size: 0.9375rem;
+  }
+}

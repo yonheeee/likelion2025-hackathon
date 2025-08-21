@@ -6,14 +6,17 @@ import ComplaintInfoCard from "../admindetailjsx/ComplaintInfoCard";
 import HistoryCard from "../admindetailjsx/HistoryCard";
 import CommentSection from "../admindetailjsx/CommentSection";
 
-export default function Admindetails() {
+export default function AdmindetailsPage() {
+  const complaintId = 1; // 추후 router params나 state로 대체 가능
+
   return (
     <div className="admin-auth-page">
       <Header />
       <Title />
-      <ComplaintInfoCard/>
-      <HistoryCard/>
-      <CommentSection/>
+      <ComplaintInfoCard complaintId={complaintId}/>
+      <HistoryCard complaintId={complaintId}/>
+      <CommentSection complaintId={complaintId}/>
     </div>
   );
 }
+

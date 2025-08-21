@@ -8,17 +8,18 @@
 }
 
 .back-btn {
+  display: flex;
   background: none;
   border: none;
   font-size: 1.25rem; /* 20px */
   cursor: pointer;
 
-  margin-left: 1rem;
-  margin-top: 0.8rem;
+  margin-left: 1.3rem;
+  margin-top: 2rem;
 }
 
 .arrowimg {
-  width: 1rem;
+  width: 1.2rem;
 }
 
 .logoimg {
