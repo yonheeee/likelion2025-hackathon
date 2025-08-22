@@ -1,6 +1,6 @@
 import './App.css';
 import { Route, Routes, useLocation } from 'react-router-dom';
-import First from "./jsx/first.jsx";
+import First from "./jsx/First.jsx";
 import UserMain from "./jsx/user/main/UserMain.jsx";
 import Header from "./jsx/Header.jsx"; 
 import UserRecipt from "./jsx/user/receipt/UserRecipt.jsx";
@@ -11,7 +11,7 @@ import UserEntireComplaintLists from "./jsx/user/UserEntireComplaintLists/UserEn
 import Adminmain from './jsx/admin/adminmainjsx/adminmain.jsx';
 import AdmindetailsPage from './jsx/admin/admindetailjsx/admindetails.jsx';
 import AdminFirstPage from './jsx/admin/adminfirstjsx/AdminFirstPage.jsx';
-// import EntireComplaintLists from "./jsx/common/EntireComplaintLists";
+//import EntireComplaintLists from "./jsx/common/EntireComplaintLists";
 import AdminEntireComplaintLists from "./jsx/admin/AdminEntireComplaintLists/AdminEntireComplaintLists.jsx";
 
 
@@ -31,7 +31,7 @@ function App() {
             <Route path="/usercheck" element={<UserCheck />} /> {/* 민원 조회 */}
             <Route path="/mycomplaint" element={<MyComplaint />} /> {/* 나의 민원 */}
             <Route path="/user/entire" element={<UserEntireComplaintLists />} /> {/* 사용자 전체 민원 조회 */}
-            <Route path="/user/detail" element={<UserdetailsPage />} /> {/* 사용자 상세보기 */}
+            {/*<Route path="/user/detail" element={<UserdetailsPage />} /> {/* 사용자 상세보기 */}/*}
 
 
             <Route path="/admin" element={<AdminFirstPage/>} /> {/* 관리자 처음 */}
