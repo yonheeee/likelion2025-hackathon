@@ -1,8 +1,8 @@
 // ReportSection.js
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import "../adminmaincss/ReportSection.css";
-import Monthreport from "../images/monthreport.png";
-import Dayreport from "../images/dayreport.png";
+import "../../../css/admin/adminmaincss/ReportSection.css";
+import Monthreport from "../../../image/admin/monthreport.png";
+import Dayreport from "../../../image/admin/dayreport.png";
 
 /** === .env (CRA) === */
 const API_BASE  = process.env.REACT_APP_API_BASE_URL || "http://localhost:8080";

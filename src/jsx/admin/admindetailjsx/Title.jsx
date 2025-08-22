@@ -1,6 +1,6 @@
 import React from "react";
-import "../admindetailcss/title.css";
-import arrowimg from "../images/arrow.png";
+import "../../../css/admin/admindetailcss/title.css";
+import arrowimg from "../../../image/admin/arrow.png";
 import { useNavigate } from "react-router-dom";
 
 export default function Title() {

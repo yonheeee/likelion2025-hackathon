@@ -1,8 +1,8 @@
 /* 화면 상단 */
 import React, { use } from "react";
 import { useNavigate } from "react-router-dom"; 
-import logoImage from "../images/brandlogo.png"
-import "../admindetailcss/Header.css";
+import logoImage from "../../../image/admin/brandlogo.png"
+import "../../../css/admin/adminmaincss/Header.css";
 
 export default function Header() {
   const navigate = useNavigate();

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom"; // ✅ 메인 페이지 이동을 위해 추가
-import "../admindetailcss/CommentSection.css";
-import chatImg from "../images/chat.png";
+import "../../../css/admin/admindetailcss/CommentSection.css";
+import chatImg from "../../../image/admin/chat.png";
 
 export default function CommentSection({ complaintId, title = "코멘트" }) {
   const [comments, setComments] = useState([]);

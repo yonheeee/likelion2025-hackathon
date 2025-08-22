@@ -1,9 +1,9 @@
 /* 관리자 암호와 인증버튼으로 구성되어 있는 핵심 기능 컴포넌트(프론트엔드 Mock 인증) */
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom"; // 페이지 이동
-import "../adminfirstcss/AdminAuthForm.css";
-import gearImg from "../images/gear.png"; // 기어 이미지
-import minicircleImg from "../images/minicircle.png"; // 미니 서클 이미지
+import "../../../css/admin/adminfirstcss/AdminAuthForm.css";
+import gearImg from "../../../image/admin/gear.png"; // 기어 이미지
+import minicircleImg from "../../../image/admin/minicircle.png"; // 미니 서클 이미지
 
 // const BASE_URL = process.env.REACT_APP_API_BASE_URL || "http://localhost:8080";
 

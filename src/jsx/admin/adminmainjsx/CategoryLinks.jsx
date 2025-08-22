@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import "../adminmaincss/CategoryLinks.css";
-import plant from "../images/plant.png";
-import building from "../images/building.png";
-import car from "../images/car.png";
-import shield from "../images/shield.png";
-import life from "../images/life.png";
-import etc from "../images/etc.png";
+import "../../../css/admin/adminmaincss/CategoryLinks.css";
+import plant from "../../../image/admin/plant.png";
+import building from "../../../image/admin/building.png";
+import car from "../../../image/admin/car.png";
+import shield from "../../../image/admin/shield.png";
+import life from "../../../image/admin/life.png";
+import etc from "../../../image/admin/etc.png";
 import { useNavigate } from "react-router-dom";
 
 export default function CategoryLinks() {

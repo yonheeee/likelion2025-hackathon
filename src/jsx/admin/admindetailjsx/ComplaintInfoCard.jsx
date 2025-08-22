@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useCallback } from "react";
-import "../admindetailcss/ComplaintInfoCard.css";
-import compInfo from "../images/compInfo.png";
-import AIbtn2 from "../images/AIbtn2.png";
-import starImg from "../images/star.png";
+import "../../../css/admin/admindetailcss/ComplaintInfoCard.css";
+import compInfo from "../../../image/admin/compInfo.png";
+import AIbtn2 from "../../../image/admin/AIbtn2.png";
+import starImg from "../../../image/admin/star.png";
 
 /** === 카테고리 라벨 === */
 const categoryLabel = (c) => {

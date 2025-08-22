@@ -1,7 +1,7 @@
 import React from "react";
-import "../adminmaincss/DashboardButtons.css";
-import firstbtn from "../images/firstbtn.png";
-import secondbtn from "../images/secondbtn.png";
+import "../../../css/admin/adminmaincss/DashboardButtons.css";
+import firstbtn from "../../../image/admin/firstbtn.png";
+import secondbtn from "../../../image/admin/secondbtn.png";
 import { useNavigate } from "react-router-dom";
 
 export default function DashboardButtons() {

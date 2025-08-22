@@ -1,7 +1,7 @@
 /* 관리자페이지 관련 설명을 서술해놓은 컴포넌트(로직 구현 없음.) */
 import React from "react";
-import "../adminfirstcss/InfoBox.css";
-import warningImg from "../images/warning.png"; // 느낌표 이미지
+import "../../../css/admin/adminfirstcss/InfoBox.css";
+import warningImg from "../../../image/admin/warning.png"; // 느낌표 이미지
 
 export default function InfoBox() {
   return (

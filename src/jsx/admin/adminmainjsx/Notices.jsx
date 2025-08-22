@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import "../adminmaincss/Notices.css";
-import aibtn from "../images/AIbtn.png";
-import pointicon from "../images/pointIcon.png";
+import "../../../css/admin/adminmaincss/Notices.css";
+import aibtn from "../../../image/admin/AIbtn.png";
+import pointicon from "../../../image/admin/pointIcon.png";
 import { useNavigate } from "react-router-dom";
 
 // --- 더미 데이터 (명세서 형식에 맞춤) ---

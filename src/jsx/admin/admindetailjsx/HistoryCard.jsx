@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import "../admindetailcss/HistoryCard.css";
-import clockImg from "../images/clock.png";
-import checkImg from "../images/ok.png";
-import plusImg from "../images/plus.png";
-import loadImg from "../images/loading.png";
+import "../../../css/admin/admindetailcss/HistoryCard.css";
+import clockImg from "../../../image/admin/clock.png";
+import checkImg from "../../../image/admin/ok.png";
+import plusImg from "../../../image/admin/plus.png";
+import loadImg from "../../../image/admin/loading.png";
 
 export default function HistoryCard({ complaintId }) {
   const [history, setHistory] = useState(null);
