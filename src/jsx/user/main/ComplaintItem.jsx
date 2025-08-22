@@ -1,7 +1,7 @@
 import React from "react";
 import "../../../css/user/main/ComplaintItem.css";
 import LocationIcon from "../../../image/User/main/location.svg";
-
+// 민원카드
 export default function ComplaintItem({
   title,
   date,

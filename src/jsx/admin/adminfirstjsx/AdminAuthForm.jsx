@@ -75,8 +75,8 @@ export default function AdminAuthForm() {
     <div className="auth-container">
       <div className="icon-circle">
         <span className="gear-icon">
-          <img src={gearImg} className="gearimg" alt="기어" />
-          <img src={minicircleImg} className="minicircleimg" alt="미니 원" />
+          <img src={gearImg} className="gearimg" alt="기어" /> {/*style={{width: '118px', height: '118px'}}*/}
+          <img src={minicircleImg} className="minicircleimg" alt="미니 원"/>
         </span>
       </div>
       <h2 className="auth-title">관리자 인증</h2>

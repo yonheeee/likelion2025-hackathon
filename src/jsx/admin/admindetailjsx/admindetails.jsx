@@ -4,7 +4,9 @@ import ComplaintInfoCard from "../admindetailjsx/ComplaintInfoCard";
 import HistoryCard from "../admindetailjsx/HistoryCard";
 import CommentSection from "../admindetailjsx/CommentSection";
 
+
 import { useLocation } from "react-router-dom";
+import PageHeader from "../../PageHeader";
 
 export default function AdmindetailsPage() {
   const location = useLocation();
@@ -12,9 +14,10 @@ export default function AdmindetailsPage() {
 
   return (
     <div className="admin-auth-page">
-      <ComplaintInfoCard complaintId={complaintId}/>
-      <HistoryCard complaintId={complaintId}/>
-      <CommentSection complaintId={complaintId}/>
+        <PageHeader title="민원 처리하기"/>
+        <ComplaintInfoCard complaintId={complaintId}/>
+        <HistoryCard complaintId={complaintId}/>
+        <CommentSection complaintId={complaintId}/>
     </div>
   );
 }

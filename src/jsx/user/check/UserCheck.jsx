@@ -6,7 +6,7 @@ import IdentityFields from "../receipt/IdentityFields.jsx";
 
 import UserIcon from "../../../image/User/receipt/usericon.svg"; // 사람 아이콘
 import "../../../css/user/check/UserCheck.css";
-
+// 민원 조회
 export default function UserCheck() {
   const [info, setInfo] = useState({ name: "", phone: "" });
   const navigate = useNavigate();

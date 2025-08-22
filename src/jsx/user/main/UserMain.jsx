@@ -4,6 +4,7 @@ import ComplaintsSummaryCard from "./ComplaintsSummaryCard";
 import PerformanceCard from "./PerformanceCard";
 import RegionalStats from "./RegionalStats";
 import CategoryStats from "./CategoryStats";
+import NavigateHeader from '../../PageHeader.jsx';
 
 import CheckIcon from "../../../image/User/main/checkicon.svg";
 import ReceiptIcon from "../../../image/User/main/receipticon.svg";
@@ -132,9 +133,7 @@ const UserMain = () => {
   return (
     <main className="user-main">
       {/* 헤더 */}
-      <div className="section-head">
-        <h2 className="section-title">민원현황</h2>
-      </div>
+      <NavigateHeader title="민원현황" backTo="/home"/> {/* Navigate Arrow */}
 
       {/* 빠른 액션 */}
       <div className="quick-actions">

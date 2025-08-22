@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../../../css/user/main/RegionalStats.css";
-
+// 지역별 현황 부분
 const COLORS = ["#87CEEB", "#DDA0DD", "#FFA500", "#FFB6C1", "#90EE90"];
 
 const RegionalStats = () => {
