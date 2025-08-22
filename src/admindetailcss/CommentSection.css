@@ -1,0 +1,271 @@
+:root{
+  --card-bg:#fff;
+  --ink:#0F172A;
+  --muted:#9AA5B1;
+  --line:#E6EBF2;
+  --soft:#F3F6FF;        /* 말풍선 */
+  --soft-deep:#E7EDFF;   /* 말풍선 테두리 */
+  --primary:#4F6BFF;
+  --primary-weak:#EFF2FF;
+  --shadow:0 10px 24px rgba(2,8,23,.08);
+  --radius:18px;
+}
+
+/* 카드 */
+.cmt-card{
+  background-color: #fff;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+  max-width: 80rem; /* 💡 최대 너비를 약 1280px 정도로 제한 */
+  width: 84%;       /* 💡 화면 폭의 84% 차지 */
+  margin: 1rem auto;
+  padding:.875rem;
+  border-radius: 1rem; 
+}
+
+/* 헤더 */
+.cmt-header{ display:flex; align-items:center; gap:.5rem; }
+.cmt-title{ margin:0; font-size:1rem; font-weight:800; color:#0F172A; }
+.cmt-title-icon img{
+  width:1.2rem; height:1.1rem;
+  display: flex;
+}
+
+/* 리스트 */
+.cmt-list{ list-style:none; padding:.75rem 0 0; margin:0; display:flex; flex-direction:column; gap:.9rem; }
+.cmt-item{ display:flex; gap:.6rem; align-items:flex-start; }
+
+.cmt-avatar{
+  width:2.1rem; height:2.1rem; border-radius:50%;
+  background:#EDF1FF; display:flex; align-items:center; justify-content:center;
+  flex: 0 0 2.1rem;
+}
+
+.cmt-bubble{
+  background: var(--soft);
+  border: 1px solid var(--soft-deep);
+  border-radius: 14px;
+  padding: .8rem .9rem;
+  flex:1; min-width:0;
+}
+
+.cmt-bubble-head{
+  display:flex; align-items:center; justify-content:space-between; gap:.5rem;
+  margin-bottom:.35rem;
+}
+.cmt-name{ font-weight:800; color:#0F172A; }
+.cmt-role{ margin-left:.25rem; color:#5C6BC0; font-weight:600; }
+.cmt-date{ color:var(--muted); font-size:.8rem; white-space:nowrap; }
+
+.cmt-text{
+  margin:0;
+  color:#25324B;
+  line-height:1.55;
+  font-size:.92rem;
+  word-break:break-word; overflow-wrap:anywhere;
+
+  display: flex;
+  text-align: left;
+}
+
+/* 입력 영역 */
+.cmt-new{ margin-top: 1.1rem; }
+.cmt-new-label{ display:flex; font-size:.92rem; color:gray; margin-left: 0.4rem; margin-bottom: .35rem;  }
+
+.cmt-input-wrap{
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:.55rem;
+  background:#fff;
+
+  width: 95%;
+}
+.cmt-textarea{
+  width:100%;
+  min-height:5.5rem;
+  resize: vertical;
+  border:none;
+  outline:none;
+  font-size:.92rem;
+  color:#111827;
+}
+.cmt-textarea::placeholder{ 
+  color:#A4A4A4; 
+  font-size: 0.75rem; 
+  font-weight: 500; 
+  text-indent: 0.4rem; 
+  line-height: 1.8;
+}
+
+.cmt-new-footer{
+  display:flex; justify-content:flex-start; margin-top:.35rem;
+}
+.cmt-count{ font-size:.8rem; color:#8792A2; }
+.cmt-count.over{ color:#B00020; }
+
+.cmt-send{
+  margin-top:.7rem;
+  margin-left: 0.6rem;
+  width:95%;
+  height:3rem;
+  border:none;
+  border-radius: 11px;
+  background:#367BF4;
+  color:#fff;
+  font-weight:700;
+
+  cursor: pointer;
+
+  display:flex; align-items:center; justify-content:center; gap:.45rem;
+  transition: filter .15s ease, transform .02s ease;
+}
+.cmt-send:not(.disabled):hover{ filter: brightness(1.02); }
+.cmt-send:not(.disabled):active{ transform: translateY(1px); }
+.cmt-send.disabled{
+  background:#E6E9EE; color:#A7B0BC; cursor:not-allowed;
+}
+.cmt-send-icon{ display:inline-flex; align-items:center; }
+
+.cmt-reject-wrap{ margin-top:1rem; }
+.cmt-reject-btn{
+  width:90%;
+  height:4rem;
+  border:none;
+  border-radius: 16px;
+  background:#EAF0FF;
+  color:#2563EB;
+  font-weight:500;
+  font-size: 1rem;
+
+  margin-bottom: 10rem;
+  margin-top: 1.4rem;
+
+  cursor: pointer;
+}
+
+.cmt-reject-btn:hover{ background-color:#367BF4; color: #fff; }
+
+
+/* ==== 바텀시트 오버레이 + 블러 ==== */
+.cmt-overlay{
+  position: fixed;
+  inset: 0;
+  background: rgba(17,24,39,0.45);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  z-index: 999;
+}
+.blurred{
+  filter: blur(1px);
+}
+
+/* ==== 반려 바텀시트 ==== */
+.reject-sheet{
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);   /* 화면 중앙 기준으로 카드와 정렬 */
+  bottom: -80vh;                 /* 초기 숨김 */
+  height: 80vh;
+
+  background: #fff;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  box-shadow: 0 -10px 30px rgba(0,0,0,0.15);
+  transition: bottom .25s ease;
+  z-index: 1000;
+
+  display: flex;
+  flex-direction: column;
+
+  /* 카드와 동일한 폭 */
+  max-width: 26.4rem;  
+  width: 100%;
+}
+.reject-sheet.open{ bottom: 0; }
+
+.reject-handle{
+  width: 44px; height: 5px;
+  background: #e5e7eb;
+  border-radius: 9999px;
+  margin: 10px auto 6px;
+}
+
+.reject-header{
+  display:flex; align-items:center; justify-content:center;
+  padding: 6px 16px 10px;
+  border-bottom: 1px solid #f1f5f9;
+
+  gap: 4.8rem;
+  margin-left: 7rem;
+}
+
+.reject-header h4{
+  margin:0; font-size: 1rem; font-weight: 600; color:#0F172A;
+}
+.reject-close{
+  background:none; border:none; font-size:1.4rem; color:#64748b; cursor:pointer; line-height:1;
+}
+
+.reject-body{
+  padding: 12px 16px 0;
+  overflow-y: auto;
+  flex: 1;
+}
+.reject-label{
+  display:block; margin: .4rem 0 .25rem; font-size:.9rem; color:#374151;
+}
+.reject-select{
+  width:100%; height: 2.4rem;
+  border:1px solid #E6EBF2; border-radius: 10px;
+  padding: 0 .6rem;
+  outline:none;
+  background:#fff;
+}
+.reject-textarea{
+  width:90%; min-height: 6rem;
+  border:1px solid #E6EBF2; border-radius: 10px;
+  padding: 1rem 1rem;
+  outline:none; resize: vertical;
+  font-size:.7rem; color:#111827;
+  margin-top: -1rem;
+}
+.reject-textarea::placeholder{ color:#A4A4A4; }
+
+.reject-actions{
+  display:flex; gap:.6rem;
+  padding: 10px 16px 14px;
+  border-top: 1px solid #f1f5f9;
+}
+
+.reject-cancel{
+  flex:1; height:2.7rem; border-radius: 10px;
+  border:1px solid #E5E7EB; background:#fff; color:#374151; font-weight:700; cursor:pointer;
+}
+.reject-confirm{
+  flex:1; height:2.7rem; border-radius: 10px;
+  border:none; background:#DBE8FF; color:#2563EB; font-weight:700; cursor:pointer;
+}
+
+.reject-option {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  margin: 1.2rem 0;      /* 위아래 간격 늘리기 */
+  font-size: 0.85rem;
+  color: #111827;
+  line-height: 1.6;      /* 텍스트 줄 간격 */
+}
+
+.reject-option input[type="radio"] {
+  margin-top: 0.32rem;
+  accent-color: #2563EB; /* 파란색 라디오 버튼 */
+}
+
+
+/* 모바일 */
+@media (max-width: 30rem){ /* 480px */
+  .cmt-card{ width:94%; padding:.9rem; border-radius:16px; }
+  .cmt-title{ font-size:.95rem; }
+  .cmt-text{ font-size:.9rem; }
+
+  .reject-sheet{ width:94%; }
+}

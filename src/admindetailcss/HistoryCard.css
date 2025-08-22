@@ -1,0 +1,125 @@
+:root {
+  --card-bg:#fff;
+  --text:#0F172A;
+  --muted:#94A3B8;
+  --line:#E2E8F0;
+  --shadow:0 10px 24px rgba(2,8,23,.08);
+  --radius:18px;
+
+  --accent:#3B82F6;
+  --accent-soft:#EAF2FF;
+  
+  
+  --badge-bg:#FFEDD5;  
+  --badge-fg:#A65F00;  
+}
+
+
+/* 카드 */
+.hc-card{
+  background-color: #fff;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+    max-width: 80rem; /* 💡 최대 너비를 약 1280px 정도로 제한 */
+    width: 84%;       /* 💡 화면 폭의 95% 차지 */
+    margin: 1rem auto;
+    padding:.875rem;
+    border-radius: 1rem;               /* 내부 요소 넘침 방지 */
+}
+
+/* 헤더 */
+.hc-header{
+  display:flex; align-items:center; justify-content:space-between;
+  flex-wrap:wrap;                  /* 좁을 때 줄바꿈 허용 */
+  gap:.5rem 1rem;
+}
+.hc-header-left{display:flex; align-items:center; gap:.5rem;}
+.hc-clock{
+  
+}
+.hc-title{margin-top:0.7rem; margin-left: 0.25rem;
+    font-size:0.8rem; font-weight:500; 
+    color:var(--text);}
+
+.hc-badge{
+  padding-top:0.1rem; padding-bottom: 0.4rem; padding-left: 0.4rem; padding-right: 0.4rem; border-radius:999px;
+  background:var(--badge-bg); color:var(--badge-fg);
+  font-size:.68rem; font-weight:500;
+  height: 0.7rem;
+}
+
+.hc-clock img {
+    width: 1.2rem; height: 1.2rem; /* 아이콘 크기 조정 */
+    margin-left: 0.4rem;
+    margin-top: 0.5rem; /* 아이콘 위치 조정 */ 
+}
+
+/* 타임라인 리스트 */
+.hc-timeline{list-style:none; padding:.5rem 0 0; margin:0;}
+.hc-item{display:flex; gap:.75rem; padding:.8rem 0;}
+.hc-item.todo{opacity:.5;}
+
+/* 왼쪽 레일 */
+.hc-rail{
+  position:relative;
+  flex:0 0 2.1rem;                 /* 고정폭으로 밀림 방지 */
+  display:flex; justify-content:center;
+}
+.hc-bullet{
+    width: 2.1rem;
+  height: 2.1rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* 원래 있던 배경/테두리 제거 */
+  background: transparent;
+  border: none;
+}
+.hc-bullet.is-done{ background:#E7F1FF; color:var(--accent); border-color:#D6E6FF; }
+.hc-bullet.is-todo{ background:#EEF2FF; color:#9DB2FF; border-color:#E2E8F0; }
+
+/* 점선 커넥터 */
+.hc-connector{
+     position: absolute;
+  left: 50%;        /* ← 기존 50%보다 약간 왼쪽 */
+  top: 2.3rem;      /* ↓ 기존보다 조금 아래 */
+  transform: translateX(-50%);
+  
+  height: 1.2rem;
+
+  /* 색감 진하게 */
+  filter: brightness(0) saturate(100%) invert(72%) sepia(10%) 
+          saturate(200%) hue-rotate(190deg) brightness(105%) contrast(90%);
+  opacity: 0.4; /* 💡 투명도까지 낮춰서 훨씬 연하게 */
+}
+/* 마지막 항목은 점선 숨김 */
+.hc-item:last-child .hc-connector{ display:none; }
+
+/* 오른쪽 본문 */
+.hc-body{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.hc-label{
+    font-size: 0.9rem;
+    margin-top: -0.1rem;
+}
+.hc-date{
+    font-size: 0.75rem;
+    color: #A3A3A3;
+    margin-top: -0.2rem;
+}
+
+.shift-down {
+  margin-top: 0.3rem; /* 원하는 만큼 내려주기 */
+}
+
+/* 모바일(≤480px) 더 타이트하게 */
+@media (max-width:10rem){
+  .hc-card{ width:94%; padding:.875rem; border-radius:.75rem; }
+  .hc-badge{ font-size:.72rem; padding:.25rem .55rem; }
+  .hc-bullet{ width:1.6rem; height:1.6rem; font-size:.8rem; }
+  .hc-item{ padding:.6rem 0; }
+  .hc-title{ font-size:.95rem; }
+}

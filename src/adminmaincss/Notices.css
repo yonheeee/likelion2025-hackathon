@@ -1,0 +1,363 @@
+/* ===== 기존 카드/리스트 ===== */
+.notices-container {
+  background-color: #fff; /* 상자 배경 */
+  border-radius: 1rem;
+  padding: 1.5rem;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+  max-width: 80%;
+  margin: 1rem;
+}
+
+.notice-card {
+  background-color: #f8f9fa;
+  border-radius: 0.7rem;
+  padding: 1.5rem;
+  border: 1px solid lightgray;
+  max-width: 80%;
+  margin: 1rem auto;
+}
+
+.section-title {
+  display: flex;
+  margin-top: -0.5rem;
+  font-weight: normal;
+  font-size: 0.9rem;
+}
+
+.notice-count {
+  font-weight: bold;
+  font-size: 1.4rem;
+  display: flex;
+  margin-top: -0.8rem;
+}
+
+/* 헤더(제목/날짜) */
+.notice-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: -0.5rem -0.3rem 1rem -0.3rem; /* 기존 마진 통합 */
+}
+
+.notice-header strong {
+  white-space: nowrap; /* 제목 줄바꿈 방지 */
+  margin-right: 0.5rem; /* 제목과 날짜 사이 간격 */
+}
+
+.notice-header span {
+  white-space: nowrap; /* 날짜 줄바꿈 방지 */
+}
+
+.notice-date {
+  margin-right: 9.5rem;
+  margin-bottom: -0.4rem;
+  font-size: 0.6rem;
+  color: gray;
+}
+
+/* 본문 + AI 버튼 줄 */
+.notice-main {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.notice-main img {
+  margin-bottom: 1rem; /* 버튼과 본문 간격 조정 */
+  margin-right: -0.3rem;
+  margin-top: -1.6rem; /* 이미지와 본문 간격 조정 */
+}
+
+.notice-card p {
+  display: flex;
+  text-align: start;
+  font-size: 0.7rem;
+  margin-top: -0.5rem;
+  margin-left: -0.3rem;
+  color: gray;
+  flex: 1; /* 본문이 남은 공간 차지 */
+}
+
+/* 구분선 */
+.line {
+  border: 0.5px solid #BFBFBF;
+  width: 18rem;
+  margin-left: -0.5rem;
+  margin-top: -0.1rem;
+}
+
+/* 하단(주소/카테고리) */
+.point-icon {
+  width: 1.3rem;
+  height: 1.3rem;
+  display: flex;
+  margin-top: 0.5rem;
+  margin-bottom: -0.2rem;
+  margin-left: -0.5rem;
+}
+
+.bottom-section p {
+  margin-left: 0.4rem;
+  margin-bottom: -1.2rem;
+  margin-top: -0.8rem;
+}
+
+.bottom-section {
+  display: flex;
+  align-items: center;
+}
+
+.blue-box {
+  display: inline-flex;          /* inline-block처럼 줄에 맞추고 내부는 flex */
+  align-items: center;           /* 세로 중앙 정렬 */
+  justify-content: center;       /* 가로 중앙 정렬 */
+  background-color: #007bff;     /* 파란색 */
+  border-radius: 1rem;           /* pill 모양 */
+  padding: 0 0.6rem;             /* 좌우 여백 (글자 길이에 따라 늘어남) */
+  height: 1.2rem;                /* 높이는 고정 */
+  white-space: nowrap;           /* 줄바꿈 방지 */
+
+  margin-left: auto;             /* 오른쪽 끝으로 밀기 */
+  margin-top: 0.5rem;                 /* margin 초기화 */
+  margin-right: -0.35rem;
+  margin-bottom: 0;
+}
+
+.blue-box p {
+  color: white;
+  font-size: 0.5rem;
+  font-weight: 500;
+  margin: 0;                     /* 불필요한 여백 제거 */
+  padding: 0;                    /* 불필요한 패딩 제거 */
+}
+
+
+
+.notice-separator {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.9rem;
+  color: #0053D7; /* 파란색 */
+  font-weight: 400; /* 오타 수정: 400h -> 400 */
+}
+
+.notice-separator p {
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.notice-separator p:hover {
+  text-decoration: underline;
+  color: #003DA5; /* 어두운 파란색 */
+}
+
+/* 반응형 보강 */
+@media (max-width: 768px) {
+  .notices-container,
+  .notice-card {
+    max-width: 94%;
+  }
+  .line {
+    width: 100%;
+    margin-left: 0;
+  }
+  .notice-date {
+    margin-right: 0;
+  }
+}
+
+/* 기존 헤더 관련 (다른 레이아웃 대응) */
+@media screen and (min-width: 48rem) { /* 768px */
+  .header {
+    padding: 1rem 2.5rem; /* 16px 40px */
+  }
+  .logo {
+    font-size: 1.25rem; /* 20px */
+  }
+}
+
+/* ===== AI 버튼 (이미지 버튼) ===== */
+.ai-button {
+  cursor: pointer;
+  width: 7rem;
+  height: 3rem;
+  font-size: 0.6rem;
+  border-radius: 0;
+  margin-top: -0.5rem;
+  margin-right: -0.5rem;
+  margin-left: 1rem;
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+.ai-button img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* ===== 오버레이 + 바텀시트 ===== */
+
+/* 배경 오버레이 (회색 + 블러) */
+.sheet-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(17, 24, 39, 0.45); /* 회색 딤 */
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  z-index: 999; /* 시트 아래, 내용 위 */
+}
+
+/* 배경 콘텐츠 흐림(선택사항) */
+.blurred {
+  filter: blur(1px);
+}
+
+/* 바텀시트 기본 */
+.ai-sheet {
+  position: fixed;
+  left: 33rem;
+  right: 33rem;
+  bottom: -75vh;           /* 초기: 화면 아래 숨김 */
+  height: 75vh;            /* 시트 높이 (원하면 50~70vh로 변경) */
+  background: #ffffff;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  box-shadow: 0 -10px 30px rgba(0,0,0,0.15);
+  transition: transform 0.28s ease, bottom 0.28s ease;
+  transform: translateY(0);
+  z-index: 1000;           /* 오버레이보다 위 */
+  display: flex;
+  flex-direction: column;
+}
+
+.ai-sheet.open {
+  bottom: 0;               /* 위로 올라옴 */
+}
+
+/* 시트 상단 손잡이 */
+.ai-sheet-handle {
+  width: 44px;
+  height: 5px;
+  background: #e5e7eb;
+  border-radius: 9999px;
+  margin: 10px auto 6px;
+}
+
+/* 시트 헤더 */
+.ai-sheet-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 16px 10px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.ai-sheet-header h4 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.ai-sheet-close {
+  background: none;
+  border: none;
+  font-size: 1.4rem;
+  line-height: 1;
+  cursor: pointer;
+  color: #64748b;
+}
+
+/* 시트 본문(스크롤) */
+.ai-sheet-body {
+  padding: 12px 16px 18px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+/* 시트 내 텍스트 */
+.ai-summary-text {
+  white-space: pre-wrap;    /* 줄바꿈 유지 */
+  word-break: break-word;
+  line-height: 1.6;
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+/* 상태/에러 */
+.ai-status { font-size: 0.95rem; opacity: 0.85; }
+.ai-error  { font-size: 0.95rem; color: #b00020; }
+
+/* 모션 민감 사용자 배려 */
+@media (prefers-reduced-motion: reduce) {
+  .ai-sheet {
+    transition: none;
+  }
+  .sheet-overlay {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}
+
+/* 드래그 중에는 트랜지션 제거 */
+.ai-sheet.dragging {
+  transition: none;
+}
+
+/* 시트 내부 스크롤 품질 & 스크롤 새어 나감 방지 */
+.ai-sheet-body {
+  -webkit-overflow-scrolling: touch; /* iOS 부드러운 스크롤 */
+  overscroll-behavior: contain;      /* 시트 밖으로 스크롤 전파 방지 */
+}
+
+/* iOS 안전영역(홈인디케이터) 고려 */
+.ai-sheet {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* 컨테이너 중앙 정렬 복원 */
+.notices-container {
+  margin: 1rem auto; /* 기존 1rem -> 1rem auto 로 중앙 정렬 */
+}
+
+.sheet-overlay {
+  animation: overlay-fade 0.18s ease-out;
+}
+@keyframes overlay-fade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* 바텀시트 하단 푸터 */
+.ai-sheet-footer {
+  position: sticky;        /* 시트 안에서 항상 하단에 보이게 */
+  bottom: 0;
+  padding: 12px 16px;
+  border-top: 1px solid #f1f5f9;
+  background: #ffffff;
+  /* iOS 홈 인디케이터 여백 고려 */
+  padding-bottom: calc(12px + env(safe-area-inset-bottom));
+}
+
+/* 처리하기 버튼 */
+.process-btn {
+  width: 100%;
+  height: 44px;
+  border: none;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+  background: #0053D7;   /* 브랜드 블루 */
+  color: #ffffff;
+  transition: filter 0.15s ease, transform 0.03s ease-in-out;
+}
+
+.process-btn:hover { filter: brightness(0.95); }
+.process-btn:active { transform: translateY(1px); }
+.process-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}

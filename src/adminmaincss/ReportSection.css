@@ -1,0 +1,262 @@
+.report-wrapper {
+  background-color: #fff;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+  max-width: 80%;
+  margin: 1rem auto;
+  padding: 1.5rem;
+  border-radius: 1rem;            /* 중복 선언 정리 */
+}
+
+.titles {
+  display: flex;
+  flex-direction: column;
+  margin-top: -2rem;
+  margin-left: -1.5rem;
+}
+
+/* 버튼 래퍼 */
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;                /* 작아지면 줄바꿈 */
+}
+
+/* 공통 버튼 카드 스타일 */
+.report-btn1,
+.report-btn2 {
+  width: 10rem;
+  height: 10rem;
+  border-radius: 0.7rem;
+  text-align: center;
+  cursor: pointer;                /* 클릭 가능한 느낌 */
+  user-select: none;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.report-btn1:active,
+.report-btn2:active {
+  transform: translateY(1px);
+}
+
+.report-btn1:hover,
+.report-btn2:hover {
+  filter: brightness(0.98);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+}
+
+/* 키보드 포커스 접근성 */
+.report-btn1:focus-visible,
+.report-btn2:focus-visible {
+  outline: 2px solid #000;
+  outline-offset: 2px;
+}
+
+/* 개별 색상/텍스트 컬러 */
+.report-btn1 { background-color: #DBE8FF; color: #2563EB; }
+.report-btn2 { background-color: #FFEBBF; color: #F69000; }
+
+/* 미니 아이콘 박스: 가운데 정렬로 견고하게 */
+.mini-box1,
+.mini-box2 {
+  width: 4rem;
+  height: 3.5rem;
+  border-radius: 0.7rem;
+  margin: 1.5rem auto 0;          /* 가운데 정렬 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mini-box1 { background-color: #2563EB; }
+.mini-box2 { background-color: #F69000; }
+
+.mini-box1 img,
+.mini-box2 img {
+  width: 2rem;
+  height: 2rem;
+  object-fit: contain;
+}
+
+.buttons h3 {
+  margin: 0.7rem 0 -0.9rem 0;
+}
+
+.buttons p {
+  font-size: 0.8rem;
+  font-weight: 300;
+}
+
+/* 반응형: 좁은 화면에서는 버튼 세로로 */
+@media (max-width: 520px) {
+  .buttons {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+  .report-wrapper {
+    max-width: 94%;
+  }
+}
+
+/* ====== 오버레이 ====== */
+.sheet-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(17, 24, 39, 0.45);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.28s ease;
+  z-index: 999;
+}
+.sheet-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ====== 바텀시트 공통(전역에서 쓰는 기본 전환만 유지) ======
+   주의: 높이/좌우/배경 등 레이아웃 속성은 여기서 지정하지 않음 */
+.ai-sheet {
+  position: fixed;
+  bottom: 0;
+  transform: translateY(100%);
+  transition: transform 0.28s ease;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  will-change: transform;
+}
+.ai-sheet.open { transform: translateY(0); }
+
+/* ====== ReportSection 전용 바텀시트(특이성↑로 확실히 덮기) ====== */
+.ai-sheet.report-sheet {
+  position: fixed;
+  bottom: 0;
+  left: 37.5%;
+  width: 100%;              /* 모바일에선 꽉 차게 */
+  max-width: 410px;         /* 데스크탑에선 최대 600px */
+  height: 50vh;
+  background: #ffffff;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* 높이 변형이 필요할 때 사용할 선택 클래스(옵션) */
+.ai-sheet.report-sheet.is-small { height: 45vh; }
+.ai-sheet.report-sheet.is-large { height: 60vh; }
+
+@media (max-width: 1200px) {
+  .ai-sheet.report-sheet { left: 2rem; right: 2rem; }
+}
+@media (max-width: 768px) {
+  .ai-sheet.report-sheet { left: 0; right: 0; height: 55vh; } /* 모바일은 더 낮게 */
+}
+
+/* ====== iOS 스타일 휠 피커 ====== */
+.wheel-date {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: .75rem;
+  align-items: center;
+}
+
+.wheel {
+  position: relative;
+  flex: 1;
+}
+
+.wheel-list {
+  position: relative;
+  overflow-y: auto;
+  scrollbar-width: none;         /* Firefox */
+  -ms-overflow-style: none;      /* IE/Edge */
+}
+.wheel-list::-webkit-scrollbar { /* WebKit */
+  display: none;
+}
+
+.wheel-item {
+  text-align: center;
+  font-size: .95rem;
+  color: #64748b;
+  transition: color .12s ease, transform .12s ease;
+}
+.wheel-item.selected {
+  color: #111827;
+  font-weight: 600;
+  transform: scale(1.04);
+}
+
+.wheel-guides {
+  position: absolute;
+  left: 0;
+  right: 0;
+  border-top: 1px solid #e5e7eb;
+  border-bottom: 1px solid #e5e7eb;
+  pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .wheel-date {
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: .5rem;
+  }
+}
+
+/* ====== 바텀시트 내부 보조 요소(헤더/바디/푸터) — 필요시 ====== */
+.ai-sheet-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 16px 10px;
+  border-bottom: 1px solid #f1f5f9;
+}
+.ai-sheet-body {
+  padding: 12px 16px 18px;
+  overflow-y: auto;
+  flex: 1;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+}
+.ai-sheet-footer {
+  position: sticky;
+  bottom: 0;
+  padding: 12px 16px;
+  border-top: 1px solid #f1f5f9;
+  background: #ffffff;
+  padding-bottom: calc(12px + env(safe-area-inset-bottom));
+}
+.ai-sheet-close {
+  background: none;
+  border: none;
+  font-size: 1.4rem;
+  line-height: 1;
+  cursor: pointer;
+  color: #64748b;
+}
+.ai-summary-text { white-space: pre-wrap; word-break: break-word; line-height: 1.6; font-size: 0.95rem; margin: 0; }
+.ai-status { font-size: 0.95rem; opacity: 0.85; }
+.ai-error  { font-size: 0.95rem; color: #b00020; }
+
+/* 처리/액션 버튼 공통 */
+.process-btn {
+  width: 100%;
+  height: 44px;
+  border: none;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+  background: #0053D7;
+  color: #ffffff;
+  transition: filter 0.15s ease, transform 0.03s ease-in-out;
+}
+.process-btn:hover { filter: brightness(0.95); }
+.process-btn:active { transform: translateY(1px); }
+.process-btn:disabled { cursor: not-allowed; opacity: 0.6; }
