@@ -15,8 +15,8 @@ const First = () => {
 
         <header className="first-header" aria-label="서비스 소개">
           <img src={Logo} alt="서비스 로고" className="logo-img" />
-          <h1 className="title">온민원</h1>
-          <p className="subtitle">쉽고 빠른 민원서비스</p>
+            <h1 className="title">온민원</h1>
+            <p className="subtitle">쉽고 빠른 민원서비스</p>
         </header>
 
         <nav className="user-selection" aria-label="역할 선택">

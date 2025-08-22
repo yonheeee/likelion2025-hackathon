@@ -43,6 +43,9 @@ html { font-size: clamp(15px, 1.6vw, 17px); }
   object-fit: contain; 
 }
 
+.title-container{
+  text-align: center;
+}
 .title{
   font-size: 1.75rem; 
   line-height: 1.15;
