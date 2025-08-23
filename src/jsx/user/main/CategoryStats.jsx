@@ -35,7 +35,8 @@ const withAlpha = (hex, a = 0.12) => {
   return `rgba(${r}, ${g}, ${b}, ${a})`;
 };
 
-const CategoryStats = () => {
+// CategoryStats.jsx
+const CategoryStats = ({ filterCategory = null }) => {
   const [categoryData, setCategoryData] = useState([]);
 
   useEffect(() => {
@@ -45,9 +46,10 @@ const CategoryStats = () => {
         if (!res.ok) throw new Error("카테고리 데이터 불러오기 실패");
         const data = await res.json();
 
-        const mapped = data.map((c) => {
+        let mapped = data.map((c) => {
           const mapInfo = CATEGORY_MAP[c.category] || CATEGORY_MAP.OTHERS_ADMIN;
           return {
+            category: c.category,
             name: mapInfo.name,
             percentage: `${c.valuePercent}%`,
             changeType: c.up ? "increase" : "decrease",
@@ -56,6 +58,11 @@ const CategoryStats = () => {
           };
         });
 
+        // ✅ 특정 카테고리만 필터링
+        if (filterCategory) {
+          mapped = mapped.filter((c) => c.category === filterCategory);
+        }
+
         setCategoryData(mapped);
       } catch (err) {
         console.error(err);
@@ -63,16 +70,14 @@ const CategoryStats = () => {
     };
 
     fetchCategoryStats();
-  }, []);
+  }, [filterCategory]);
 
   return (
     <section className="category-stats">
-      <h3 className="category-title">카테고리별 민원 현황</h3>
-
       <div className="category-grid">
         {categoryData.map((c, i) => {
           const Icon = ICONS[c.icon] || Etc;
-          const rowBg  = withAlpha(c.color, 0.10); // 행 전체 옅은 배경
+          const rowBg  = withAlpha(c.color, 0.10);
           const isUp   = c.changeType === "increase";
           return (
             <div key={i} className="category-item" style={{ backgroundColor: rowBg }}>
@@ -96,4 +101,6 @@ const CategoryStats = () => {
   );
 };
 
+
 export default CategoryStats;
+export { Environment, Facility, Traffic, Safe, Inconvince, Etc };
