@@ -3,7 +3,12 @@
   text-align: left;
   background-color: #F9FAFB;
 }
-
+.user-main-header{
+  font-size: 1.25rem;  
+  font-weight: 700;     
+  color: #111827;
+  margin-bottom: 3rem;
+}
 .section-head { 
   margin: 1rem 0 3em 0; 
 }

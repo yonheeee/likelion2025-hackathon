@@ -1,4 +1,6 @@
+// CategoryStats.jsx
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 import "../../../css/user/main/CategoryStats.css";
 
 import { ReactComponent as Environment } from "../../../image/User/main/environment.svg";
@@ -7,7 +9,14 @@ import { ReactComponent as Traffic }     from "../../../image/User/main/traffic.
 import { ReactComponent as Safe }        from "../../../image/User/main/safe.svg";
 import { ReactComponent as Inconvince }  from "../../../image/User/main/inconvince.svg";
 import { ReactComponent as Etc }         from "../../../image/User/main/etc.svg";
-// 카테고리 상태
+
+// ===== axios 인스턴스 =====
+const api = axios.create({
+  baseURL: "http://13.125.98.203/api",
+  timeout: 10000,
+});
+
+// ===== 아이콘 & 카테고리 매핑 =====
 const ICONS = {
   environment: Environment,
   facility:    Facility,
@@ -35,42 +44,53 @@ const withAlpha = (hex, a = 0.12) => {
   return `rgba(${r}, ${g}, ${b}, ${a})`;
 };
 
-// CategoryStats.jsx
 const CategoryStats = ({ filterCategory = null }) => {
   const [categoryData, setCategoryData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [err, setErr] = useState("");
 
   useEffect(() => {
+    const controller = new AbortController();
+
     const fetchCategoryStats = async () => {
       try {
-        const res = await fetch("/api/complaints/categorystat");
-        if (!res.ok) throw new Error("카테고리 데이터 불러오기 실패");
-        const data = await res.json();
+        setLoading(true);
+        const { data } = await api.get("/complaints/categorystat", { signal: controller.signal });
 
-        let mapped = data.map((c) => {
+        let mapped = (data || []).map((c) => {
           const mapInfo = CATEGORY_MAP[c.category] || CATEGORY_MAP.OTHERS_ADMIN;
+          const percent = typeof c.valuePercent === "number" ? c.valuePercent : 0;
           return {
-            category: c.category,
-            name: mapInfo.name,
-            percentage: `${c.valuePercent}%`,
+            category:   c.category,
+            name:       mapInfo.name,
+            percentage: `${percent.toFixed(1)}%`,
             changeType: c.up ? "increase" : "decrease",
-            icon: mapInfo.icon,
-            color: mapInfo.color,
+            icon:       mapInfo.icon,
+            color:      mapInfo.color,
           };
         });
 
-        // ✅ 특정 카테고리만 필터링
         if (filterCategory) {
           mapped = mapped.filter((c) => c.category === filterCategory);
         }
 
         setCategoryData(mapped);
-      } catch (err) {
-        console.error(err);
+      } catch (e) {
+        if (!axios.isCancel(e)) {
+          console.error(e);
+          setErr("카테고리별 현황을 불러오지 못했습니다.");
+        }
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchCategoryStats();
+    return () => controller.abort();
   }, [filterCategory]);
+
+  if (loading) return <section className="category-stats">로딩 중...</section>;
+  if (err)     return <section className="category-stats" style={{color:"#ef4444"}}>{err}</section>;
 
   return (
     <section className="category-stats">
@@ -80,7 +100,7 @@ const CategoryStats = ({ filterCategory = null }) => {
           const rowBg  = withAlpha(c.color, 0.10);
           const isUp   = c.changeType === "increase";
           return (
-            <div key={i} className="category-item" style={{ backgroundColor: rowBg }}>
+            <div key={`${c.category}-${i}`} className="category-item" style={{ backgroundColor: rowBg }}>
               <div className="category-icon" style={{ color: c.color }}>
                 <Icon className="cat-icon" aria-hidden />
               </div>
@@ -96,11 +116,14 @@ const CategoryStats = ({ filterCategory = null }) => {
             </div>
           );
         })}
+
+        {categoryData.length === 0 && (
+          <div className="category-empty">카테고리 데이터가 없습니다.</div>
+        )}
       </div>
     </section>
   );
 };
-
 
 export default CategoryStats;
 export { Environment, Facility, Traffic, Safe, Inconvince, Etc };
