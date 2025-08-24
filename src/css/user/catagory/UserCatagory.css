@@ -1,146 +1,36 @@
-.category-page {
-    padding: 0;
-    margin: 0;
-  }
+/* src/css/user/catagory/UserCatagory.css */
+.category-page { 
+  min-height: 100vh;
   
-  /* 요약 영역 */
-  .category-summary {
-    display: flex;
-    align-items: center;
-    background: #F9FBFF;
-    padding: 0.9rem 1rem;
-    border-radius: 0.75rem;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
-    margin-bottom: 1rem;
-    justify-content: space-between;
-  }
-  
-  .category-summary-left {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-  }
-  
-  .category-summary-icon {
-    background-color: #3B82F6;
-    border-radius: 0.6rem;
-    width: 42px;
-    height: 42px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .category-summary-label {
-    margin: 0;
-    font-weight: 600;
-    font-size: 0.95rem;
-  }
-  
-  .category-summary-progress {
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: #2563EB;
-  }
-  
-  /* 민원 카드 */
-  .complaint-card {
-    width: 90%;
-    margin: 1rem auto;
-    padding: 1.15rem 1.1rem;
-    border: 0.8px solid #BFBFBF;
-    background: linear-gradient(
-      180deg,
-      rgba(238, 245, 255, 0.5) 0%,
-      rgba(245, 238, 255, 0.5) 100%
-    );
-    border-radius: 0.5rem;
-    list-style: none;
-  }
-  
-  /* 헤더 */
-  .card-header {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-  }
-  
-  .complaint-title {
-    color: #000;
-    font-size: 1rem;
-    font-weight: 600;
-    margin: 0;
-  }
-  
-  .complaint-date {
-    color: #5C5C5C;
-    font-size: 0.63rem;
-    font-weight: 400;
-    margin-left: 0.5rem;
-  }
-  
-  .status-text {
-    width: 33px;
-    height: 19px;
-    padding: 2px;
-    margin: 0;
-    border-radius: 30px;
-    font-size: 0.65rem;
-    font-weight: 500;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  /* 본문 */
-  .complaint-content {
-    text-align: left;
-    font-size: 12px;
-    font-weight: 400;
-    color: #5C5C5C;
-    padding: 10px 0 0 0;
-    margin: 0 0 10px 0;
-  }
-  
-  /* 구분선 */
-  .complaint-divider {
-    display: block;
-    width: 288px;
-    height: 0.8px;
-    background-color: #BFBFBF;
-    margin: 8px auto;
-  }
-  
-  /* 하단 */
-  .card-footer {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 8px;
-  }
-  
-  .complaint-address {
-    color: #5C5C5C;
-    font-size: 0.8rem;
-    display: flex;
-    align-items: center;
-    margin: 0;
-  }
-  
-  .complaint-address img {
-    width: 19px;
-    height: 19px;
-    margin-right: 5px;
-  }
-  
-  .status-btn {
-    font-size: 10px;
-    margin: 0;
-    border: none;
-    background-color: #2563EB;
-    color: #FFFFFF;
-    border-radius: 50px;
-    padding: 4px 8px;
-  }
+}
+.catagory-background{
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.25);
+  padding: 0.15rem 0.4rem;
+}
+
+.catacory-complaint-container{
+  margin: 1rem;
+  padding: 0.5rem;
+  background: #FFFFFF;
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.25);
+  border-radius: 16px;
+  text-align: left;
+}
+
+.category-summary { 
+  box-sizing: border-box; 
+}
+
+.category-summary-label { 
+  font-size: 1rem; 
+}
+
+.category-summary-progress {
+   font-size: .95rem; }
+
+.complaint-card { 
+  box-sizing: border-box; }
+
+.no-complaints { 
+  font-size: .9rem; 
+}

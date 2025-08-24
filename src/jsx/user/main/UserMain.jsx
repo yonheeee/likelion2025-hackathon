@@ -34,18 +34,16 @@ const UserMain = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // ✅ 민원 전체 목록
         const res = await fetch("http://localhost:8080/api/complaints");
         const complaints = await res.json();
 
         setComplaintsList(complaints);
         setComplaintsData({
           total: complaints.length,
-          change: "+5%", // TODO: 백에서 제공하면 교체
+          change: "+5%", 
           changeType: "increase",
         });
 
-        // ✅ 성과 지표
         const [rateRes, timeRes] = await Promise.all([
           fetch("http://localhost:8080/api/complaints/resolution-rate"),
           fetch("http://localhost:8080/api/complaints/avg-handle-time"),
@@ -67,7 +65,6 @@ const UserMain = () => {
           },
         });
 
-        // ✅ 지역 TOP5
         const regionRes = await fetch("http://localhost:8080/api/complaints/region-top5");
         const regionData = await regionRes.json();
 

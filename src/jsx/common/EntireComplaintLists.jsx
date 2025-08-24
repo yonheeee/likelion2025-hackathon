@@ -1,42 +1,15 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import complaints from './dummydata.js';
+import axios from 'axios';
+import { CATEGORY_MAP, STATUS_MAP } from './categoryStatusMap.js';
 import loc from './ComplaintLoc.svg';
 
 function EntireComplaintLists({ isAdmin }) {
     const navigate = useNavigate(); // 페이지 이동을 위한 useNavigate
 
-    const CATEGORY_MAP = {
-        FACILITY_DAMAGE: "시설물 파손/관리",
-        SAFETY_RISK: "안전/위험",
-        ENVIRONMENT_CLEANING: "환경/청소",
-        TRAFFIC_PARKING: "교통/주정차",
-        LIVING_INCONVENIENCE: "생활/불편",
-        OTHERS_ADMIN: "기타/행정",
-    };
-
-    const STATUS_MAP = {
-        PENDING: {
-            label: "접수",
-            color: "#A65F00",
-            background: "#FFEDD5"
-        },
-        IN_PROGRESS: {
-            label: "진행중",
-            color: "#009921",
-            background: "#CFF5D7"
-        },
-        COMPLETED: {
-            label: "완료",
-            color: "#2B62EC",
-            background: "#DBE8FF"
-        },
-        REJECTED: {
-            label: "반려",
-            color: "#D70000",
-            background: "#FEF2F2"
-        }
-    };
+    const [complaints, setComplaints] = useState([]); // 상태로 complaints 설정
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     const handleClick = (id) => {
         // isAdmin에 따라 이동 경로가 달라짐
@@ -46,6 +19,26 @@ function EntireComplaintLists({ isAdmin }) {
             navigate(`/user/detail/${id}`);  // 사용자 페이지
         }
     };
+
+    useEffect(() => {
+        // 컴포넌트 마운트 시 API에서 데이터 가져오기
+        const fetchComplaints = async () => {
+            try {
+                const response = await axios.get('http://13.125.98.203/api/complaints');
+                setComplaints(response.data); // API 응답 데이터 설정
+            } catch (err) {
+                console.error(err);
+                setError('데이터를 불러오는 중 오류가 발생했습니다.');
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchComplaints();
+    }, []);
+
+    if (loading) return <p>불러오는 중입니다...</p>;
+    if (error) return <p>{error}</p>;
 
     return (
         <>
@@ -76,11 +69,17 @@ function EntireComplaintLists({ isAdmin }) {
                                 justifyContent: 'space-between'
                             }}
                         >
-                            <p className="complaint-title" style={{ color: '#00000', fontSize: '1rem', fontWeight: 'Medium' }}>
+                            <p className="complaint-title"
+                               style={{color: '#00000', fontSize: '1rem', fontWeight: 'Medium'}}>
                                 {item.title}
                                 <span
                                     className="complaint-date"
-                                    style={{ color: '#5C5C5C', fontSize: "0.63rem", fontWeight: '400', marginLeft: '0.5rem' }}
+                                    style={{
+                                        color: '#5C5C5C',
+                                        fontSize: "0.63rem",
+                                        fontWeight: '400',
+                                        marginLeft: '0.5rem'
+                                    }}
                                 >
                                     {new Date(item.createdAt).toLocaleDateString()}
                                 </span>
@@ -132,14 +131,14 @@ function EntireComplaintLists({ isAdmin }) {
                                 ? `${item.content.slice(0, 60)}...`
                                 : item.content}
                         </p>
-                        <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
+                        <div style={{width: '100%', display: 'flex', justifyContent: 'center'}}>
                             <span
                                 style={{
                                     display: 'block',
-                                    width: '288px',
-                                    height: '0.8px',
+                                    width: '20rem',
+                                    height: '0.05rem',
                                     backgroundColor: '#BFBFBF',
-                                    margin: '8px 0'
+                                    margin: '0.5rem 0'
                                 }}
                             ></span>
                         </div>
@@ -199,8 +198,3 @@ function EntireComplaintLists({ isAdmin }) {
 }
 
 export default EntireComplaintLists;
-
-
-
-
-
