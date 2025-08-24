@@ -1,58 +1,45 @@
 import React from "react";
 import "../../../css/user/main/ComplaintItem.css";
 import LocationIcon from "../../../image/User/main/location.svg";
+import { CATEGORY_MAP, STATUS_MAP } from "../../common/categoryStatusMap"; 
 
-const statusStyles = {
-  접수: { bg: "#FEF3C7", color: "#92400E", border: "#FDE68A" },   // 노랑
-  처리중: { bg: "#DBEAFE", color: "#1E40AF", border: "#BFDBFE" }, // 파랑
-  완료: { bg: "#D1FAE5", color: "#065F46", border: "#A7F3D0" },   // 초록
-};
-
-const MyComplaintItem = ({
-  title,
-  date,
-  content,
-  location,
-  status,
-  category,
-}) => {
-  const style = statusStyles[status] || statusStyles["접수"];
+const MyComplaintItem = ({ complaint, onDelete }) => {
+  const statusInfo = STATUS_MAP[complaint.status] || { label: "기타", bg: "#E5E7EB", color: "#4B5563" };
+  const categoryLabel = CATEGORY_MAP[complaint.category] || "기타";
+  
+  const handleEdit = () => {
+    alert(`'${complaint.title}' 민원 수정 기능은 구현 예정입니다.`);
+  };
 
   return (
     <div className="complaint-item">
       <div className="complaint-header">
         <div className="complaint-title-row">
-          <h4 className="complaint-title">{title}</h4>
-          {date && <span className="complaint-date">{date}</span>}
-        </div>
-        {status && (
-          <span
-            className="complaint-status"
-            style={{
-              background: style.bg,
-              color: style.color,
-              border: `1px solid ${style.border}`,
-            }}
-          >
-            {status}
+          <h4 className="complaint-title">{complaint.title}</h4>
+          <span className="complaint-date">
+            {new Date(complaint.createdAt).toLocaleDateString("ko-KR")}
           </span>
-        )}
+        </div>
+        <span
+          className="complaint-status"
+          style={{ background: statusInfo.bg, color: statusInfo.color }}
+        >
+          {statusInfo.label}
+        </span>
       </div>
-
-      <p className="complaint-content">{content}</p>
-
+      <p className="complaint-content">{complaint.content}</p>
       <div className="complaint-footer">
         <div className="complaint-location">
-          <img
-            src={LocationIcon}
-            alt=""
-            className="location-icon"
-            aria-hidden="true"
-          />
-          <span>{location}</span>
+          <img src={LocationIcon} alt="" className="location-icon" />
+          <span>{complaint.address}</span>
         </div>
-
-        {category && <span className="complaint-category">{category}</span>}
+        <div className="footer-right">
+            <span className="complaint-category">{categoryLabel}</span>
+            <div className="action-buttons">
+                <button onClick={handleEdit} className="edit-btn">수정</button>
+                <button onClick={onDelete} className="delete-btn">삭제</button>
+            </div>
+        </div>
       </div>
     </div>
   );

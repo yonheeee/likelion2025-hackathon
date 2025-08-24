@@ -33,6 +33,9 @@ export default function UserCheck() {
           phoneNumber: info.phone,
         }
       });
+
+      sessionStorage.setItem('userName', info.name);
+      sessionStorage.setItem('phoneNumber', info.phone);
       
       navigate("/my-complaints", { state: { complaints: response.data.complaints } });
 
