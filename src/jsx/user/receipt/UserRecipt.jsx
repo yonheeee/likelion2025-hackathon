@@ -13,7 +13,7 @@ import LocationIcon from "../../../image/User/main/location.svg";
 import PhotoIcon from "../../../image/User/receipt/photoicon.svg";
 import WriteIcon from "../../../image/User/receipt/writeicon.svg";
 import Plus from "../../../image/User/receipt/plus.svg";
-// 민원 접수
+
 export default function ComplaintCreate() {
   const navigate = useNavigate();
 
@@ -231,7 +231,7 @@ export default function ComplaintCreate() {
 
         {/* 제출 버튼 */}
         <div className="submit-bar">
-          <button className="submit-btn" type="submit" disabled={!valid}>
+          <button className="submit-button" type="submit" disabled={!valid}>
             민원 접수하기
           </button>
         </div>

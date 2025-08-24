@@ -10,13 +10,11 @@ import { ReactComponent as Safe }        from "../../../image/User/main/safe.svg
 import { ReactComponent as Inconvince }  from "../../../image/User/main/inconvince.svg";
 import { ReactComponent as Etc }         from "../../../image/User/main/etc.svg";
 
-// ===== axios 인스턴스 =====
 const api = axios.create({
   baseURL: "http://13.125.98.203/api",
   timeout: 10000,
 });
 
-// ===== 아이콘 & 카테고리 매핑 =====
 const ICONS = {
   environment: Environment,
   facility:    Facility,
@@ -35,7 +33,6 @@ const CATEGORY_MAP = {
   OTHERS_ADMIN:         { name: "기타/행정",       icon: "etc",         color: "#6B7280" },
 };
 
-// HEX → rgba (옅은 배경용)
 const withAlpha = (hex, a = 0.12) => {
   const h = hex.replace("#", "");
   const n = h.length === 3 ? h.split("").map(c => c + c).join("") : h;

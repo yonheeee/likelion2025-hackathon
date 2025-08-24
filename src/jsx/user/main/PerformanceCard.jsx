@@ -1,6 +1,6 @@
 import React from "react";
 import "../../../css/user/main/PerformanceCard.css";
-// 증가 감소율
+
 const PerformanceCard = ({ title, value, change, changeType = "increase" }) => {
   const isUp = changeType === "increase";
   return (
