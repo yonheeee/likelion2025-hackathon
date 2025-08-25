@@ -8,6 +8,8 @@ import UserCheck from "./jsx/user/check/UserCheck.jsx"
 import MyComplaint from './jsx/user/mycomplaint/MyComplaintsPage.jsx';
 import UserEntireComplaintLists from "./jsx/user/UserEntireComplaintLists/UserEntireComplaintLists.jsx";
 import UserDetailsPage from './jsx/user/UserDetail/UserDetail.jsx';
+import MyComplaintDetail from './jsx/user/mycomplaint/MyComplaintsDetail.jsx';
+import AdminComplaintSorted from './jsx/admin/AdminComplaintSorted/AdminComplaintSorted.jsx';
 
 import Adminmain from './jsx/admin/adminmainjsx/adminmain.jsx';
 import AdmindetailsPage from './jsx/admin/admindetailjsx/admindetails.jsx';
@@ -31,6 +33,7 @@ function App() {
             <Route path="/userrecipt" element={<UserRecipt />} /> {/* 민원 접수 */}
             <Route path="/usercheck" element={<UserCheck />} /> {/* 민원 조회 */}
             <Route path="/mycomplaint" element={<MyComplaint />} /> {/* 나의 민원 */}
+            <Route path="/mycomplaint/detail/:id" element={<MyComplaintDetail />} /> {/* 나의 민원 상세조회 */}
             <Route path="/user/entire" element={<UserEntireComplaintLists />} /> {/* 사용자 전체 민원 조회 */}
             <Route path="/user/detail/:id" element={<UserDetailsPage />} /> {/* 사용자 상세보기 */}
 
@@ -39,6 +42,7 @@ function App() {
             <Route path="/admin/main" element={<Adminmain />} /> {/* 관리자 메인 */}
             <Route path="/admin/detail/:id" element={<AdmindetailsPage />} /> {/* 관리자 상세보기 */}
             <Route path="/admin/entire" element={<AdminEntireComplaintLists/>}/> {/* 관리자 전체 민원 조회 */}
+            <Route path="/admin/sorted" element={<AdminComplaintSorted/>}/> {/* 관리자 우선순위별 민원 조회 */}
           </Routes>
         </div>
       </div>

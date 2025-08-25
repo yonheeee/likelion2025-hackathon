@@ -61,7 +61,6 @@ function EntireComplaintLists({ isAdmin }) {
                         onClick={() => handleClick(item.id)} // 클릭 시 해당 경로로 이동
                     >
                         <div
-                            className="card-header"
                             style={{
                                 display: 'flex',
                                 flexDirection: 'row',

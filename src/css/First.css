@@ -1,8 +1,6 @@
 
 * { box-sizing: border-box; }
-html, body, #root { height: 100%; margin: 0; padding: 0; }
-
-html { font-size: clamp(15px, 1.6vw, 17px); }
+html, body, #root { height: 100vh; margin: 0; padding: 0; }
 
 :root{
   --bg-start: #EEF3FF;
