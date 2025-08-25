@@ -1,6 +1,6 @@
 import './App.css';
 import { Route, Routes, useLocation } from 'react-router-dom';
-import First from "./jsx/First.jsx";
+import First from "./jsx/first.jsx";
 import UserMain from "./jsx/user/main/UserMain.jsx";
 import Header from "./jsx/Header.jsx"; 
 import UserRecipt from "./jsx/user/receipt/UserRecipt.jsx";
