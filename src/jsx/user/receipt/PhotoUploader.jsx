@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from "react";
 import "../../../css/user/receipt/PhotoUploader.css";
 
 import Photo from "../../../image/User/receipt/photo.svg"
+// 사진등록
 const PhotoUploader = ({ value, onChange }) => {
   const inputRef = useRef(null);
 

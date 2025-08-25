@@ -149,7 +149,7 @@
 .submit-bar{
   padding: 0 1rem;
 }
-.submit-btn {
+.submit-button{
   width:100%; 
   padding:2rem; 
   border:none; 
@@ -162,7 +162,7 @@
   box-shadow: 0 .75rem 1.5rem rgba(17,24,39,.12);
 }
   
-.submit-btn:active { 
+.submit-button:active { 
   transform: translateY(.5px)
 } 
 
