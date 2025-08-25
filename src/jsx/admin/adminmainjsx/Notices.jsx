@@ -11,8 +11,7 @@ const ADMIN_PW  = process.env.REACT_APP_ADMIN_PASSWORD || "hanseo";
 /* ----- 유틸: ISO ns/us → ms 로 잘라서 Date 파싱 ----- */
 const parseIsoUpToMillis = (iso) => {
   if (!iso || typeof iso !== "string") return null;
-  // 소수점 이하가 3자리 초과(마이크로초 등)면 3자리로 슬라이스
-  const trimmed = iso.replace(/(\.\d{3})\d+$/, "$1");
+  const trimmed = iso.replace(/(\.\d{3})\d+$/, "$1"); // 소수점 이하가 3자리 초과면 잘라냄
   const d = new Date(trimmed);
   return isNaN(d) ? null : d;
 };
@@ -66,7 +65,9 @@ export default function Notices() {
         setItems(sorted);
         setTotalCount(count);
       } catch (e) {
-        if (e.name !== "AbortError") setError(e.message || "목록을 불러오는 중 오류가 발생했습니다.");
+        if (e.name !== "AbortError") {
+          setError(e.message || "목록을 불러오는 중 오류가 발생했습니다.");
+        }
       } finally {
         setLoading(false);
       }
@@ -100,14 +101,19 @@ export default function Notices() {
         {items.map((n) => {
           const created = parseIsoUpToMillis(n.createdAt);
           const dateText = created
-            ? created.toLocaleDateString("ko-KR", { year: "numeric", month: "long", day: "numeric" })
+            ? created.toLocaleDateString("ko-KR", {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })
             : "날짜 없음";
 
           return (
             <div
               key={n.id}
               className="notice-card"
-              onClick={() => navigate("/admin/details", { state: { complaintId: n.id } })}
+              // 상세 페이지로 complaintId 전달
+              onClick={() => navigate(`/admin/detail/${n.id}`)}
               style={{ cursor: "pointer" }}
             >
               <div className="notice-header">
@@ -139,7 +145,7 @@ export default function Notices() {
 
         <div
           className="notice-separator"
-          onClick={() => navigate("/admin/complaints")}
+          onClick={() => navigate("/admin/entire")}
           style={{ cursor: "pointer" }}
         >
           <p>전체 목록 보기 ({totalCount}건) &#10132;</p>

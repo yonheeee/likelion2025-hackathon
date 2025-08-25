@@ -23,14 +23,15 @@ export default function CategoryLinks() {
   const BASE_URL = process.env.REACT_APP_API_BASE_URL || "http://localhost:8080";
   const ADMIN_PW = process.env.REACT_APP_ADMIN_PASSWORD || "hanseo";
 
-const categories = [
-  { name: "환경/청소", icon: plant, color: "first", category: "ENVIRONMENT_CLEANING" },
-  { name: "시설물 파손/관리", icon: building, color: "second", category: "FACILITY_DAMAGE" },
-  { name: "교통/주정차", icon: car, color: "third", category: "TRAFFIC_PARKING" },
-  { name: "안전/위험", icon: shield, color: "fourth", category: "SAFETY_RISK" },
-  { name: "생활 불편", icon: life, color: "fifth", category: "LIVING_INCONVENIENCE" },
-  { name: "기타/행정", icon: etc, color: "sixth", category: "OTHERS_ADMIN" },
-];
+  const categories = [
+    { name: "환경/청소", icon: plant, color: "first", category: "ENVIRONMENT_CLEANING" },
+    { name: "시설물 파손/관리", icon: building, color: "second", category: "FACILITY_DAMAGE" },
+    { name: "교통/주정차", icon: car, color: "third", category: "TRAFFIC_PARKING" },
+    { name: "안전/위험", icon: shield, color: "fourth", category: "SAFETY_RISK" },
+    { name: "생활 불편", icon: life, color: "fifth", category: "LIVING_INCONVENIENCE" },
+    { name: "기타/행정", icon: etc, color: "sixth", category: "OTHERS_ADMIN" },
+  ];
+
   // 민원 수 불러오기
   const loadCounts = async (signal) => {
     const start = performance.now();
@@ -53,25 +54,11 @@ const categories = [
       const arr = await res.json();
       console.info("[CategoryLinks] 카테고리 응답:", arr);
 
+      // 🔑 key를 category 값 그대로 사용
       const map = arr.reduce((acc, { category, count }) => {
-        switch (category) {
-          case "ENVIRONMENT_CLEANING":  acc.environment = count; break;
-          case "FACILITY_DAMAGE":       acc.facility   = count; break;
-          case "TRAFFIC_PARKING":       acc.traffic    = count; break;
-          case "SAFETY_RISK":           acc.safety     = count; break;
-          case "LIVING_INCONVENIENCE":  acc.life       = count; break;
-          case "OTHERS_ADMIN":          acc.etc        = count; break;
-          default: break;
-        }
+        acc[category] = count;
         return acc;
-      }, {
-        environment: 0,
-        facility: 0,
-        traffic: 0,
-        safety: 0,
-        life: 0,
-        etc: 0,
-      });
+      }, {});
 
       setComplaintCounts(map);
 
@@ -108,7 +95,7 @@ const categories = [
   };
 
   const handleCategoryClick = (category) => {
-    navigate(`/category/${category}`); // 카테고리별 페이지로 이동
+    navigate(`/api/admin/complants/category?category=${category}`); // 카테고리별 페이지로 이동
   };
 
   // 상태 뱃지 스타일
@@ -131,7 +118,8 @@ const categories = [
   return (
     <div className="category-wrapper">
       <p className="category-title" style={{ display: "flex", alignItems: "center" }}>
-        카테고리별 민원</p>
+        카테고리별 민원
+      </p>
 
       <div className="category">
         {categories.map((cat) => {
@@ -141,9 +129,7 @@ const categories = [
               key={cat.category}
               className={`category-card ${cat.color}`}
               onClick={() => handleCategoryClick(cat.category)}
-              style={{ cursor: "pointer",
-                border: "none",
-               }}
+              style={{ cursor: "pointer", border: "none" }}
             >
               <span>
                 {cat.name}
