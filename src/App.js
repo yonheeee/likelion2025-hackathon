@@ -33,7 +33,7 @@ function App() {
             <Route path="/userrecipt" element={<UserRecipt />} /> {/* 민원 접수 */}
             <Route path="/usercheck" element={<UserCheck />} /> {/* 민원 조회 */}
             <Route path="/mycomplaint" element={<MyComplaint />} /> {/* 나의 민원 */}
-            <Route path="/mycomplaint/detail/:id" element={<MyComplaintDetail />} /> {/* 나의 민원 상세조회 */}
+            <Route path="/mycomplaint/detail" element={<MyComplaintDetail />} /> {/* 나의 민원 상세조회 */}
             <Route path="/user/entire" element={<UserEntireComplaintLists />} /> {/* 사용자 전체 민원 조회 */}
             <Route path="/user/detail/:id" element={<UserDetailsPage />} /> {/* 사용자 상세보기 */}
 

@@ -1,5 +1,6 @@
+// 수정
 import React, { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom"; // useNavigate 추가
+import { useLocation, useNavigate } from "react-router-dom";
 import loc from '../../../image/common/ComplaintLoc.svg';
 import bin from '../../../image/common/waste.svg';
 import { CATEGORY_MAP, STATUS_MAP } from '../../common/categoryStatusMap.js';
@@ -7,11 +8,9 @@ import PageHeader from "../../PageHeader.jsx";
 
 export default function MyComplaintsPage() {
     const location = useLocation();
-    const navigate = useNavigate(); // useNavigate 추가
-    const { user } = location.state || {}; // 전달된 user 정보 (name, phone)
+    const navigate = useNavigate();
+    const { user } = location.state || {};
     const [complaints, setComplaints] = useState([]);
-    const [showModal, setShowModal] = useState(false); // State to control modal visibility
-    const [selectedComplaint, setSelectedComplaint] = useState(null); // Store the selected complaint for deletion
 
     useEffect(() => {
         if (user) {
@@ -34,35 +33,34 @@ export default function MyComplaintsPage() {
         }
     }, [user]);
 
-    const handleDelete = async () => {
-        if (selectedComplaint) {
-            try {
-                // URL에 userName과 phoneNumber 쿼리 파라미터를 추가하여 삭제 요청
-                const response = await fetch(
-                    `http://13.125.98.203/api/complaints/my/${selectedComplaint.id}?userName=${user.name}&phoneNumber=${user.phone}`,
-                    {
-                        method: 'DELETE',
-                    }
-                );
+    const handleDelete = async (complaint) => {
+        const confirmDelete = window.confirm("민원을 삭제하시겠습니까?");
+        if (!confirmDelete) return;
 
-                // 만약 삭제가 성공했다면 complaints 배열에서 해당 아이템을 제거
-                if (response.ok) {
-                    setComplaints(complaints.filter(item => item.id !== selectedComplaint.id)); // 삭제된 민원은 목록에서 제외
-                    setShowModal(false); // 삭제 후 모달 닫기
-                } else {
-                    // 삭제 실패 처리
-                    console.error("민원 삭제 실패");
+        try {
+            const response = await fetch(
+                `http://13.125.98.203/api/complaints/my/${complaint.id}?userName=${complaint.userName}&phoneNumber=${complaint.phoneNumber}`,
+                {
+                    method: 'DELETE',
                 }
-            } catch (error) {
-                console.error("삭제 요청 중 오류 발생", error);
+            );
+
+            if (response.ok) {
+                setComplaints(complaints.filter(item => item.id !== complaint.id));
+            } else {
+                console.error("민원 삭제 실패");
+                alert("민원 삭제에 실패했습니다.");
             }
+        } catch (error) {
+            console.error("삭제 요청 중 오류 발생", error);
+            alert("삭제 중 오류가 발생했습니다.");
         }
     };
 
     const handleClick = (id) => {
-        // 민원 클릭 시 상세 페이지로 이동
-        navigate(`/mycomplaint/detail?id=${id}`);
+        navigate(`/mycomplaint/detail?id=${id}&userName=${encodeURIComponent(user.name)}&phoneNumber=${encodeURIComponent(user.phone)}`);
     };
+
 
     return (
         <div className="mycomplaint-page">
@@ -101,7 +99,7 @@ export default function MyComplaintsPage() {
                                     background: 'linear-gradient(180deg, rgba(238, 245, 255, 0.5) 0%, rgba(245, 238, 255, 0.5) 100%)',
                                     listStyle: 'none',
                                 }}
-                                onClick={() => handleClick(item.id)} // 클릭 시 상세 페이지로 이동
+                                onClick={() => handleClick(item.id, item.userName, item.phoneNumber)}
                             >
                                 <div
                                     className="card-header"
@@ -229,9 +227,9 @@ export default function MyComplaintsPage() {
 
                                         <button
                                             className="delete-btn"
-                                            onClick={() => {
-                                                setSelectedComplaint(item); // Set the selected complaint
-                                                setShowModal(true); // Show the modal
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                handleDelete(item);
                                             }}
                                             style={{
                                                 fontSize: '10px',
@@ -267,62 +265,6 @@ export default function MyComplaintsPage() {
                     <p className="no-complaints">등록된 민원이 없습니다.</p>
                 )}
             </div>
-
-            {/* Delete Confirmation Modal */}
-            {showModal && (
-                <div style={{
-                    position: 'fixed',
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    bottom: 0,
-                    background: 'rgba(0, 0, 0, 0.5)',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                }} onClick={() => setShowModal(false)}>
-                    <div onClick={(e) => e.stopPropagation()} style={{
-                        background: '#fff',
-                        padding: '2rem',
-                        borderRadius: '1rem',
-                        maxWidth: '370px',
-                        width: '60%',
-                        margin: '0 auto',
-                        textAlign: 'center',
-                    }}>
-                        <p style={{fontSize: '1.25rem', fontWeight: '500'}}>민원을 삭제하시겠습니까?</p>
-                        <div>
-                            <button
-                                onClick={handleDelete}
-                                style={{
-                                    padding: '0.5rem 1rem',
-                                    backgroundColor: '#EF4444',
-                                    color: '#fff',
-                                    border: 'none',
-                                    borderRadius: '0.5rem',
-                                    margin: '1rem',
-                                }}
-                            >
-                                삭제하기
-                            </button>
-                            <button
-                                onClick={() => setShowModal(false)}
-                                style={{
-                                    padding: '0.5rem 1rem',
-                                    backgroundColor: '#2563EB',
-                                    color: '#fff',
-                                    border: 'none',
-                                    borderRadius: '0.5rem',
-                                }}
-                            >
-                                취소
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            )}
         </div>
     );
 }
-
-
