@@ -1,8 +1,6 @@
 .complaint-card {
   background-color: #fff;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
-  max-width: 80rem; /* 💡 최대 너비를 약 1280px 정도로 제한 */
-  width: 95%;       /* 💡 화면 폭의 95% 차지 */
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);        
   margin: 1rem auto;
   border-radius: 1rem;
 }
@@ -11,7 +9,7 @@
   display: flex;
   justify-content: flex-start;
   gap: 0.7rem;
-  font-size: 0.9rem;
+  font-size: 0rem;
   font-weight: 520;
   margin-left: -0.5rem;
   margin-top: -0.5rem;
@@ -262,7 +260,7 @@
 }
 @media screen and (max-width: 768px) {
   .complaint-card {
-    width: 94%;
+    width: 100%;
     padding: 1.25rem;
   }
   .ai-sheet {
@@ -274,7 +272,7 @@
 
 @media screen and (min-width: 10rem) { /* 160px 이상일 때 */
   .complaint-card {
-    width: 75%;
+    width: 90%;
     padding: 2rem;
   }
   .complaint-main-title { font-size: 1.3rem; }

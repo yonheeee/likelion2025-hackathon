@@ -20,7 +20,7 @@
   background-color: #fff;
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
     max-width: 80rem; /* 💡 최대 너비를 약 1280px 정도로 제한 */
-    width: 84%;       /* 💡 화면 폭의 95% 차지 */
+    width: 90%;       /* 💡 화면 폭의 95% 차지 */
     margin: 1rem auto;
     padding:.875rem;
     border-radius: 1rem;               /* 내부 요소 넘침 방지 */
@@ -41,10 +41,14 @@
     color:var(--text);}
 
 .hc-badge{
-  padding-top:0.1rem; padding-bottom: 0.4rem; padding-left: 0.4rem; padding-right: 0.4rem; border-radius:999px;
+  padding-top:0.1rem; padding-bottom: 0.1rem; padding-left: 0.4rem; padding-right: 0.4rem; border-radius:999px;
   background:var(--badge-bg); color:var(--badge-fg);
   font-size:.68rem; font-weight:500;
-  height: 0.7rem;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 
 .hc-clock img {

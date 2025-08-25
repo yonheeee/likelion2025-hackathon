@@ -1,7 +1,29 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom"; // ✅ 메인 페이지 이동을 위해 추가
+import { useNavigate } from "react-router-dom";
 import "../../../css/admin/admindetailcss/CommentSection.css";
 import chatImg from "../../../image/admin/chat.png";
+
+/** === .env (CRA) === */
+const BASE_URL = process.env.REACT_APP_API_BASE_URL || "http://localhost:8080";
+const ADMIN_PW = process.env.REACT_APP_ADMIN_PASSWORD || "hanseo";
+
+/** 마이크로초(>ms) 포함 ISO → ms(3자리)로 잘라 Date 생성 */
+const toDateSafely = (iso) => {
+  if (!iso || typeof iso !== "string") return null;
+  const trimmed = iso.replace(/(\.\d{3})\d+$/, "$1");
+  const d = new Date(trimmed);
+  return isNaN(d) ? null : d;
+};
+/** 날짜 포맷: YYYY-MM-DD (파싱 실패 시 원문 반환) */
+const formatDate = (dateString) => {
+  if (!dateString) return "";
+  const d = toDateSafely(dateString) ?? new Date(dateString);
+  if (isNaN(d)) return dateString;
+  const yyyy = d.getFullYear();
+  const mm = String(d.getMonth() + 1).padStart(2, "0");
+  const dd = String(d.getDate()).padStart(2, "0");
+  return `${yyyy}-${mm}-${dd}`;
+};
 
 export default function CommentSection({ complaintId, title = "코멘트" }) {
   const [comments, setComments] = useState([]);
@@ -10,84 +32,60 @@ export default function CommentSection({ complaintId, title = "코멘트" }) {
   const [error, setError] = useState(null);
 
   const [sheetOpen, setSheetOpen] = useState(false);
-  const [reason, setReason] = useState("LAW_POLICY"); // API 명세서 기준
+  const [reason, setReason] = useState("LAW_POLICY"); // 명세 기준 사유코드
   const [detail, setDetail] = useState("");
 
   const maxLen = 500;
   const len = text.length;
   const disabled = len === 0 || len > maxLen;
 
-  const navigate = useNavigate(); // ✅ 메인 페이지 이동에 사용
+  const navigate = useNavigate();
 
-  // ===============================
-  // 🔹 원래 백엔드 연동 부분
-  // const BASE_URL = process.env.REACT_APP_API_BASE_URL || "http://localhost:8080";
-  // const ADMIN_PW = process.env.REACT_APP_ADMIN_PASSWORD || "hanseo";
-  // ===============================
-
-  // 코멘트 목록 불러오기
+  /** 코멘트 목록 불러오기 */
   useEffect(() => {
-    // 🔹 더미데이터 사용
-    const dummyComments = [
-      {
-        id: 1,
-        author: "관리자",
-        role: "관리자",
-        date: "2025-08-20",
-        content: "안녕하세요. 제보해 주셔서 감사합니다. 확인 중입니다."
-      },
-      {
-        id: 2,
-        author: "담당자",
-        role: "담당자",
-        date: "2025-08-21",
-        content: "현장 확인을 진행했습니다. 추가 조치 예정입니다."
-      }
-    ];
-    setComments(dummyComments);
-
-    // 🔹 원래는 이렇게 fetch
-    /*
     if (!complaintId) return;
+    const ctrl = new AbortController();
+
     async function fetchComments() {
       try {
         setLoading(true);
+        setError(null);
         const res = await fetch(
           `${BASE_URL}/api/admin/complaints/${complaintId}/comments`,
-          { headers: { PASSWORD: ADMIN_PW } }
+          {
+            headers: { PASSWORD: ADMIN_PW },
+            signal: ctrl.signal,
+          }
         );
-        if (!res.ok) throw new Error(`API 요청 실패 (${res.status})`);
+        if (!res.ok) {
+          if (res.status === 401 || res.status === 403) {
+            throw new Error("접근이 거부되었습니다. 관리자 비밀번호(PASSWORD) 헤더를 확인하세요.");
+          }
+          throw new Error(`코멘트 목록 조회 실패 (${res.status})`);
+        }
         const data = await res.json();
-        setComments(data);
+        // 방어적 파싱: 배열 또는 {comments: []}
+        const list = Array.isArray(data)
+          ? data
+          : (Array.isArray(data.comments) ? data.comments : []);
+        setComments(list);
       } catch (err) {
-        console.error(err);
-        setError(err.message);
+        if (err.name !== "AbortError") setError(err.message || "코멘트를 불러오는 중 오류가 발생했습니다.");
       } finally {
         setLoading(false);
       }
     }
+
     fetchComments();
-    */
+    return () => ctrl.abort();
   }, [complaintId]);
 
-  // 코멘트 전송
+  /** 코멘트 전송 */
   const handleSend = async () => {
     if (disabled || !complaintId) return;
-
-    // 🔹 더미데이터 모드에서는 로컬에 추가
-    const newComment = {
-      id: Date.now(),
-      author: "관리자",
-      role: "관리자",
-      date: new Date().toISOString().slice(0, 10),
-      content: text.trim(),
-    };
-    setComments((prev) => [...prev, newComment]);
-    setText("");
-
-    // 🔹 원래는 이렇게 POST
-    /*
     try {
+      setLoading(true);
+      setError(null);
       const res = await fetch(
         `${BASE_URL}/api/admin/complaints/${complaintId}/comments`,
         {
@@ -99,29 +97,45 @@ export default function CommentSection({ complaintId, title = "코멘트" }) {
           body: JSON.stringify({ content: text.trim() }),
         }
       );
-      if (!res.ok) throw new Error(`코멘트 전송 실패 (${res.status})`);
-      const newComment = await res.json();
-      setComments((prev) => [...prev, newComment]);
+      if (!res.ok) {
+        if (res.status === 401 || res.status === 403) {
+          throw new Error("코멘트 권한 오류: PASSWORD 헤더를 확인하세요.");
+        }
+        throw new Error(`코멘트 전송 실패 (${res.status})`);
+      }
+      // 보통은 새 코멘트를 반환한다고 가정. 아니라면 재조회로 대체
+      const created = await res.json().catch(() => null);
+
+      if (created && (created.id || created.content)) {
+        setComments((prev) => [...prev, created]);
+      } else {
+        // 반환 형식이 없거나 다르면 목록 재조회
+        const listRes = await fetch(
+          `${BASE_URL}/api/admin/complaints/${complaintId}/comments`,
+          { headers: { PASSWORD: ADMIN_PW } }
+        );
+        if (listRes.ok) {
+          const data = await listRes.json();
+          const list = Array.isArray(data)
+            ? data
+            : (Array.isArray(data.comments) ? data.comments : []);
+          setComments(list);
+        }
+      }
       setText("");
     } catch (err) {
-      alert("코멘트 전송 실패: " + err.message);
+      alert("코멘트 전송 실패: " + (err.message || "네트워크 오류"));
+    } finally {
+      setLoading(false);
     }
-    */
   };
 
-  // 반려 확인
+  /** 반려 처리 */
   const confirmReject = async () => {
     if (!complaintId) return;
-
-    // 🔹 더미 모드에서는 alert 후 메인 페이지 이동
-    alert(`(더미) 민원 반려 처리됨\n사유: ${reason}\n세부내용: ${detail}`);
-    setSheetOpen(false);
-    setDetail("");
-    navigate("/admin/main"); // ✅ 메인 페이지 이동
-
-    // 🔹 원래는 이렇게 POST 요청 (DB에서 삭제 ❌, 상태만 반려로 업데이트)
-    /*
     try {
+      setLoading(true);
+      setError(null);
       const res = await fetch(
         `${BASE_URL}/api/admin/complaints/${complaintId}/reject`,
         {
@@ -133,24 +147,31 @@ export default function CommentSection({ complaintId, title = "코멘트" }) {
           body: JSON.stringify({ reason, detail: detail.trim() }),
         }
       );
-      if (!res.ok) throw new Error(`반려 처리 실패 (${res.status})`);
+      if (!res.ok) {
+        if (res.status === 401 || res.status === 403) {
+          throw new Error("반려 권한 오류: PASSWORD 헤더를 확인하세요.");
+        }
+        throw new Error(`반려 처리 실패 (${res.status})`);
+      }
       alert("민원이 성공적으로 반려되었습니다.");
       setSheetOpen(false);
       setDetail("");
-      navigate("/"); // ✅ 메인 페이지 이동
+      navigate("/admin/main"); // 필요에 따라 라우트 조정
     } catch (err) {
-      alert("반려 실패: " + err.message);
+      alert("반려 실패: " + (err.message || "네트워크 오류"));
+    } finally {
+      setLoading(false);
     }
-    */
   };
 
-  // ESC로 닫기 + 스크롤 제어
+  /** ESC로 닫기 + 스크롤 제어 */
   useEffect(() => {
     const onKey = (e) => e.key === "Escape" && setSheetOpen(false);
 
     if (sheetOpen) {
       document.addEventListener("keydown", onKey);
       document.body.style.overflow = "hidden";
+      // 시트 열릴 때 기본값 초기화
       setReason("LAW_POLICY");
       setDetail("");
     } else {
@@ -204,33 +225,33 @@ export default function CommentSection({ complaintId, title = "코멘트" }) {
         {error && <p className="error">❌ {error}</p>}
         <ul className="cmt-list">
           {comments.map((c) => (
-            <li key={c.id} className="cmt-item">
-              <div className="cmt-avatar">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-                  <circle
-                    cx="12"
-                    cy="8"
-                    r="4"
-                    stroke="#6c8bff"
-                    strokeWidth="1.5"
-                  />
-                  <path
-                    d="M4 20c1.7-3.4 5-5 8-5s6.3 1.6 8 5"
-                    stroke="#6c8bff"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                  />
-                </svg>
-              </div>
-              <div className="cmt-bubble">
-                <div className="cmt-bubble-head">
-                  <div className="cmt-name">
-                    {c.author}
-                    <span className="cmt-role">({c.role})</span>
-                  </div>
-                  <div className="cmt-date">{c.date}</div>
+            <li key={c.id ?? `${c.author}-${c.createdAt ?? c.date}`}>
+              <div className="cmt-item">
+                <div className="cmt-avatar">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                    <circle cx="12" cy="8" r="4" stroke="#6c8bff" strokeWidth="1.5" />
+                    <path
+                      d="M4 20c1.7-3.4 5-5 8-5s6.3 1.6 8 5"
+                      stroke="#6c8bff"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                    />
+                  </svg>
                 </div>
-                <p className="cmt-text">{c.content}</p>
+                <div className="cmt-bubble">
+                  <div className="cmt-bubble-head">
+                    <div className="cmt-name">
+                      {c.author ?? c.writer ?? "관리자"}
+                      <span className="cmt-role">
+                        ({c.role ?? c.roleName ?? "관리자"})
+                      </span>
+                    </div>
+                    <div className="cmt-date">
+                      {formatDate(c.createdAt ?? c.date)}
+                    </div>
+                  </div>
+                  <p className="cmt-text">{c.content}</p>
+                </div>
               </div>
             </li>
           ))}
@@ -260,7 +281,8 @@ export default function CommentSection({ complaintId, title = "코멘트" }) {
             type="button"
             className={`cmt-send ${disabled ? "disabled" : ""}`}
             onClick={handleSend}
-            disabled={disabled}
+            disabled={disabled || loading}
+            title={disabled ? "내용을 입력하세요" : ""}
           >
             <span className="cmt-send-icon">{SendIcon}</span>
             코멘트 전송
@@ -299,88 +321,29 @@ export default function CommentSection({ complaintId, title = "코멘트" }) {
         </div>
 
         <div className="reject-body">
-          <form className="reject-form">
+          <form className="reject-form" onSubmit={(e) => e.preventDefault()}>
             {/* 라디오 버튼 */}
-            <label className="reject-option">
-              <input
-                type="radio"
-                name="reason"
-                value="LAW_POLICY"
-                checked={reason === "LAW_POLICY"}
-                onChange={(e) => setReason(e.target.value)}
-              />
-              <span>관련 법령 및 규정 불일치 (법적/정책적 불가)</span>
-            </label>
-            <label className="reject-option">
-              <input
-                type="radio"
-                name="reason"
-                value="DUPLICATE"
-                checked={reason === "DUPLICATE"}
-                onChange={(e) => setReason(e.target.value)}
-              />
-              <span>기존 민원과 동일/유사 (중복 민원)</span>
-            </label>
-            <label className="reject-option">
-              <input
-                type="radio"
-                name="reason"
-                value="INSUFFICIENT_INFO"
-                checked={reason === "INSUFFICIENT_INFO"}
-                onChange={(e) => setReason(e.target.value)}
-              />
-              <span>정보 부족 또는 내용 불분명 (처리 불가)</span>
-            </label>
-            <label className="reject-option">
-              <input
-                type="radio"
-                name="reason"
-                value="OUT_OF_SCOPE"
-                checked={reason === "OUT_OF_SCOPE"}
-                onChange={(e) => setReason(e.target.value)}
-              />
-              <span>관할 행정기관 외의 사안 (관할 이송 불가 시)</span>
-            </label>
-            <label className="reject-option">
-              <input
-                type="radio"
-                name="reason"
-                value="PRIVATE_CONFLICT"
-                checked={reason === "PRIVATE_CONFLICT"}
-                onChange={(e) => setReason(e.target.value)}
-              />
-              <span>사적 분쟁 또는 개인적 이해관계 (공공성 결여)</span>
-            </label>
-            <label className="reject-option">
-              <input
-                type="radio"
-                name="reason"
-                value="INAPPROPRIATE"
-                checked={reason === "INAPPROPRIATE"}
-                onChange={(e) => setReason(e.target.value)}
-              />
-              <span>욕설, 비방, 허위 사실 유포 등 부적절한 내용</span>
-            </label>
-            <label className="reject-option">
-              <input
-                type="radio"
-                name="reason"
-                value="ALREADY_RESOLVED"
-                checked={reason === "ALREADY_RESOLVED"}
-                onChange={(e) => setReason(e.target.value)}
-              />
-              <span>이미 처리 완료된 사안 (재검토 불필요)</span>
-            </label>
-            <label className="reject-option">
-              <input
-                type="radio"
-                name="reason"
-                value="OTHER"
-                checked={reason === "OTHER"}
-                onChange={(e) => setReason(e.target.value)}
-              />
-              <span>기타</span>
-            </label>
+            {[
+              ["LAW_POLICY", "관련 법령 및 규정 불일치 (법적/정책적 불가)"],
+              ["DUPLICATE", "기존 민원과 동일/유사 (중복 민원)"],
+              ["INSUFFICIENT_INFO", "정보 부족 또는 내용 불분명 (처리 불가)"],
+              ["OUT_OF_SCOPE", "관할 행정기관 외의 사안 (관할 이송 불가 시)"],
+              ["PRIVATE_CONFLICT", "사적 분쟁 또는 개인적 이해관계 (공공성 결여)"],
+              ["INAPPROPRIATE", "욕설, 비방, 허위 사실 유포 등 부적절한 내용"],
+              ["ALREADY_RESOLVED", "이미 처리 완료된 사안 (재검토 불필요)"],
+              ["OTHER", "기타"],
+            ].map(([val, label]) => (
+              <label key={val} className="reject-option">
+                <input
+                  type="radio"
+                  name="reason"
+                  value={val}
+                  checked={reason === val}
+                  onChange={(e) => setReason(e.target.value)}
+                />
+                <span>{label}</span>
+              </label>
+            ))}
 
             {reason === "OTHER" && (
               <textarea
@@ -405,6 +368,7 @@ export default function CommentSection({ complaintId, title = "코멘트" }) {
             type="button"
             className="reject-confirm"
             onClick={confirmReject}
+            disabled={loading}
           >
             반려하기
           </button>

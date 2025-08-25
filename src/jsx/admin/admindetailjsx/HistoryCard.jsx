@@ -5,69 +5,65 @@ import checkImg from "../../../image/admin/ok.png";
 import plusImg from "../../../image/admin/plus.png";
 import loadImg from "../../../image/admin/loading.png";
 
+/** === .env (CRA) === */
+const API_BASE = process.env.REACT_APP_API_BASE_URL || "http://localhost:8080";
+const ADMIN_PW = process.env.REACT_APP_ADMIN_PASSWORD || "hanseo";
+
+/** 마이크로초(>ms) 포함 ISO → ms(3자리)로 잘라 Date 생성 */
+const toDateSafely = (iso) => {
+  if (!iso || typeof iso !== "string") return null;
+  const trimmed = iso.replace(/(\.\d{3})\d+$/, "$1");
+  const d = new Date(trimmed);
+  return isNaN(d) ? null : d;
+};
+
+/** 날짜 포맷: YYYY-MM-DD (파싱 실패 시 원문 반환) */
+const formatDate = (dateString) => {
+  if (!dateString) return null;
+  const d = toDateSafely(dateString);
+  if (!d) return dateString;
+  const yyyy = d.getFullYear();
+  const mm = String(d.getMonth() + 1).padStart(2, "0");
+  const dd = String(d.getDate()).padStart(2, "0");
+  return `${yyyy}-${mm}-${dd}`;
+};
+
 export default function HistoryCard({ complaintId }) {
   const [history, setHistory] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // ===============================
-  // 🔹 날짜 포맷팅 함수 (YYYY-MM-DD만)
-  const formatDate = (dateString) => {
-    if (!dateString) return null;
-    const d = new Date(dateString);
-    if (isNaN(d)) return dateString; // 파싱 실패 시 원본 그대로
-    const yyyy = d.getFullYear();
-    const mm = String(d.getMonth() + 1).padStart(2, "0");
-    const dd = String(d.getDate()).padStart(2, "0");
-    return `${yyyy}-${mm}-${dd}`;
-  };
-  // ===============================
-
   useEffect(() => {
     if (!complaintId) return;
+    const ctrl = new AbortController();
 
-    // 🔹 더미데이터 (ISO 형식)
-    const dummyHistory = {
-      receivedDate: "2025-08-20T12:00:00",
-      assignedDate: "2025-08-21T09:30:00",
-      processingDate: "2025-08-22T14:10:00",
-      completedDate: null, // 아직 완료 안 된 상태
-    };
-
-    setTimeout(() => {
-      setHistory(dummyHistory);
-      setLoading(false);
-    }, 500);
-
-    // ===============================
-    // 🔹 원래는 이렇게 fetch 했음 (배포 시 환경변수 사용 권장)
-    /*
-    const BASE_URL = process.env.REACT_APP_API_BASE_URL;
-    const ADMIN_PW = process.env.REACT_APP_ADMIN_PASSWORD;
-
-    async function fetchHistory() {
+    (async () => {
+      setLoading(true);
+      setError(null);
       try {
         const res = await fetch(
-          `${BASE_URL}/api/admin/complaints/${complaintId}/history`,
+          `${API_BASE}/api/admin/complaints/${complaintId}/history`,
           {
             headers: { PASSWORD: ADMIN_PW },
+            signal: ctrl.signal,
           }
         );
-        if (!res.ok) throw new Error(`API 요청 실패 (${res.status})`);
-
+        if (!res.ok) {
+          if (res.status === 401 || res.status === 403) {
+            throw new Error("접근이 거부되었습니다. 관리자 비밀번호(PASSWORD) 헤더를 확인하세요.");
+          }
+          throw new Error(`이력 조회 실패 (${res.status})`);
+        }
         const data = await res.json();
         setHistory(data);
       } catch (err) {
-        console.error(err);
-        setError(err.message);
+        if (err.name !== "AbortError") setError(err.message || "처리 이력을 불러오는 중 오류가 발생했습니다.");
       } finally {
         setLoading(false);
       }
-    }
+    })();
 
-    fetchHistory();
-    */
-    // ===============================
+    return () => ctrl.abort();
   }, [complaintId]);
 
   if (loading) return <p className="loading">이력 불러오는 중...</p>;
@@ -75,27 +71,20 @@ export default function HistoryCard({ complaintId }) {
   if (!history) return <p className="empty">처리 이력을 찾을 수 없습니다.</p>;
 
   const steps = [
-    { key: "receivedDate", label: "민원 접수" },
-    { key: "assignedDate", label: "담당자 확인 및 배정" },
+    { key: "receivedDate",   label: "민원 접수" },
+    { key: "assignedDate",   label: "담당자 확인 및 배정" },
     { key: "processingDate", label: "처리중" },
-    { key: "completedDate", label: "처리완료" },
+    { key: "completedDate",  label: "처리완료" },
   ];
 
-  // 가장 최근 완료된 단계
-  const latestStep = steps
-    .slice()
-    .reverse()
-    .find((s) => history[s.key] !== null);
+  // 가장 최근 완료된 단계 (null/undefined가 아닌 값을 완료로 간주)
+  const latestStep = [...steps].reverse().find((s) => history[s.key] != null);
 
   // 뱃지 상태 결정
   let statusBadge = "접수 대기";
   if (latestStep) {
     if (latestStep.key === "receivedDate") statusBadge = "접수";
-    else if (
-      latestStep.key === "assignedDate" ||
-      latestStep.key === "processingDate"
-    )
-      statusBadge = "처리중";
+    else if (latestStep.key === "assignedDate" || latestStep.key === "processingDate") statusBadge = "처리중";
     else if (latestStep.key === "completedDate") statusBadge = "완료";
   }
 
@@ -130,7 +119,7 @@ export default function HistoryCard({ complaintId }) {
       {/* 타임라인 */}
       <ol className="hc-timeline">
         {steps.map((step, i) => {
-          const done = history[step.key] !== null;
+          const done = history[step.key] != null;
           const isLast = i === steps.length - 1;
           return (
             <li key={step.key} className={`hc-item ${done ? "done" : "todo"}`}>
@@ -144,11 +133,7 @@ export default function HistoryCard({ complaintId }) {
                   />
                 </div>
                 {!isLast && (
-                  <img
-                    src={loadImg}
-                    alt="로딩 이미지"
-                    className="hc-connector"
-                  />
+                  <img src={loadImg} alt="로딩 이미지" className="hc-connector" />
                 )}
               </div>
 

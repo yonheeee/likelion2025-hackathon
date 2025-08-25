@@ -8,35 +8,44 @@ import starImg from "../../../image/admin/star.png";
 const categoryLabel = (c) => {
   switch (c) {
     case "ENVIRONMENT_CLEANING": return "환경/청소";
-    case "FACILITY_DAMAGE": return "시설물 파손/관리";
-    case "TRAFFIC_PARKING": return "교통/주정차";
-    case "SAFETY_RISK": return "안전/위험";
+    case "FACILITY_DAMAGE":      return "시설물 파손/관리";
+    case "TRAFFIC_PARKING":      return "교통/주정차";
+    case "SAFETY_RISK":          return "안전/위험";
     case "LIVING_INCONVENIENCE": return "생활 불편";
-    case "OTHERS_ADMIN": return "기타/행정";
-    default: return c ?? "분류 없음";
+    case "OTHERS_ADMIN":         return "기타/행정";
+    default:                     return c ?? "분류 없음";
   }
 };
 
 /** === .env (CRA) === */
 const API_BASE = process.env.REACT_APP_API_BASE_URL || "http://localhost:8080";
-const AI_BASE  = process.env.REACT_APP_AI_BASE_URL  || API_BASE; // 지금은 같게, 나중에 분리되면 .env만 변경
+const AI_BASE  = process.env.REACT_APP_AI_BASE_URL  || API_BASE; // 분리되면 .env만 수정
 const ADMIN_PW = process.env.REACT_APP_ADMIN_PASSWORD || "hanseo";
+
+/** 상대경로 이미지 → 절대경로 보정 */
+const toAbsoluteUrl = (u) => {
+  if (!u) return "";
+  if (/^https?:\/\//i.test(u)) return u;
+  const base = API_BASE.replace(/\/$/, "");
+  const path = u.replace(/^\//, "");
+  return `${base}/${path}`;
+};
 
 export default function ComplaintInfoCard({ complaintId }) {
   const [complaint, setComplaint] = useState(null);
-  const [loading, setLoading]   = useState(true);
-  const [error, setError]       = useState(null);
+  const [loading, setLoading]     = useState(true);
+  const [error, setError]         = useState(null);
 
   // === 바텀시트 & AI 요약 상태 ===
-  const [sheetOpen, setSheetOpen]   = useState(false);
-  const [aiLoading, setAiLoading]   = useState(false);
-  const [aiError, setAiError]       = useState(null);
-  const [aiSummary, setAiSummary]   = useState(null);
+  const [sheetOpen, setSheetOpen] = useState(false);
+  const [aiLoading, setAiLoading] = useState(false);
+  const [aiError, setAiError]     = useState(null);
+  const [aiSummary, setAiSummary] = useState(null);
 
   /** 상세 조회 (명세서: GET /api/admin/complaints/{id}) */
   useEffect(() => {
     if (!complaintId) return;
-    let ignore = false;
+    const ctrl = new AbortController();
 
     (async () => {
       setLoading(true);
@@ -44,31 +53,25 @@ export default function ComplaintInfoCard({ complaintId }) {
       try {
         const res = await fetch(`${API_BASE}/api/admin/complaints/${complaintId}`, {
           headers: { PASSWORD: ADMIN_PW },
+          signal: ctrl.signal,
         });
-        if (!res.ok) throw new Error(`상세 조회 실패 (${res.status})`);
-        const data = await res.json();
-        if (!ignore) setComplaint(data);
-      } catch (e) {
-        console.error(e);
-        // 프론트 확인용 더미
-        if (!ignore) {
-          setComplaint({
-            title: "가로등 고장 신고",
-            content: "우리 동네 가로등이 밤에 켜지지 않습니다. 빠른 수리 부탁드립니다.",
-            address: "서울특별시 강남구 테헤란로 123",
-            imageUrls: ["https://via.placeholder.com/150"],
-            categories: ["FACILITY_DAMAGE"],
-            userName: "홍길동",
-            phoneNumber: "010-1234-5678",
-          });
-          setError(null);
+        if (!res.ok) {
+          if (res.status === 401 || res.status === 403) {
+            throw new Error("접근이 거부되었습니다. 관리자 비밀번호(PASSWORD) 헤더를 확인하세요.");
+          }
+          throw new Error(`상세 조회 실패 (${res.status})`);
         }
+        const data = await res.json();
+        setComplaint(data);
+      } catch (e) {
+        if (e.name === "AbortError") return;
+        setError(e?.message || "민원 상세를 불러오는 중 오류가 발생했습니다.");
       } finally {
-        if (!ignore) setLoading(false);
+        setLoading(false);
       }
     })();
 
-    return () => { ignore = true; };
+    return () => ctrl.abort();
   }, [complaintId]);
 
   /** AI 요약 호출 (명세서: POST /api/admin/complaints/{id}/ai-summary, 빈 바디 가능) */
@@ -86,11 +89,16 @@ export default function ComplaintInfoCard({ complaintId }) {
         },
         body: JSON.stringify({}),
       });
-      if (!res.ok) throw new Error(`AI 요약 실패 (${res.status})`);
+      if (!res.ok) {
+        if (res.status === 401 || res.status === 403) {
+          throw new Error("AI 요약 권한 오류: PASSWORD 헤더를 확인하세요.");
+        }
+        throw new Error(`AI 요약 실패 (${res.status})`);
+      }
       const data = await res.json();
       setAiSummary(data);
     } catch (e) {
-      console.error(e);
+      if (e.name === "AbortError") return;
       setAiError(e?.message || "AI 요약 호출 중 오류가 발생했습니다.");
     } finally {
       setAiLoading(false);
@@ -103,15 +111,14 @@ export default function ComplaintInfoCard({ complaintId }) {
     void callAiSummary();
   };
 
-  /** 바텀시트 닫기 (오버레이/닫기/처리하기 버튼에서 공통 사용) */
+  /** 바텀시트 닫기 */
   const closeSheet = () => setSheetOpen(false);
 
-  /** ESC 로 닫기 + 바텀시트 열릴 때 body 스크롤 잠금(선택) */
+  /** ESC 로 닫기 + 바텀시트 열릴 때 body 스크롤 잠금 */
   useEffect(() => {
     const onKey = (e) => e.key === "Escape" && setSheetOpen(false);
     if (sheetOpen) {
       window.addEventListener("keydown", onKey);
-      // body 스크롤 잠금(선택 사항)
       const original = document.body.style.overflow;
       document.body.style.overflow = "hidden";
       return () => {
@@ -121,9 +128,11 @@ export default function ComplaintInfoCard({ complaintId }) {
     }
   }, [sheetOpen]);
 
-  if (loading) return <p className="loading">불러오는 중...</p>;
-  if (error)   return <p className="error">❌ {error}</p>;
-  if (!complaint) return <p className="empty">민원 데이터를 찾을 수 없습니다.</p>;
+  if (loading)     return <p className="loading">불러오는 중...</p>;
+  if (error)       return <p className="error">❌ {error}</p>;
+  if (!complaint)  return <p className="empty">민원 데이터를 찾을 수 없습니다.</p>;
+
+  const firstCategory = complaint.category ?? complaint.categories?.[0];
 
   return (
     <>
@@ -146,11 +155,11 @@ export default function ComplaintInfoCard({ complaintId }) {
 
         {/* 푸터 */}
         <div className="complaint-footer">
-          {complaint.imageUrls && complaint.imageUrls.length > 0 ? (
+          {Array.isArray(complaint.imageUrls) && complaint.imageUrls.length > 0 ? (
             complaint.imageUrls.map((url, idx) => (
               <img
                 key={idx}
-                src={url}
+                src={toAbsoluteUrl(url)}
                 alt={`민원 이미지 ${idx + 1}`}
                 className="complaint-image"
               />
@@ -160,9 +169,7 @@ export default function ComplaintInfoCard({ complaintId }) {
           )}
 
           <div className="complaint-tags">
-            <span className="tag blue">
-              {categoryLabel(complaint.categories?.[0])}
-            </span>
+            <span className="tag blue">{categoryLabel(firstCategory)}</span>
 
             {/* === AI 요약 버튼 === */}
             <img
@@ -186,7 +193,7 @@ export default function ComplaintInfoCard({ complaintId }) {
         </div>
       </div>
 
-      {/* === 오버레이 & 바텀시트: 항상 DOM에 두고 클래스만 토글 === */}
+      {/* === 오버레이 & 바텀시트 === */}
       <div
         className={`sheet-overlay ${sheetOpen ? "open" : ""}`}
         onClick={closeSheet}
@@ -201,7 +208,7 @@ export default function ComplaintInfoCard({ complaintId }) {
         <div className="ai-sheet-handle" />
 
         <div className="ai-sheet-header">
-          <img src={starImg} alt="별 몽둥이 이미지" className="starImg"/>
+          <img src={starImg} alt="별 몽둥이 이미지" className="starImg" />
           <h4>요약하기</h4>
           <button className="ai-sheet-close" onClick={closeSheet} aria-label="닫기">
             ×

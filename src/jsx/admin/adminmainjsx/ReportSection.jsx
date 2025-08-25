@@ -241,7 +241,7 @@ export default function ReportSection() {
     <>
       <div className="report-wrapper">
         <div className="titles">
-          <h4 className="title">분석 리포트</h4>
+          <h4 className="title">분석리포트</h4>
           <p className="subtitle">자동으로 보고서 발행</p>
         </div>
 

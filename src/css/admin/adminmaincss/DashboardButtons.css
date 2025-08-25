@@ -1,13 +1,25 @@
 
 
 .btn1 {
-    width: 170px;
+    width: 180px;
     height: 92px;
+
+    border-radius: 0.7rem;
+
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+
+    cursor: pointer;
 }
 
 .btn2 {
-    width: 170px;
+    width: 180px;
     height: 92px;
+
+    border-radius: 0.7rem;
+
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
+
+    cursor: pointer;
 }
 
 .dash-title {
@@ -25,6 +37,24 @@
     width: 90%;
     margin: 0 auto;
     padding: 0.5rem 0 1.5rem 0;
+}
+
+.btn1 p {
+  color: #367BF4;
+  font-weight: 600;
+}
+
+.btn2 p {
+  color: #367BF4;
+  font-weight: 600;
+}
+
+.btn2 img {
+  margin-bottom: -17px;
+}
+
+.btn1 img {
+  margin-bottom: -17px;
 }
 
 @media screen and (min-width: 48rem) { /* 768px */

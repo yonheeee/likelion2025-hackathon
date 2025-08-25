@@ -1,7 +1,7 @@
 .report-wrapper {
   background-color: #fff;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
-  max-width: 80%;
+  max-width: 90%;
   margin: 1rem auto;
   padding: 1.5rem;
   border-radius: 1rem;            /* 중복 선언 정리 */
@@ -18,15 +18,32 @@
 .buttons {
   display: flex;
   justify-content: center;
+
   gap: 1.5rem;
-  flex-wrap: wrap;                /* 작아지면 줄바꿈 */
+}
+
+.title {  
+  color: black;
+  display: flex;
+
+  margin-left: 1.3rem;
+  margin-top: 1.3rem;
+  font-size: 1.1rem;
+  margin-bottom: -0.3rem;
+
+  letter-spacing: normal;
+  font-weight: 450;
+}
+
+.subtitle {
+  margin-left: 1.3rem;
 }
 
 /* 공통 버튼 카드 스타일 */
 .report-btn1,
 .report-btn2 {
   width: 10rem;
-  height: 10rem;
+  height: 9.4rem;
   border-radius: 0.7rem;
   text-align: center;
   cursor: pointer;                /* 클릭 가능한 느낌 */
@@ -36,6 +53,8 @@
   flex-direction: column;
   align-items: center;
 }
+
+
 
 .report-btn1:active,
 .report-btn2:active {

@@ -16,7 +16,7 @@
   background-color: #fff;
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
   max-width: 80rem; /* 💡 최대 너비를 약 1280px 정도로 제한 */
-  width: 84%;       /* 💡 화면 폭의 84% 차지 */
+  width: 90%;       /* 💡 화면 폭의 84% 차지 */
   margin: 1rem auto;
   padding:.875rem;
   border-radius: 1rem; 
@@ -77,7 +77,7 @@
   padding:.55rem;
   background:#fff;
 
-  width: 95%;
+  width: 100%;
 }
 .cmt-textarea{
   width:100%;
@@ -177,7 +177,7 @@
   flex-direction: column;
 
   /* 카드와 동일한 폭 */
-  max-width: 26.4rem;  
+  max-width: 25.2rem;  
   width: 100%;
 }
 .reject-sheet.open{ bottom: 0; }
@@ -260,6 +260,9 @@
   accent-color: #2563EB; /* 파란색 라디오 버튼 */
 }
 
+#rejectTitle {
+  white-space: nowrap; /* 텍스트 줄바꿈 방지 */
+}
 
 /* 모바일 */
 @media (max-width: 30rem){ /* 480px */
