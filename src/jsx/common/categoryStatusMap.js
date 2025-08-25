@@ -28,4 +28,7 @@ export const STATUS_MAP = {
         color: "#D70000",
         background: "#FEF2F2"
     }
+
 };
+
+

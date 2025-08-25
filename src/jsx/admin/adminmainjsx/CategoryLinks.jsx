@@ -130,39 +130,8 @@ const categories = [
 
   return (
     <div className="category-wrapper">
-      <h3 className="category-title" style={{ display: "flex", alignItems: "center" }}>
-        카테고리별 민원
-        <span
-          style={badgeStyles[apiStatus.state] || badgeStyles.idle}
-          aria-live="polite"
-          title={
-            apiStatus.checkedAt
-              ? `마지막 확인: ${apiStatus.checkedAt.toLocaleString()}`
-              : undefined
-          }
-        >
-          {apiStatus.state === "loading" && "백엔드 연결 확인 중..."}
-          {apiStatus.state === "ok" && `연결 성공${apiStatus.took != null ? ` (${apiStatus.took}ms)` : ""}`}
-          {apiStatus.state === "error" && `연결 실패${apiStatus.took != null ? ` (${apiStatus.took}ms)` : ""}`}
-          {apiStatus.state !== "loading" && (
-            <button
-              type="button"
-              onClick={handleRetry}
-              style={{
-                marginLeft: 6,
-                fontSize: 12,
-                cursor: "pointer",
-                background: "transparent",
-                border: "none",
-                textDecoration: "underline",
-                padding: 0,
-              }}
-            >
-              재시도
-            </button>
-          )}
-        </span>
-      </h3>
+      <p className="category-title" style={{ display: "flex", alignItems: "center" }}>
+        카테고리별 민원</p>
 
       <div className="category">
         {categories.map((cat) => {

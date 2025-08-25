@@ -2,12 +2,14 @@
 import React from "react";
 import AdminAuthForm from "./AdminAuthForm";
 import InfoBox from "./InfoBox";
+import PageHeader from '../../PageHeader.jsx';
 
 export default function AdminFirstPage() {
   return (
     <div className="admin-auth-page">
-      <AdminAuthForm />
-      <InfoBox />
+        <PageHeader/>
+        <AdminAuthForm />
+        <InfoBox />
     </div>
   );
 }
