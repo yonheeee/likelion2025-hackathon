@@ -122,7 +122,7 @@ export default function UserCatagory() {
 
   return (
     <div className="category-page">
-      <PageHeader title="카테고리별 민원목록" backTo="/complaints" />
+      <PageHeader title="카테고리별 민원목록" backTo="/user" />
 
       <div className="catagory-background">
         <div

@@ -32,10 +32,8 @@ function App() {
             <Route path="/usercheck" element={<UserCheck />} /> {/* 민원 조회 */}
             <Route path="/mycomplaint" element={<MyComplaint />} /> {/* 나의 민원 */}
             <Route path="/user/entire" element={<UserEntireComplaintLists />} /> {/* 사용자 전체 민원 조회 */}
-            <Route path="/user/catagory" element={<UserCatagory />} />{/*카테고리별 민원조회회*/}
             {/*<Route path="/user/detail" element={<UserdetailsPage />} /> {/* 사용자 상세보기 */}
-
-
+            <Route path="/user/category/:categoryCode" element={<UserCatagory />} />
             <Route path="/admin" element={<AdminFirstPage/>} /> {/* 관리자 처음 */}
             <Route path="/admin/main" element={<Adminmain />} /> {/* 관리자 메인 */}
             <Route path="/admin/detail" element={<AdmindetailsPage />} /> {/* 관리자 상세보기 */}

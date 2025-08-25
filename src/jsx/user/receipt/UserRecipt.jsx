@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import "../../../css/user/receipt/UserRecipt.css";
+import axios from "axios";
 
 import SectionCard from "./SectionCard";
 import Field from "./Field";
@@ -14,6 +15,10 @@ import PhotoIcon from "../../../image/User/receipt/photoicon.svg";
 import WriteIcon from "../../../image/User/receipt/writeicon.svg";
 import Plus from "../../../image/User/receipt/plus.svg";
 
+
+import Photo from "../../../image/User/receipt/photo.svg";
+axios.defaults.baseURL = "http://13.125.98.203/api";
+
 export default function ComplaintCreate() {
   const navigate = useNavigate();
 
@@ -22,9 +27,15 @@ export default function ComplaintCreate() {
   const [region, setRegion] = useState("");
   const [title, setTitle] = useState("");
   const [detail, setDetail] = useState("");
-  const [photos, setPhotos] = useState([]); // 여러 장 업로드 가능
+  const [photos, setPhotos] = useState([]);
+  const [uploadedUrls, setUploadedUrls] = useState([]);
   const [category, setCategory] = useState("");
   const [chips, setChips] = useState([]);
+
+  const [isLoadingRegions, setIsLoadingRegions] = useState(false);
+  const [isUploading, setIsUploading] = useState(false);
+  const [isComposing, setIsComposing] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const allCategories = [
     "환경/청소",
@@ -35,78 +46,119 @@ export default function ComplaintCreate() {
     "기타/행정",
   ];
 
+  const CATEGORY_ENUM_MAP = useMemo(
+    () => ({
+      "환경/청소": "ENVIRONMENT_CLEANING",
+      "시설물 파손/관리": "FACILITY_DAMAGE",
+      "교통/주정차": "TRAFFIC_PARKING",
+      "안전/위험": "SAFETY_RISK",
+      "생활 불편": "LIVING_INCONVENIENCE",
+      "기타/행정": "OTHERS_ADMIN",
+    }),
+    []
+  );
+
   const valid =
     identity.name && identity.phone && region && title && detail.length >= 5;
 
-  // 지역 목록 API 호출
+
   useEffect(() => {
-    const fetchRegions = async () => {
+    const loadRegions = async () => {
       try {
-        const res = await fetch("/api/regions/seosan");
-        if (!res.ok) throw new Error("지역 목록 불러오기 실패");
-        const data = await res.json();
-        setRegions(data);
+        setIsLoadingRegions(true);
+        const { data } = await axios.get("/regions/seosan");
+        setRegions(Array.isArray(data) ? data : []);
       } catch (err) {
         console.error(err);
+        alert("지역 목록 불러오기 실패");
+      } finally {
+        setIsLoadingRegions(false);
       }
     };
-    fetchRegions();
+    loadRegions();
   }, []);
 
-  // 민원 접수 API 호출
+  const ensurePhotosUploaded = async () => {
+    if (uploadedUrls.length > 0 && uploadedUrls.length === photos.length) {
+      return uploadedUrls;
+    }
+    if (!photos || photos.length === 0) return [];
+
+    try {
+      setIsUploading(true);
+      const formData = new FormData();
+      photos.forEach((file) => formData.append("files", file));
+
+      const { data } = await axios.post("/attachments/upload", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+
+      setUploadedUrls(data);
+      return data;
+    } catch (err) {
+      console.error(err);
+      alert("사진 업로드 실패");
+      throw err;
+    } finally {
+      setIsUploading(false);
+    }
+  };
+
+  const handleAICompose = async () => {
+    try {
+      setIsComposing(true);
+      const urls = await ensurePhotosUploaded();
+
+      const { data } = await axios.post("/complaints/ai/compose", {
+        content: detail || "",
+        imageUrls: urls,
+      });
+
+      if (data?.title) setTitle(data.title);
+      if (data?.docMarkdown) setDetail(data.docMarkdown);
+    } catch (err) {
+      console.error(err);
+      alert("AI 작성 실패");
+    } finally {
+      setIsComposing(false);
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      // 1. 사진 업로드 (있을 경우만)
-      let uploadedUrls = [];
-      if (photos && photos.length > 0) {
-        const formData = new FormData();
-        photos.forEach((file) => formData.append("files", file));
+      setIsSubmitting(true);
+      const urls = await ensurePhotosUploaded();
 
-        const uploadRes = await fetch("/api/attachments/upload", {
-          method: "POST",
-          body: formData,
-        });
+      const enumValue =
+        CATEGORY_ENUM_MAP[category] || "OTHERS_ADMIN";
 
-        if (!uploadRes.ok) throw new Error("사진 업로드 실패");
-        uploadedUrls = await uploadRes.json();
-      }
-
-      // 2. 민원 접수
-      const complaintBody = {
-        title: title,
+      const body = {
+        title,
         userName: identity.name,
         phoneNumber: identity.phone,
         content: detail,
         address: region,
-        category: category || "OTHERS_ADMIN", // 기본값
-        imageUrls: uploadedUrls,
+        category: enumValue,
+        imageUrls: urls,
       };
 
-      const res = await fetch("/api/complaints", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(complaintBody),
-      });
-
-      if (!res.ok) throw new Error("민원 접수 실패");
-      const data = await res.json();
+      await axios.post("/complaints", body);
 
       alert("민원이 정상적으로 접수되었습니다.");
-      navigate("/usercheck"); // 접수 후 본인확인 페이지로 이동
+      navigate("/usercheck");
     } catch (err) {
       console.error(err);
-      alert("민원 접수 중 오류가 발생했습니다.");
+      alert("민원 접수 실패");
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
   return (
     <main className="report-page">
-      <PageHeader
-        title="민원 접수하기"
-        subtitle="민원사항을 자세히 작성해주세요"
-      />
+      <PageHeader title="민원 접수하기" subtitle="민원사항을 자세히 작성해주세요" />
 
       <form onSubmit={handleSubmit}>
         {/* 개인정보 */}
@@ -114,7 +166,6 @@ export default function ComplaintCreate() {
           <IdentityFields value={identity} onChange={setIdentity} />
         </SectionCard>
 
-        {/* 민원발생 지역 */}
         <SectionCard title="민원발생 지역" icon={LocationIcon}>
           <Field label="지역선택" required>
             <div className="select-wrap">
@@ -123,9 +174,10 @@ export default function ComplaintCreate() {
                 value={region}
                 onChange={(e) => setRegion(e.target.value)}
                 required
+                disabled={isLoadingRegions}
               >
                 <option value="" disabled>
-                  지역을 선택해주세요
+                  {isLoadingRegions ? "불러오는 중..." : "지역을 선택해주세요"}
                 </option>
                 {regions.map((r) => (
                   <option key={r} value={r}>
@@ -138,14 +190,22 @@ export default function ComplaintCreate() {
           </Field>
         </SectionCard>
 
-        {/* 사진 업로드 */}
         <SectionCard title="현장사진" icon={PhotoIcon}>
           <Field label="사진 첨부">
-            <PhotoUploader value={photos} onChange={setPhotos} multiple />
+            <PhotoUploader
+              className="upload-hint"
+              img src={Photo} alt="사진 아이콘"
+              사진을 선택하세요
+              value={photos}
+              onChange={(f) => {
+                setPhotos(f);
+                setUploadedUrls([]);
+              }}
+              multiple
+            />
           </Field>
         </SectionCard>
 
-        {/* 민원 내용 */}
         <SectionCard title="민원 내용" icon={WriteIcon}>
           <Field label="제목" required>
             <input
@@ -156,7 +216,6 @@ export default function ComplaintCreate() {
               required
             />
           </Field>
-
           <Field label="상세 내용" required>
             <textarea
               className="textarea"
@@ -167,20 +226,23 @@ export default function ComplaintCreate() {
               required
             />
             <div className="textarea-foot">
-              <p className="helper">
-                상세하게 작성될수록 더 빠른 처리가 가능합니다
-              </p>
+              <p className="helper">상세하게 작성될수록 더 빠른 처리가 가능합니다</p>
               <div className="textarea-right">
                 <span className="limit">{detail.length} / 500</span>
-                <button className="ai-btn" type="button">
-                  AI 작성
+                <button
+                  className="ai-btn"
+                  type="button"
+                  onClick={handleAICompose}
+                  disabled={isComposing}
+                >
+                  {isComposing ? "AI 작성 중..." : "AI 작성"}
                 </button>
               </div>
             </div>
           </Field>
         </SectionCard>
 
-        {/* 카테고리 선택 */}
+        {/* 카테고리 칩 */}
         <div className="chips">
           {chips.map((c) => (
             <div
@@ -201,12 +263,10 @@ export default function ComplaintCreate() {
               </span>
             </div>
           ))}
-
           <div className="chip add">
             <button className="plus-btn" type="button">
-              <img src={Plus} alt="추가" style={{ width: "16px", height: "16px" }} />
+              <img src={Plus} alt="추가" style={{ width: 16, height: 16 }} />
             </button>
-
             <select
               className="category-select"
               onChange={(e) => {
@@ -229,10 +289,13 @@ export default function ComplaintCreate() {
           </div>
         </div>
 
-        {/* 제출 버튼 */}
         <div className="submit-bar">
-          <button className="submit-button" type="submit" disabled={!valid}>
-            민원 접수하기
+          <button
+            className="submit-button"
+            type="submit"
+            disabled={!valid || isSubmitting}
+          >
+            {isSubmitting ? "접수 중..." : "민원 접수하기"}
           </button>
         </div>
       </form>

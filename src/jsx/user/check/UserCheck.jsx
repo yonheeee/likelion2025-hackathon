@@ -37,7 +37,7 @@ export default function UserCheck() {
       sessionStorage.setItem('userName', info.name);
       sessionStorage.setItem('phoneNumber', info.phone);
       
-      navigate("/my-complaints", { state: { complaints: response.data.complaints } });
+      navigate("/mycomplaint", { state: { complaints: response.data.complaints } });
 
     } catch (err) {
       console.error("민원 조회 실패:", err);

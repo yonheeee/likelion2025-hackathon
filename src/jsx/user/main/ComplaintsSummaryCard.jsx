@@ -41,7 +41,7 @@ const ComplaintsSummaryCard = ({
           onLoaded={handleLoaded} 
         />
 
-        <Link to="/complaints" className="view-all-link">
+        <Link to="/user/entire" className="view-all-link">
           전체 민원 목록 보기 ({Number(total || 0).toLocaleString()}건) →
         </Link>
       </ul>

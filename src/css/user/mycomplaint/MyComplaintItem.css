@@ -10,7 +10,6 @@
     font-size: .75rem;
     font-weight: 700;
     line-height: 1;
-    padding: .38rem .7rem;
     border-radius: 999px;
     border: none;
     white-space: nowrap;
@@ -19,8 +18,8 @@
   }
   
   .complaint-cancel {
-    background: #fff;
-    color: #ef4444;
+    background: #ef4444;
+    color: white;
     font-size: .75rem;
     font-weight: 700;
     line-height: 1;
@@ -35,11 +34,16 @@
   }
 
   .complaint-status {
-    padding: 0.25rem 0.5rem;
     border-radius: 999px;
     font-size: 0.75rem;
     font-weight: 700;
     white-space: nowrap;
   }
+.delete-btn{
+  background: #ef4444;
+    color: white;
+    font-size: .75rem;
+    font-weight: 700;
+}
   
   

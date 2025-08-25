@@ -1,5 +1,6 @@
 // CategoryStats.jsx
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom"; // 🔹 추가
 import axios from "axios";
 import "../../../css/user/main/CategoryStats.css";
 
@@ -42,6 +43,7 @@ const withAlpha = (hex, a = 0.12) => {
 };
 
 const CategoryStats = ({ filterCategory = null }) => {
+  const navigate = useNavigate(); // 🔹 추가
   const [categoryData, setCategoryData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [err, setErr] = useState("");
@@ -58,7 +60,7 @@ const CategoryStats = ({ filterCategory = null }) => {
           const mapInfo = CATEGORY_MAP[c.category] || CATEGORY_MAP.OTHERS_ADMIN;
           const percent = typeof c.valuePercent === "number" ? c.valuePercent : 0;
           return {
-            category:   c.category,
+            category:   c.category, // ← ENUM 코드 (라우팅에 사용)
             name:       mapInfo.name,
             percentage: `${percent.toFixed(1)}%`,
             changeType: c.up ? "increase" : "decrease",
@@ -93,11 +95,32 @@ const CategoryStats = ({ filterCategory = null }) => {
     <section className="category-stats">
       <div className="category-grid">
         {categoryData.map((c, i) => {
-          const Icon = ICONS[c.icon] || Etc;
+          const Icon   = ICONS[c.icon] || Etc;
           const rowBg  = withAlpha(c.color, 0.10);
           const isUp   = c.changeType === "increase";
+
+          const goToCategory = () => {
+            // 🔹 UserCatagory에서 useParams로 받는 :categoryCode와 동일하게
+            navigate(`/user/category/${c.category}`);
+          };
+          const onKey = (e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              goToCategory();
+            }
+          };
+
           return (
-            <div key={`${c.category}-${i}`} className="category-item" style={{ backgroundColor: rowBg }}>
+            <div
+              key={`${c.category}-${i}`}
+              className="category-item"
+              style={{ backgroundColor: rowBg, cursor: "pointer" }} // 🔹 클릭 느낌
+              onClick={goToCategory}
+              onKeyDown={onKey}
+              role="button"
+              tabIndex={0}
+              aria-label={`${c.name} 카테고리로 이동`}
+            >
               <div className="category-icon" style={{ color: c.color }}>
                 <Icon className="cat-icon" aria-hidden />
               </div>

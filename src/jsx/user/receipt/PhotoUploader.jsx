@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import "../../../css/user/receipt/PhotoUploader.css";
 
 import Photo from "../../../image/User/receipt/photo.svg"
-// 사진등록
+
 const PhotoUploader = ({ value, onChange }) => {
   const inputRef = useRef(null);
 
@@ -26,7 +26,7 @@ const PhotoUploader = ({ value, onChange }) => {
       onDrop={(e) => { e.preventDefault(); pick(e.dataTransfer.files); }}
     > 
       {value ? (
-        <img src={value} alt="선택한 사진 미리보기" className="preview" />
+        <img src={Photo} alt="선택한 사진 미리보기" className="upload-hint" />
       ) : (
         <div className="upload-hint">
           <img src={Photo} alt="사진 아이콘" className="upload-icon" />
