@@ -13,10 +13,10 @@ export default function InfoBox() {
             alt="느낌표 이미지" 
             className="info-image" 
           />
-          <div className="info-title-text" style={{fontWeight: '400'}}>관리자 권한 안내</div>
+          <div className="info-title-text">관리자 권한 안내</div>
         </div>
 
-        <div className="info-desc" style={{fontWeight: '400'}}>
+        <div className="info-desc">
           관리자 계정으로 로그인하면 모든 민원을 조회하고<br/>관리할 수 있습니다.
         </div>
       </div>

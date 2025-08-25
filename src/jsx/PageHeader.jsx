@@ -22,7 +22,7 @@ const PageHeader = ({ title, subtitle, hideBack=false, backTo, onBack, right=nul
             )}
             <div className="ph-texts">
                 <h1 className="ph-title">{title}</h1>
-                {subtitle && <p className="ph-sub">{subtitle}</p>}
+                {/*{subtitle && <p className="ph-sub">{subtitle}</p>}*/}
             </div>
             {right && <div className="ph-right">{right}</div>}
         </div>

@@ -52,15 +52,15 @@ export default function UserCheck() {
   };
 
   return (
-      <div className="receiptcheck-page">
-        <PageHeader
-            title="내 민원 조회하기"
-            subtitle="본인 확인 후 접수하신 민원을 확인하실 수 있습니다."
-        />
+    <div className="receiptcheck-page">
+      <PageHeader
+        title="내 민원 조회하기"
+        subtitle="본인 확인 후 접수하신 민원을 확인하실 수 있습니다."
+      />
 
-        <SectionCard title="본인확인" icon={UserIcon}>
-          <form onSubmit={handleSubmit}>
-            <IdentityFields value={info} onChange={setInfo} />
+      <SectionCard title="본인확인" icon={UserIcon}>
+        <form onSubmit={handleSubmit}>
+          <IdentityFields value={info} onChange={setInfo} />
 
           {error && <p className="error-message">{error}</p>}
 
@@ -71,14 +71,6 @@ export default function UserCheck() {
         </form>
       </SectionCard>
 
-        <div className="notice-box">
-          <div className="notice-title">안내사항</div>
-          <ul>
-            <li>민원 접수를 해야 입력한 정보와 정확한 일치 시 조회가 가능합니다.</li>
-            <li>본인 확인은 내가 쓴 민원 확인을 위한 필수 절차입니다.</li>
-          </ul>
-        </div>
-      </div>
       <div className="notice-box">
         <div className="notice-title">안내사항</div>
         <ul>

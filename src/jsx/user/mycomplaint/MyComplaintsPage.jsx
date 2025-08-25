@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import axios from "axios"; // axios import
+import axios from "axios"; 
 import MyComplaintItem from "./MyComplaintItem";
 import PageHeader from "../../PageHeader.jsx";
 import "../../../css/user/mycomplaint/MyComplaintsPage.css";
@@ -9,7 +9,6 @@ export default function MyComplaintsPage() {
   const location = useLocation();
   const navigate = useNavigate();
 
-  // 1. 민원 목록을 state로 관리하여 삭제 시 업데이트 가능하게 변경
   const [complaints, setComplaints] = useState(location.state?.complaints || []);
   const [user, setUser] = useState({ name: "", phone: "" });
 
