@@ -1,20 +1,21 @@
 import React from "react";
 import "../../../css/user/main/ComplaintItem.css";
 import LocationIcon from "../../../image/User/main/location.svg";
-
+// 민원카드
 export default function ComplaintItem({
   title,
   date,
   content,
   location,
   status = "접수",
+  category,
   children,
 }) {
-  // 상태별 색상 매핑
+  // 상태별 색상 매핑 (디자인 기준 수정)
   const statusStyles = {
-    접수: { bg: "#FEF3C7", color: "#92400E", border: "#FDE68A" },
-    처리중: { bg: "#D1FAE5", color: "#065F46", border: "#A7F3D0" },
-    완료: { bg: "#DBEAFE", color: "#1E40AF", border: "#BFDBFE" },
+    접수: { bg: "#FEF3C7", color: "#92400E", border: "#FDE68A" },   // 노랑
+    처리중: { bg: "#DBEAFE", color: "#1E40AF", border: "#BFDBFE" }, // 파랑
+    완료: { bg: "#D1FAE5", color: "#065F46", border: "#A7F3D0" },   // 초록
   };
 
   const s = statusStyles[status] || statusStyles["접수"];
@@ -47,14 +48,19 @@ export default function ComplaintItem({
         <div className="complaint-location">
           <img
             src={LocationIcon}
-            alt=""
+            alt="위치"
             className="location-icon"
             aria-hidden="true"
           />
           <span>{location}</span>
         </div>
 
-        {/* 추가 액션 (버튼 등) */}
+        {/* 카테고리 태그 */}
+        {category && (
+          <span className="complaint-category">{category}</span>
+        )}
+
+        {/* 추가 버튼 같은 children */}
         {children}
       </div>
     </div>

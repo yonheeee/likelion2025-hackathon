@@ -1,8 +1,6 @@
 
 * { box-sizing: border-box; }
-html, body, #root { height: 100%; }
-
-html { font-size: clamp(15px, 1.6vw, 17px); }
+html, body, #root { height: 100vh; margin: 0; padding: 0; }
 
 :root{
   --bg-start: #EEF3FF;
@@ -43,6 +41,9 @@ html { font-size: clamp(15px, 1.6vw, 17px); }
   object-fit: contain; 
 }
 
+.title-container{
+  text-align: center;
+}
 .title{
   font-size: 1.75rem; 
   line-height: 1.15;

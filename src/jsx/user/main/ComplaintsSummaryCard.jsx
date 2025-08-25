@@ -1,7 +1,7 @@
 import "../../../css/user/main/ComplaintsSummaryCard.css";
 import { Link } from "react-router-dom"; 
 import ComplaintItem from "./ComplaintItem";
-
+// 민원요약
 const ComplaintsSummaryCard = ({ total, change, changeType, complaintsList = [] }) => {
   return (
     <div className="complaints-summary-card">

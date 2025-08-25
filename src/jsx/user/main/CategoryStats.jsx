@@ -7,7 +7,7 @@ import { ReactComponent as Traffic }     from "../../../image/User/main/traffic.
 import { ReactComponent as Safe }        from "../../../image/User/main/safe.svg";
 import { ReactComponent as Inconvince }  from "../../../image/User/main/inconvince.svg";
 import { ReactComponent as Etc }         from "../../../image/User/main/etc.svg";
-
+// 카테고리 상태
 const ICONS = {
   environment: Environment,
   facility:    Facility,

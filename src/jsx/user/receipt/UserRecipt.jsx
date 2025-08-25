@@ -13,7 +13,7 @@ import LocationIcon from "../../../image/User/main/location.svg";
 import PhotoIcon from "../../../image/User/receipt/photoicon.svg";
 import WriteIcon from "../../../image/User/receipt/writeicon.svg";
 import Plus from "../../../image/User/receipt/plus.svg";
-
+// 민원 접수
 export default function ComplaintCreate() {
   const navigate = useNavigate();
 
