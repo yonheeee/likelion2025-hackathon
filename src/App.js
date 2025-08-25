@@ -1,5 +1,4 @@
 import './App.css';
-<<<<<<< HEAD
 import { Route, Routes, useLocation } from 'react-router-dom';
 import First from "./jsx/First.jsx";
 import UserMain from "./jsx/user/main/UserMain.jsx";
@@ -7,43 +6,39 @@ import Header from "./jsx/Header.jsx";
 import UserRecipt from "./jsx/user/receipt/UserRecipt.jsx";
 import UserCheck from "./jsx/user/check/UserCheck.jsx"
 import MyComplaint from './jsx/user/mycomplaint/MyComplaintsPage.jsx';
-=======
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Adminmain from './pages/adminmain';
-import AdmindetailsPage from './pages/admindetails';
-import AdminFirstPage from './pages/AdminFirstPage';
-import ScrollToTop from './scroll/ScrollToTop';
+import UserEntireComplaintLists from "./jsx/user/UserEntireComplaintLists/UserEntireComplaintLists.";
+import UserCatagory from "./jsx/user/catacory/UserCatagory.jsx";
 
->>>>>>> a1eab37 (.)
+import Adminmain from './jsx/admin/adminmainjsx/adminmain.jsx';
+import AdmindetailsPage from './jsx/admin/admindetailjsx/admindetails.jsx';
+import AdminFirstPage from './jsx/admin/adminfirstjsx/AdminFirstPage.jsx';
+// import EntireComplaintLists from "./jsx/common/EntireComplaintLists";
+import AdminEntireComplaintLists from "./jsx/admin/AdminEntireComplaintLists/AdminEntireComplaintLists.jsx";
+
+
 function App() {
   const location = useLocation();
   return (
     <div className="App" style={{ backgroundColor: "#efefef" }}>
-<<<<<<< HEAD
-    
+
       {location.pathname !== '/' && <Header />}
 
       <div className="container">
         <div className="content">
           <Routes>
-            <Route path="/" element={<First />} />
-            <Route path="/user" element={<UserMain />} />
-            <Route path="/userrecipt" element={<UserRecipt />} />
-            <Route path="/usercheck" element={<UserCheck />} />
-            <Route path="/mycomplaint" element={<MyComplaint />} />
+            <Route path="/" element={<First />} /> {/* 맨 처음 */}
+            <Route path="/user" element={<UserMain />} /> {/* 사용자 메인 */}
+            <Route path="/userrecipt" element={<UserRecipt />} /> {/* 민원 접수 */}
+            <Route path="/usercheck" element={<UserCheck />} /> {/* 민원 조회 */}
+            <Route path="/mycomplaint" element={<MyComplaint />} /> {/* 나의 민원 */}
+            <Route path="/user/entire" element={<UserEntireComplaintLists />} /> {/* 사용자 전체 민원 조회 */}
+            {/*<Route path="/user/detail" element={<UserdetailsPage />} /> {/* 사용자 상세보기 */}
+            <Route path="/user/category/:categoryCode" element={<UserCatagory />} />
+            <Route path="/admin" element={<AdminFirstPage/>} /> {/* 관리자 처음 */}
+            <Route path="/admin/main" element={<Adminmain />} /> {/* 관리자 메인 */}
+            <Route path="/admin/detail" element={<AdmindetailsPage />} /> {/* 관리자 상세보기 */}
+            <Route path="/admin/entire" element={<AdminEntireComplaintLists/>}/> {/* 관리자 전체 민원 조회 */}
           </Routes>
-=======
-      <div className="container">
-        <div className="content">
-          <BrowserRouter>
-            <ScrollToTop />
-            <Routes>
-              <Route path="/" element={<AdminFirstPage/>} />
-              <Route path="/admin/main" element={<Adminmain />} />
-              <Route path="/admin/details" element={<AdmindetailsPage />} />
-            </Routes>
-          </BrowserRouter>
->>>>>>> a1eab37 (.)
         </div>
       </div>
     </div>
