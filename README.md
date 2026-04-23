@@ -227,7 +227,7 @@
 
 | 내 민원 |
 |----------|
-|![main](Image/user/mywrite.png)|
+|![main](image/user/mywrite.png)|
 
 <br>
 
