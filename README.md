@@ -1,3 +1,4 @@
+<img src="./Image/logo.png" width="150" height="50">
 # 📄 AI를 이용한 간편 민원 서비스 "온민원"
 ### 2025 멋쟁이 사자처럼 전국 해커톤 참여
 
@@ -168,7 +169,7 @@
 |----------|
 |![join](/Image/user/usermain1.png)|
 |![join](/Image/user/usermain2.png)|
-|![join](/Image/user /usermain3.png)|
+|![join](/Image/user/usermain3.png)|
 
 <br>
 
@@ -252,26 +253,6 @@
 |----------|
 |![detail](/Image/user/detail1.png)|
 |![detail](/Image/user/detail2.png)|
-
-<br>
-
-### [주차장 정보]
-- 사용자는 선택한 주차장의 **핵심 정보를 한눈에 확인**할 수 있습니다.
-
-- 카드 형태 UI로 구성하여 복잡한 정보를 직관적으로 전달합니다.
-
--  제공 정보
-   - 주차장 이름 및 위치
-   - 평점 및 리뷰 수
-   - 운영 시간
-   - 주차 요금 (기본 요금 기준)
-   - 할인 정보 (예: 인근 상가 이용 시 할인)
-   - 전기차 충전 가능 여부
-   - 주차 가능 공간 (총 주차면 / 잔여 좌석)
-
-|주차장 정보|
-|----------|
-|![parkinfo](/Image/주차장정보.png)|
 
 
 <br>
