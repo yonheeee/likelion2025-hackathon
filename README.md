@@ -1,4 +1,5 @@
 <img src="image/logo.png" width="150" height="50">
+
 # 📄 AI를 이용한 간편 민원 서비스 "온민원"
 ### 2025 멋쟁이 사자처럼 전국 해커톤 참여
 
