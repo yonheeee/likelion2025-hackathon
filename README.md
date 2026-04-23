@@ -1,4 +1,4 @@
-<img src="Image/logo.png" width="150" height="50">
+<img src="image/logo.png" width="150" height="50">
 # 📄 AI를 이용한 간편 민원 서비스 "온민원"
 ### 2025 멋쟁이 사자처럼 전국 해커톤 참여
 
@@ -148,7 +148,7 @@
 
 | 초기화면 |
 |----------|
-![first page](Image/main.png)|
+![first page](image/main.png)|
 
 <br>
 
@@ -167,9 +167,9 @@
 
 | 사용자 메인 |
 |----------|
-|![join](Image/user/usermain1.png)|
-|![join](Image/user/usermain2.png)|
-|![join](Image/user/usermain3.png)|
+|![join](image/user/usermain1.png)|
+|![join](image/user/usermain2.png)|
+|![join](image/user/usermain3.png)|
 
 <br>
 
@@ -192,8 +192,8 @@
 
 | 민원 접수 페이지 |
 |------------|
-| ![receipt](Image/user/receipt1.png) |
-| ![receipt](Image/user/receipt2.png) |
+| ![receipt](image/user/receipt1.png) |
+| ![receipt](image/user/receipt2.png) |
 
 <br>
 
@@ -208,7 +208,7 @@
 
 | 민원 조회 정보 입력 |
 |----------|
-|![check](Image/user/check.png)|
+|![check](image/user/check.png)|
 
 <br>
 
@@ -251,8 +251,8 @@
 
 | 내 민원 상세보기 |
 |----------|
-|![detail](Image/user/detail1.png)|
-|![detail](Image/user/detail2.png)|
+|![detail](image/user/detail1.png)|
+|![detail](image/user/detail2.png)|
 
 
 <br>
@@ -288,7 +288,7 @@
 
 | 관리자 인증 |
 |----------|
-|![admincheck](Image/admin/adminmain.png)|
+|![admincheck](image/admin/adminmain.png)|
 
 <br>
 
@@ -319,8 +319,8 @@
 
 | 관리자 메인 페이지 |
 |----------|
-|![adminmain](Image/admin/adminfirst1.png)|
-|![adminmain](Image/admin/adminfirst2.png)|
+|![adminmain](image/admin/adminfirst1.png)|
+|![adminmain](image/admin/adminfirst2.png)|
 
 <br>
 
@@ -354,8 +354,8 @@
 
 | 민원 처리 페이지 |
 |----------|
-|![detail](Image/admin/detail1.png)|
-|![detail](Image/admin/detail2.png)|
+|![detail](image/admin/detail1.png)|
+|![detail](image/admin/detail2.png)|
 
 <br>
 
@@ -390,7 +390,7 @@
 
 | 민원 반려 |
 |----------|
-|![adminreject](Image/admin/check.png)|
+|![adminreject](image/admin/check.png)|
 
 <br>
 
@@ -425,4 +425,4 @@
 
 | 우선순위별 민원 목록 |
 |----------|
-|![priority](Image/admin/priority.png)|
+|![priority](image/admin/priority.png)|
