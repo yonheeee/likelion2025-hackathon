@@ -194,7 +194,7 @@
 | 민원 접수 페이지 |
 |------------|
 | ![receipt](image/user/receipt1.png) |
-| ![receipt](image/user/receipt2.png) |
+| ![receipt](image/user/recepit2.png) |
 
 <br>
 
