@@ -77,43 +77,43 @@
 ## 3. 프로젝트 구조
 
 ```
-├── README.md
+project-root/
+├── public/
+├── src/
+│ ├── css/
+│ ├── image/
+│ ├── jsx/
+│ │ ├── admin/
+│ │ │ ├── admincomplaintlistjsx/        # 관리자 민원 컴포넌트
+│ │ │ ├── admindetailjsx/               # 관리자 상세보기       
+│ │ │ ├── AdminEntireComplaintLists/    # 관리자 민원 리스트
+│ │ │ ├── adminfirstjsx/                # 관리자 첫 페이지
+│ │ │ └── adminmainjsx/                 # 관리자 메인페이지
+│ │ ├── common/
+│ │ │ ├── categoryStatusMap.js          # 카테고리 상태
+│ │ │ ├── DetailComplaint.jsx           # 상세보기 컴포넌트
+│ │ │ └── EntireComplaintLists.jsx      # 전체 목록 컴포넌트
+│ │ └── user/
+│ │ ├── check/                          # 사용자 검증
+│ │ ├── main/   
+│ │ ├── mycomplaint/                    # 사용자 민원
+│ │ ├── receipt/                        # 민원폼
+│ │ ├── UserDetail/                     # 사용자 정보 상세보기
+│ │ └── UserEntireComplaintLists/       # 사용자 전체 민원 리스트
+│ ├── first.jsx                         # 첫 페이지
+│ ├── Header.jsx                        # 로고 헤더
+│ ├── PageHeader.jsx                    # 페이지 헤더
+│ ├── App.css
+│ ├── App.js
+│ ├── index.css
+│ ├── index.js
+│ ├── logo.svg
+│ ├── reportWebVitals.js
+│ └── setupTests.js
+├── .gitignore
 ├── package-lock.json
 ├── package.json
-├── .gitignore
-│
-├── Image
-├── public
-│
-└── src
-    ├── api
-    │   ├── auth.js              # 인증 관련 로직
-    │   └── axios.js             # Axios 인스턴스 설정
-    │
-    ├── css                      # 스타일 파일
-    │
-    ├── images                   # 화면별 이미지 리소스
-    │   ├── common               # 공통 이미지
-    │   ├── login                # 로그인/회원가입 관련 이미지
-    │   ├── main                 # 메인 화면 관련 이미지
-    │   └── mypage               # 마이페이지 관련 이미지
-    │
-    ├── jsx                      # 화면 및 UI 컴포넌트
-    │   ├── common               # 공통 레이아웃 및 UI 컴포넌트
-    │   ├── community            # 커뮤니티 관련 컴포넌트
-    │   ├── login                # 로그인/회원가입 관련 컴포넌트
-    │   ├── main                 # 메인 화면 관련 컴포넌트
-    │   └── mypage               # 마이페이지 관련 컴포넌트
-    │
-    ├── App.css                  # App 컴포넌트 스타일
-    ├── App.js                   # 메인 App 컴포넌트
-    ├── App.test.js              # 테스트 코드
-    ├── index.css                # 전역 스타일
-    ├── index.js                 # 앱 실행 진입점
-    ├── logo.svg                 # 기본 로고 파일
-    ├── reportWebVitals.js       # 성능 측정 관련 설정
-    ├── Router.jsx               # 라우터 설정
-    └── setupTests.js            # 테스트 환경 설정
+└── README.md
 ```
 
 <br>
